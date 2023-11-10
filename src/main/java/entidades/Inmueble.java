@@ -1,6 +1,6 @@
-package com.Tukincho.Tukincho.entidades;
+package entidades;
 
-import com.Tukincho.Tukincho.enums.Provincia;
+import enums.Provincia;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,6 +27,6 @@ public class Inmueble {
     private Provincia provincia;
     @Basic
     private boolean activa;
-    @OneToMany
+    @ManyToOne // charlar hoy
     private Reserva reserva;
 }
