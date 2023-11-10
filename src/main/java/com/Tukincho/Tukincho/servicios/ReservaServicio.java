@@ -1,13 +1,15 @@
-package servicios;
+package com.Tukincho.Tukincho.servicios;
 
-import entidades.Reserva;
+import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.Tukincho.Tukincho.entidades.Reserva;
+import com.Tukincho.Tukincho.entidades.Usuario;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositorios.ReservaRepositorio;
+import com.Tukincho.Tukincho.repositorios.ReservaRepositorio;
 
 /**
  * 
@@ -59,7 +61,7 @@ public class ReservaServicio {
     
     
     
-    @Transactionl
+    @Transactional
     public void modificarReserva(String id,Inmueble inmueble, Usuario usuario, Date fechaInicioReserva, Date fechaFinReserva,
                 Double costoReserva, Double costoServiciosSeleccionados, Boolean activo) throws Exception{
         
