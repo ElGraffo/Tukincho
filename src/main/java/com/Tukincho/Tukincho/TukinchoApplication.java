@@ -1,5 +1,6 @@
 package com.Tukincho.Tukincho;
 
+import entidades.Reserva;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,6 +9,8 @@ public class TukinchoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TukinchoApplication.class, args);
+                   
+                    
 	}
 
 }
