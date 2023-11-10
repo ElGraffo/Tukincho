@@ -16,7 +16,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-public class Reserva {
+public class Reserva extends Usuario {
     @Id
     @GeneratedValue
     private String id;
