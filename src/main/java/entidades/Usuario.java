@@ -1,14 +1,13 @@
-package com.Tukincho.Tukincho.entidades;
-import com.Tukincho.Tukincho.enums.Rol;
+package entidades;
+import enums.Rol;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
 @Data
-public class Usuario {
+public abstract class Usuario { // PREGUNTAR A JONA COMO HACER EL JOIN
     @Id
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")

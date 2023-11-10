@@ -1,6 +1,6 @@
-package com.Tukincho.Tukincho.repositorios;
+package repositorios;
 
-import com.Tukincho.Tukincho.entidades.Usuario;
+import entidades.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

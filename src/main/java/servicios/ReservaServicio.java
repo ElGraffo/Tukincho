@@ -1,10 +1,13 @@
 package servicios;
 
+import entidades.Inmueble;
 import entidades.Reserva;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+
+import entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repositorios.ReservaRepositorio;
@@ -24,8 +27,8 @@ public class ReservaServicio {
     
     
     @Transactional
-    public Reserva crearReserva(Inmueble inmueble,Usuario usuario,Date fechaInicioReserva,
-        Date fechaFinReserva,Double costoReserva, Double costoServiciosSeleccionados)throws Exception{
+    public Reserva crearReserva(Inmueble inmueble, Usuario usuario, Date fechaInicioReserva,
+                                Date fechaFinReserva, Double costoReserva, Double costoServiciosSeleccionados)throws Exception{
         
         validarReserva(inmueble, usuario, fechaInicioReserva, fechaInicioReserva, 
                 costoReserva, costoServiciosSeleccionados);
@@ -59,7 +62,7 @@ public class ReservaServicio {
     
     
     
-    @Transactionl
+    @Transactional
     public void modificarReserva(String id,Inmueble inmueble, Usuario usuario, Date fechaInicioReserva, Date fechaFinReserva,
                 Double costoReserva, Double costoServiciosSeleccionados, Boolean activo) throws Exception{
         
@@ -67,7 +70,6 @@ public class ReservaServicio {
         
         if(respuesta.isPresent()){
             Reserva reserva = new Reserva();
-            
             reserva.setInmueble(inmueble);
             reserva.setUsuario(usuario);
             reserva.setFechaInicioReserva(fechaInicioReserva);
