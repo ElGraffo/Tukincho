@@ -1,0 +1,42 @@
+.card {
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+    
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+
+  .c{
+    width: auto;
+    height: 50vh !important;
+    
+  }
+
+
+.overlay2 {
+   
+    background: rgba(0, 0, 0, 0.237);
+    transition: background 0.5s ease-in-out;
+    
+}
+
+.overlay2.active {
+  background: rgba(0, 0, 0, 0.8);
+    display: flex;
+}
+
+.card img{
+  height: 250px;
+}
+
+.card-body{
+  height: 200px;
+}
+
+/* h2{
+  margin-top: 100px;
+} */

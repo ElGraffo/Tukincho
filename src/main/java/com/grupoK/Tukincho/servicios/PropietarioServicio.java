@@ -1,14 +1,14 @@
-package servicios;
+package com.grupoK.Tukincho.servicios;
 
-import entidades.Inmueble;
-import entidades.Propietario;
-import entidades.Reserva;
-import entidades.Usuario;
-import enums.Rol;
+import com.grupoK.Tukincho.entidades.Inmueble;
+import com.grupoK.Tukincho.entidades.Propietario;
+import com.grupoK.Tukincho.entidades.Reserva;
+import com.grupoK.Tukincho.entidades.Usuario;
+import com.grupoK.Tukincho.enums.Rol;
+import com.grupoK.Tukincho.repositorios.InmuebleRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositorios.InmuebleRepositorio;
-import repositorios.PropietarioRepositorio;
+import com.grupoK.Tukincho.repositorios.PropietarioRepositorio;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +34,11 @@ public class PropietarioServicio {
         }
     }
 
-    public void editarPropietario(String id,Inmueble inmueble, Reserva reserva){
+    public void editarPropietario(String id, List<Inmueble> inmuebles, Reserva reserva){
         Optional<Propietario> propietarioOptional = propietarioRepositorio.findById(id);
         if(propietarioOptional.isPresent()){
             Propietario propietario = propietarioOptional.get();
-            propietario.setInmueble(inmueble);
+            propietario.setInmuebles(inmuebles);
             propietario.setReserva(reserva);
             try{
                 propietarioRepositorio.save(propietario);
@@ -48,7 +48,7 @@ public class PropietarioServicio {
         }
     }
 
-    public Propietario encontrarPropietario(String id){
+    public Propietario buscarPropietario(String id){
         Optional<Propietario> propietarioOptional = propietarioRepositorio.findById(id);
         if(propietarioOptional.isPresent()){
             return propietarioOptional.get();
@@ -65,7 +65,7 @@ public class PropietarioServicio {
         }
     }
 
-    public List<Propietario> listarPropietarioPorInmueble(String id){
+    public List<Inmueble> buscarPropietarioPorInmueble(String id){
         try{
             return inmuebleRepositorio.buscarPropietarioPorInmueble(id);
         }catch (Exception e){
@@ -87,5 +87,4 @@ public class PropietarioServicio {
             }
         }
     }
-
 }

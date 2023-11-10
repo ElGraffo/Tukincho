@@ -1,4 +1,4 @@
-package enums;
+package com.grupoK.Tukincho.enums;
 
 public enum Rol {
     PROPIETARIO,

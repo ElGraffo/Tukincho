@@ -1,5 +1,5 @@
-package entidades;
-import enums.Rol;
+package com.grupoK.Tukincho.entidades;
+import com.grupoK.Tukincho.enums.Rol;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,7 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public abstract class Usuario { // PREGUNTAR A JONA COMO HACER EL JOIN
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Usuario {
     @Id
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")
@@ -18,4 +19,6 @@ public abstract class Usuario { // PREGUNTAR A JONA COMO HACER EL JOIN
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
+    @OneToOne
+    private Imagen imagen;
 }

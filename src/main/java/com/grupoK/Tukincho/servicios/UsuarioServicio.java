@@ -1,9 +1,8 @@
-package servicios;
+package com.grupoK.Tukincho.servicios;
 
-import entidades.Inmueble;
-import entidades.Usuario;
-import enums.Rol;
-import repositorios.UsuarioRepositorio;
+import com.grupoK.Tukincho.entidades.Usuario;
+import com.grupoK.Tukincho.enums.Rol;
+import com.grupoK.Tukincho.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

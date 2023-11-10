@@ -1,10 +1,10 @@
-package servicios;
+package com.grupoK.Tukincho.servicios;
 
-import entidades.Inmueble;
-import enums.Provincia;
-import repositorios.InmuebleRepositorio;
-import entidades.Propietario;
-import entidades.Reserva;
+import com.grupoK.Tukincho.entidades.Inmueble;
+import com.grupoK.Tukincho.enums.Provincia;
+import com.grupoK.Tukincho.repositorios.InmuebleRepositorio;
+import com.grupoK.Tukincho.entidades.Propietario;
+import com.grupoK.Tukincho.entidades.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ public class InmuebleServicio {
     InmuebleRepositorio inmuebleRepositorio;
     @Transactional
     public void crearImueble(Propietario propietario, String descripcionDelInmueble, Long precioPorNoche,
-                             String otrosDetallesDelInmueble, String direccion, Provincia provincia, boolean activa, Reserva reserva) throws Exception {
+                             String otrosDetallesDelInmueble, String direccion, Provincia provincia, boolean activa, List<Reserva> reserva) throws Exception {
         validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
         Inmueble inmueble = new Inmueble();
         inmueble.setPropietario(propietario);
@@ -34,7 +34,7 @@ public class InmuebleServicio {
 
     @Transactional
     public void editarInmueble(String id, String descripcionDelInmueble, Long precioPorNoche,
-                               String otrosDetallesDelInmueble, String direccion, Provincia provincia, Reserva reserva) throws Exception {
+                               String otrosDetallesDelInmueble, String direccion, Provincia provincia, List<Reserva> reserva) throws Exception {
         validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
         Optional<Inmueble> inmuebleOptional = inmuebleRepositorio.findById(id);
         if (inmuebleOptional.isPresent()){
@@ -61,7 +61,7 @@ public class InmuebleServicio {
 
     public Inmueble buscarInmueblePorId(String id){
         try{
-            return inmuebleRepositorio.findById(id).get();
+            return inmuebleRepositorio.getOne(id);
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -79,14 +79,6 @@ public class InmuebleServicio {
     public List<Inmueble> buscarInmueblePorProvincia(Provincia provincia){
         try{
             return inmuebleRepositorio.buscarInmueblePorProvincia(provincia);
-        }catch (Exception e){
-            return null;
-        }
-    }
-
-    public List<Inmueble> buscarInmueblePorProvincia(String provincia){
-        try{
-            return inmuebleRepositorio.buscarInmueblePorProvincia(Provincia.valueOf(provincia));
         }catch (Exception e){
             return null;
         }
@@ -122,4 +114,4 @@ public class InmuebleServicio {
         if(provincia == null)
             throw new IllegalArgumentException("La provincia del inmueble no puede estar vacía");
     }
-}
+} // todo --> buscar inmueble por localidad

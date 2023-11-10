@@ -1,4 +1,4 @@
-package entidades;
+package com.grupoK.Tukincho.entidades;
 
 import java.util.Date;
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-public class Reserva { // chequear los many to one o etc
+public class Reserva {
     @Id
     @GeneratedValue
     private String id;

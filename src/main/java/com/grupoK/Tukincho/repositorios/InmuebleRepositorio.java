@@ -1,8 +1,8 @@
-package repositorios;
+package com.grupoK.Tukincho.repositorios;
 
-import entidades.Inmueble;
-import entidades.Propietario;
-import enums.Provincia;
+import com.grupoK.Tukincho.entidades.Inmueble;
+import com.grupoK.Tukincho.entidades.Propietario;
+import com.grupoK.Tukincho.enums.Provincia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +22,9 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
     @Query("SELECT i FROM Inmueble i where i.direccion LIKE CONCAT('%',:direccion,'%')")
     public List<Inmueble> buscarInmueblePorDireccion(@Param("direccion") String direccion);
 
-    @Query("SELECT p FROM Propietario p where p.inmueble.id = :id") // chequear que esté bien
-    List<Propietario> buscarPropietarioPorInmueble(String id);
+    @Query("SELECT p.inmueble FROM Propietario p WHERE p.id = :propietarioId")
+    List<Inmueble> buscarPropietarioPorInmueble(@Param("propietarioId") String propietarioId);
+
+    // todo -> hacer query de buscar por localidad
 }
+

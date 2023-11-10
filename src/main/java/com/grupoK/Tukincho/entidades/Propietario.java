@@ -1,9 +1,10 @@
-package entidades;
+package com.grupoK.Tukincho.entidades;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,11 +14,12 @@ public class Propietario extends Usuario{
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")
     private String idPropietario;
-    @ManyToOne
-    @JoinColumn(name = "inmueble_id")
-    private Inmueble inmueble;
+    @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER)
+    private List<Inmueble> inmuebles;
     @OneToOne
     @JoinColumn(name = "reserva_id")
     private Reserva reserva;
-
+    @OneToOne
+    @JoinColumn(name = "imagen_id")
+    private Imagen imagen;
 }

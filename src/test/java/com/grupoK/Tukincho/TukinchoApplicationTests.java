@@ -1,4 +1,4 @@
-package com.Tukincho.Tukincho;
+package com.grupoK.Tukincho;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

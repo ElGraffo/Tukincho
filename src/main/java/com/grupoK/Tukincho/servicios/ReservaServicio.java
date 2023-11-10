@@ -1,16 +1,16 @@
-package servicios;
+package com.grupoK.Tukincho.servicios;
 
-import entidades.Inmueble;
-import entidades.Reserva;
+import com.grupoK.Tukincho.entidades.Inmueble;
+import com.grupoK.Tukincho.entidades.Reserva;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 
-import entidades.Usuario;
+import com.grupoK.Tukincho.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositorios.ReservaRepositorio;
+import com.grupoK.Tukincho.repositorios.ReservaRepositorio;
 
 /**
  * 

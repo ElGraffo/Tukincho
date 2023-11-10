@@ -1,10 +1,11 @@
 
-package repositorios;
+package com.grupoK.Tukincho.repositorios;
 
-import entidades.Reserva;
+import com.grupoK.Tukincho.entidades.Reserva;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
