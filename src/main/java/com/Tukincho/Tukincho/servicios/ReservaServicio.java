@@ -1,8 +1,8 @@
 package com.Tukincho.Tukincho.servicios;
 
-import com.Tukincho.Tukincho.entidades.Inmueble;
-import com.Tukincho.Tukincho.entidades.Reserva;
-import com.Tukincho.Tukincho.entidades.Usuario;
+import com.grupoK.Tukincho.entidades.Inmueble;
+import com.grupoK.Tukincho.entidades.Reserva;
+import com.grupoK.Tukincho.entidades.Usuario;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

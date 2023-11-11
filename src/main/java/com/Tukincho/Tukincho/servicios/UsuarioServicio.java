@@ -1,6 +1,6 @@
 package com.Tukincho.Tukincho.servicios;
 
-import com.Tukincho.Tukincho.entidades.Usuario;
+import com.grupoK.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;

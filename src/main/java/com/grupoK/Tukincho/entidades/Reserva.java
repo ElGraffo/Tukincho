@@ -1,5 +1,5 @@
 
-package com.Tukincho.Tukincho.entidades;
+package com.grupoK.Tukincho.entidades;
 
 import java.util.Date;
 import javax.persistence.Entity;

@@ -1,6 +1,6 @@
 package com.Tukincho.Tukincho.repositorios;
 
-import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.grupoK.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.enums.Provincia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package com.Tukincho.Tukincho.entidades;
+package com.grupoK.Tukincho.entidades;
 import com.Tukincho.Tukincho.enums.Rol;
 
 import lombok.Data;
@@ -20,4 +20,6 @@ public class Usuario {
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
+     @OneToOne
+    private Imagen imagen;
 }

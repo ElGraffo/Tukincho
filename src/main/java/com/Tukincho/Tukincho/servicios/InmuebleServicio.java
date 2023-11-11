@@ -1,6 +1,6 @@
 package com.Tukincho.Tukincho.servicios;
 
-import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.grupoK.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;

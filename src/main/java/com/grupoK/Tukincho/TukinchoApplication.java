@@ -1,6 +1,6 @@
-package com.Tukincho.Tukincho;
+package com.grupoK.Tukincho;
 
-import com.Tukincho.Tukincho.entidades.Reserva;
+import com.grupoK.Tukincho.entidades.Reserva;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

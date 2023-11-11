@@ -1,4 +1,4 @@
-package com.Tukincho.Tukincho.entidades;
+package com.grupoK.Tukincho.entidades;
 
 import com.Tukincho.Tukincho.enums.Provincia;
 import lombok.Data;
