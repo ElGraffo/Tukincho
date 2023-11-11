@@ -1,14 +1,14 @@
-package com.grupoK.Tukincho.servicios;
+package com.Tukincho.Tukincho.servicios;
 
-import com.grupoK.Tukincho.entidades.Inmueble;
-import com.grupoK.Tukincho.entidades.Propietario;
-import com.grupoK.Tukincho.entidades.Reserva;
-import com.grupoK.Tukincho.entidades.Usuario;
-import com.grupoK.Tukincho.enums.Rol;
-import com.grupoK.Tukincho.repositorios.InmuebleRepositorio;
+import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.Tukincho.Tukincho.entidades.Propietario;
+import com.Tukincho.Tukincho.entidades.Reserva;
+import com.Tukincho.Tukincho.entidades.Usuario;
+import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
+import com.Tukincho.Tukincho.enums.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.grupoK.Tukincho.repositorios.PropietarioRepositorio;
+import com.Tukincho.Tukincho.repositorios.PropietarioRepositorio;
 
 import java.util.List;
 import java.util.Optional;

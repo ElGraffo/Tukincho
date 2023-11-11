@@ -1,14 +1,14 @@
-package com.grupoK.Tukincho.entidades;
-import com.grupoK.Tukincho.enums.Rol;
+package com.Tukincho.Tukincho.entidades;
 
+import com.Tukincho.Tukincho.enums.Rol;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Usuario{
     @Id
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")

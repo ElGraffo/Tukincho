@@ -1,4 +1,4 @@
-package com.grupoK.Tukincho;
+package com.Tukincho.Tukincho;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,6 @@ public class TukinchoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TukinchoApplication.class, args);
-
-		// todo -> agregar localicades y provincias como entidades y cada una rellena de la info correspondiente
-                   
-                    
-	}
+		}
 
 }

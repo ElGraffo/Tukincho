@@ -1,4 +1,4 @@
-package com.grupoK.Tukincho.enums;
+package com.Tukincho.Tukincho.enums;
 
 public enum Provincia {
     BUENOS_AIRES,

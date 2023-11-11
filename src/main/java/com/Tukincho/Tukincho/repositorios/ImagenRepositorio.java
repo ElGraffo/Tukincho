@@ -1,7 +1,7 @@
-package com.grupoK.Tukincho.repositorios;
+package com.Tukincho.Tukincho.repositorios;
 
 
-import com.grupoK.Tukincho.entidades.Imagen;
+import com.Tukincho.Tukincho.entidades.Imagen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

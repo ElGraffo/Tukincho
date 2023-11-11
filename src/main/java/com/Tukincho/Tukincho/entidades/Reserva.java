@@ -1,4 +1,4 @@
-package com.grupoK.Tukincho.entidades;
+package com.Tukincho.Tukincho.entidades;
 
 import java.util.Date;
 import javax.persistence.*;

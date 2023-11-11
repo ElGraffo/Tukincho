@@ -1,6 +1,6 @@
-package com.grupoK.Tukincho.repositorios;
+package com.Tukincho.Tukincho.repositorios;
 
-import com.grupoK.Tukincho.entidades.Propietario;
+import com.Tukincho.Tukincho.entidades.Propietario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

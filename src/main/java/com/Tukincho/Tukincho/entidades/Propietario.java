@@ -1,15 +1,14 @@
-package com.grupoK.Tukincho.entidades;
+package com.Tukincho.Tukincho.entidades;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.List;
 
-@Data
 @Entity
+@Data
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Propietario extends Usuario{
+public class Propietario extends Usuario {
     @Id
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")

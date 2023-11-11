@@ -1,6 +1,6 @@
-package com.grupoK.Tukincho.entidades;
+package com.Tukincho.Tukincho.entidades;
 
-import com.grupoK.Tukincho.enums.Provincia;
+import com.Tukincho.Tukincho.enums.Provincia;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
