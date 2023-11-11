@@ -21,7 +21,7 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
     @Query("SELECT i FROM Inmueble i where i.direccion LIKE CONCAT('%',:direccion,'%')")
     public List<Inmueble> buscarInmueblePorDireccion(@Param("direccion") String direccion);
 
-    @Query("SELECT p.inmueble FROM Propietario p WHERE p.id = :propietarioId")
+    @Query("SELECT p.inmuebles FROM Propietario p WHERE p.id = :propietarioId")
     List<Inmueble> buscarPropietarioPorInmueble(@Param("propietarioId") String propietarioId);
 
     // todo -> hacer query de buscar por localidad

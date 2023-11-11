@@ -15,7 +15,7 @@ public class Inmueble {
     @GenericGenerator(name ="uuid", strategy= "uuid2")
     private String id;
     @ManyToOne
-    @JoinColumn(name = "propietario_id")
+    @JoinColumn(name = "inmuebles")
     private Propietario propietario;
     @Basic
     private String descripcionDelInmueble;

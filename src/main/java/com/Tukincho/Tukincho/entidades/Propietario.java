@@ -9,9 +9,7 @@ import java.util.List;
 @Data
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Propietario extends Usuario {
-    @Id
-    @GeneratedValue(generator ="uuid")
-    @GenericGenerator(name ="uuid", strategy= "uuid2")
+
     private String idPropietario;
     @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER)
     private List<Inmueble> inmuebles;
