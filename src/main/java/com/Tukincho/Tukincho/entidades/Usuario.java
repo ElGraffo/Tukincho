@@ -20,5 +20,6 @@ public class Usuario{
     @Enumerated(EnumType.STRING)
     private Rol rol;
     @OneToOne
+    @JoinColumn(name = "imagen_id")
     private Imagen imagen;
 }

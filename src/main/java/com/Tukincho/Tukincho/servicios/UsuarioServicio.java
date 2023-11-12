@@ -20,7 +20,6 @@ public class UsuarioServicio {
     public void registrar(String nombre, String email, String password, String password2) throws Exception {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
-
         usuario.setActivo(true);
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
@@ -29,7 +28,7 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void actualizar( String idUsuario, Rol rol, String id,String email, String nombre,  String password, String password2) throws Exception{
+    public void editarUsuario(String idUsuario, Rol rol, String id,String email, String nombre,  String password, String password2) throws Exception{
         validar(nombre, email, password, password2);
         Optional<Usuario> respuesta= usuarioRepositorio.findById(idUsuario);
         if(respuesta.isPresent()){
