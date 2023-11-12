@@ -17,13 +17,13 @@ public class UsuarioServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void registrar(String id, String nombre, Rol rol, Boolean alta, String email, String password, String password2) throws Exception {
+    public void registrar(String nombre, String email, String password, String password2) throws Exception {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
-        usuario.setId(id);
-        usuario.setActivo(alta);
+
+        usuario.setActivo(true);
         usuario.setEmail(email);
-        usuario.setRol(rol);
+        usuario.setRol(Rol.USUARIO);
         usuario.setPassword(password);
         usuarioRepositorio.save(usuario);
     }
