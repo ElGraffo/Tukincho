@@ -37,6 +37,20 @@
   height: 200px;
 }
 
+
+#logo{
+  height: 25px;
+}
+
+.formulario{
+  margin-top: 25px;
+  display: grid;
+  gap: 20px;
+}
+
+.buscador{
+  margin-top: 25px;
+}
 /* h2{
   margin-top: 100px;
 } */
