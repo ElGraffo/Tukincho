@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class PortalControlador {
 
+
     @Autowired
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/")
     public String index() {
         return "index.html";
-
     }
 
     @GetMapping("/registrar")
@@ -26,9 +26,9 @@ public class PortalControlador {
         return "registro.html";
     }
 
-
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) throws Exception {
+    public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
+            String password2, ModelMap modelo) throws Exception {
         try {
             System.out.println(nombre);
             usuarioServicio.registrar(nombre, email, password, password2);
@@ -36,7 +36,7 @@ public class PortalControlador {
             modelo.put("exito", "Usuario registrado correctamente!!!!");
             return "index.html";
         } catch (Exception e) {
-            System.out.println("no se pudo");
+            System.out.println(e.getStackTrace());
             modelo.put("error", e.getMessage());
             return "registro.html";
         }
