@@ -25,7 +25,7 @@ FRONTEND -------->
 desaparezca.
 8. Crear vista "MI PERFIL / SER PROPIETARIO" donde se pueda modificar el rol de usuario a propietario y subir una imagen de
 perfil (propietarioServicio.crearPropietario() -> propietarioServicio.editarPropietario() (agregar inmuebles).
-9. Editar la vista Reserva que tiene multiples head y body.
+9. Editar la vista Reserva que tiene multiples <head> y <body>.
 10. Provisoriamente usar la lista de provincias en el select de localidades del buscador accediendo al Enum Provincias.
 11. Desarrollar la vista para la creación de propiedades.
 
@@ -50,7 +50,7 @@ POSIBLES FUNCIONALIDADES ADICIONALES // CARRY OVER -------->
 3. Considerar la opción de permitir la cancelación de reservas y gestionar los posibles costos asociados.
 4. Implementar la lógica para el sistema de calificaciones.
 5. Investigar el funcionamiento de la API de Google Maps.
-6. Personalizar el carrusel con los colores del logo (Primary y Secondary).
+6. Personalizar el carrusel con los colores del logo (Primary y Secondary flechas del carrousell azul inactivas y amarillo activas).
 
 
 TAREAS ADMINISTRATIVAS DEL EQUIPO -------->

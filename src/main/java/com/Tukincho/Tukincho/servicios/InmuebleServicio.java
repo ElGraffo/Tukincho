@@ -61,7 +61,7 @@ public class InmuebleServicio {
 
     public Inmueble buscarInmueblePorId(String id){
         try{
-            return inmuebleRepositorio.getOne(id);
+            return inmuebleRepositorio.getReferenceById(id);
         }catch (Exception e){
             e.printStackTrace();
             return null;
