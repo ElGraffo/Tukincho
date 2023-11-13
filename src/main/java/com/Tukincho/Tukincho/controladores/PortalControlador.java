@@ -1,5 +1,4 @@
 package com.Tukincho.Tukincho.controladores;
-
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
+
+
     @Autowired
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/")
     public String index() {
         return "index.html";
-
     }
 
     @GetMapping("/registrar")

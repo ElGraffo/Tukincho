@@ -36,6 +36,7 @@ public class UsuarioServicio {
         // imagen.setContenido(defaultImageBytes);
         // usuario.setImagen(imagen);
         usuario.setActivo(true);
+        usuario.setNombre(nombre);
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
         usuario.setPassword(password);

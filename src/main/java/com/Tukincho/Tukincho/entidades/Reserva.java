@@ -24,6 +24,7 @@ public class Reserva {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+   //un propietario puede tener muchas reservas corregir
    @OneToOne
    @JoinColumn(name = "propietario_id")
     private Propietario propietario;
