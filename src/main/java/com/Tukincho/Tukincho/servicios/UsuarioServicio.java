@@ -21,6 +21,7 @@ public class UsuarioServicio {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setActivo(true);
+        usuario.setNombre(nombre);
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
         usuario.setPassword(password);

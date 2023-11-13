@@ -4,6 +4,7 @@ import com.Tukincho.Tukincho.excepciones.MiException;
 import java.util.Optional;
 
 import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImagenServicio {
     @Autowired
     private ImagenRepositorio imagenRepositorio;
+    
+    @Transactional
     public Imagen guardar(MultipartFile archivo) throws MiException{
         if(archivo !=null){
             try{
