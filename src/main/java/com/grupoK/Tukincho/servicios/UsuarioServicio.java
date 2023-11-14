@@ -1,18 +1,9 @@
-package servicios;
-
-<<<<<<< HEAD:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
-import com.grupoK.Tukincho.entidades.Usuario;
-import com.Tukincho.Tukincho.enums.Rol;
-import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
-=======
-import entidades.Inmueble;
-import entidades.Usuario;
-import enums.Rol;
-import repositorios.UsuarioRepositorio;
->>>>>>> 6932bdf116a9242629f4ed4b2c5b1b2b3fc811cb:src/main/java/servicios/UsuarioServicio.java
+package com.GrupoK.Tukincho.servicios;
+import com.GrupoK.Tukincho.entidades.Usuario;
+import com.GrupoK.Tukincho.enums.Rol;
+import com.GrupoK.Tukincho.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -36,14 +27,14 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void actualizar( String idUsuario, Rol rol, String id,String email, String nombre,  String password, String password2) throws Exception{
-        validar(nombre, email, password, password2);
+    public void actualizar( String idUsuario, Rol rol, String id,String email, String nombreUsuario,  String password, String password2) throws Exception{
+        validar(nombreUsuario, email, password, password2);
         Optional<Usuario> respuesta= usuarioRepositorio.findById(idUsuario);
         if(respuesta.isPresent()){
             Usuario usuario = respuesta.get();
             usuario.setId(id);
             usuario.setEmail(email);
-            usuario.setNombre(nombre);
+            usuario.setNombreUsuario(nombreUsuario);
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuarioRepositorio.save(usuario);

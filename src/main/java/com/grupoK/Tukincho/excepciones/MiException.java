@@ -1,4 +1,4 @@
-package com.Tukincho.Tukincho.excepciones;
+package com.grupoK.Tukincho.excepciones;
 
 
 public class MiException extends Exception {

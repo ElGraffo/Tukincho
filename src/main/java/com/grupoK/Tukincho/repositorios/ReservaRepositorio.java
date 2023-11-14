@@ -1,7 +1,7 @@
 
-package com.Tukincho.Tukincho.repositorios;
+package com.GrupoK.Tukincho.repositorios;
 
-import com.grupoK.Tukincho.entidades.Reserva;
+import com.GrupoK.Tukincho.entidades.Reserva;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;

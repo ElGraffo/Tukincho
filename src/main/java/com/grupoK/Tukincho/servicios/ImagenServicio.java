@@ -1,7 +1,7 @@
-package com.Tukincho.Tukincho.servicios;
-import com.grupoK.Tukincho.entidades.Imagen;
-import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
-import com.Tukincho.Tukincho.excepciones.MiException;
+package com.GrupoK.Tukincho.servicios;
+import com.GrupoK.Tukincho.entidades.Imagen;
+import com.GrupoK.Tukincho.repositorios.ImagenRepositorio;
+import com.grupoK.Tukincho.excepciones.MiException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

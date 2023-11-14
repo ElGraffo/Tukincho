@@ -1,4 +1,4 @@
-package com.grupoK.Tukincho.entidades;
+package com.GrupoK.Tukincho.entidades;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;

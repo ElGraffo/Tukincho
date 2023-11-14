@@ -1,14 +1,13 @@
-package servicios;
-
-import entidades.Inmueble;
-import entidades.Propietario;
-import entidades.Reserva;
-import entidades.Usuario;
-import enums.Rol;
+package com.GrupoK.Tukincho.servicios;
+import com.GrupoK.Tukincho.entidades.Inmueble;
+import com.GrupoK.Tukincho.entidades.Propietario;
+import com.GrupoK.Tukincho.entidades.Reserva;
+import com.GrupoK.Tukincho.entidades.Usuario;
+import com.GrupoK.Tukincho.enums.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositorios.InmuebleRepositorio;
-import repositorios.PropietarioRepositorio;
+import com.GrupoK.Tukincho.repositorios.InmuebleRepositorio;
+import com.GrupoK.Tukincho.repositorios.PropietarioRepositorio;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,7 @@ public class PropietarioServicio {
 
     public void crearPropietario(Usuario usuario) {
         Propietario propietario = new Propietario();
-        propietario.setNombre(usuario.getNombre());
+        propietario.setNombreUsuario(usuario.getNombreUsuario());
         propietario.setEmail(usuario.getEmail());
         propietario.setPassword(usuario.getPassword());
         propietario.setActivo(usuario.getActivo());

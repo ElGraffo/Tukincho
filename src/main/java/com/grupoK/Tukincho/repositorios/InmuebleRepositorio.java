@@ -1,13 +1,7 @@
-package repositorios;
-
-<<<<<<< HEAD:src/main/java/com/Tukincho/Tukincho/repositorios/InmuebleRepositorio.java
-import com.grupoK.Tukincho.entidades.Inmueble;
-import com.Tukincho.Tukincho.enums.Provincia;
-=======
-import entidades.Inmueble;
-import entidades.Propietario;
-import enums.Provincia;
->>>>>>> 6932bdf116a9242629f4ed4b2c5b1b2b3fc811cb:src/main/java/repositorios/InmuebleRepositorio.java
+package com.GrupoK.Tukincho.repositorios;
+import com.GrupoK.Tukincho.entidades.Inmueble;
+import com.GrupoK.Tukincho.entidades.Propietario;
+import com.GrupoK.Tukincho.enums.Provincia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
