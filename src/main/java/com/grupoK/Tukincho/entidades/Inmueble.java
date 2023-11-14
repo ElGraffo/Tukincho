@@ -1,6 +1,10 @@
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/entidades/Inmueble.java
 package com.grupoK.Tukincho.entidades;
+=======
+package entidades;
+>>>>>>> 6932bdf116a9242629f4ed4b2c5b1b2b3fc811cb:src/main/java/entidades/Inmueble.java
 
-import com.Tukincho.Tukincho.enums.Provincia;
+import enums.Provincia;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,6 +31,6 @@ public class Inmueble {
     private Provincia provincia;
     @Basic
     private boolean activa;
-    @OneToMany
+    @ManyToOne // charlar hoy
     private Reserva reserva;
 }

@@ -1,8 +1,16 @@
-package com.Tukincho.Tukincho.servicios;
+package servicios;
 
+<<<<<<< HEAD:src/main/java/com/Tukincho/Tukincho/servicios/InmuebleServicio.java
 import com.grupoK.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
+=======
+import entidades.Inmueble;
+import enums.Provincia;
+import repositorios.InmuebleRepositorio;
+import entidades.Propietario;
+import entidades.Reserva;
+>>>>>>> 6932bdf116a9242629f4ed4b2c5b1b2b3fc811cb:src/main/java/servicios/InmuebleServicio.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +66,12 @@ public class InmuebleServicio {
     }
 
     public Inmueble buscarInmueblePorId(String id){
-        return inmuebleRepositorio.getReferenceById(id);
+        try{
+            return inmuebleRepositorio.findById(id).get();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<Inmueble> buscarInmueblePorPrecio(Long precioPorNoche){

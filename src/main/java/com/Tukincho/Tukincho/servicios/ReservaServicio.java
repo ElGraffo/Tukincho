@@ -1,12 +1,19 @@
 package com.Tukincho.Tukincho.servicios;
 
+<<<<<<< HEAD:src/main/java/com/Tukincho/Tukincho/servicios/ReservaServicio.java
 import com.grupoK.Tukincho.entidades.Inmueble;
 import com.grupoK.Tukincho.entidades.Reserva;
 import com.grupoK.Tukincho.entidades.Usuario;
+=======
+import entidades.Inmueble;
+import entidades.Reserva;
+>>>>>>> 6932bdf116a9242629f4ed4b2c5b1b2b3fc811cb:src/main/java/servicios/ReservaServicio.java
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+
+import entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Tukincho.Tukincho.repositorios.ReservaRepositorio;
@@ -26,8 +33,8 @@ public class ReservaServicio {
     
     
     @Transactional
-    public Reserva crearReserva(Inmueble inmueble,Usuario usuario,Date fechaInicioReserva,
-        Date fechaFinReserva,Double costoReserva, Double costoServiciosSeleccionados)throws Exception{
+    public Reserva crearReserva(Inmueble inmueble, Usuario usuario, Date fechaInicioReserva,
+                                Date fechaFinReserva, Double costoReserva, Double costoServiciosSeleccionados)throws Exception{
         
         validarReserva(inmueble, usuario, fechaInicioReserva, fechaInicioReserva, 
                 costoReserva, costoServiciosSeleccionados);
@@ -69,7 +76,6 @@ public class ReservaServicio {
         
         if(respuesta.isPresent()){
             Reserva reserva = new Reserva();
-            
             reserva.setInmueble(inmueble);
             reserva.setUsuario(usuario);
             reserva.setFechaInicioReserva(fechaInicioReserva);
