@@ -1,10 +1,18 @@
 
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/repositorios/ReservaRepositorio.java
 package com.GrupoK.Tukincho.repositorios;
 
 import com.GrupoK.Tukincho.entidades.Reserva;
+=======
+package com.Tukincho.Tukincho.repositorios;
+
+import com.Tukincho.Tukincho.entidades.Reserva;
+
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/repositorios/ReservaRepositorio.java
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

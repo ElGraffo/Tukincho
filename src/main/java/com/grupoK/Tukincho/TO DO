@@ -1,0 +1,62 @@
+                            ------------- TAREAS PENDIENTES -------------
+
+TAREAS IMPORTANTES -------->
+
+1. (FRONT)  6.)
+2. (FRONT)  8.)
+3. (FRONT) 10.)
+4. (FRONT) 11.)
+5. (BACK)   2.)
+6. (BACK)   3.)
+7. (BACK)   4.)
+8. (BACK)   5.)
+9. (BACK)   6.)
+
+
+FRONTEND -------->
+
+1. Obtener paleta de colores // Primary #00617e / Secondary #ffc945.
+2. Definir la tipografía a utilizar en el proyecto, en colaboración con el equipo de diseño.
+3. Rediseñar el logo del sistema (o como mucho quitar marca de agua XD) manteniendo paleta de colores.
+4. Ir preparando o maquetando el diseño final para aplicar en las próximas semanas.
+5. En el select de Localidades, mostrar por pantalla todas las opciones.
+6. Crear vista "Inmueble" donde a través del inmueble_id se muestra toda la información de la propiedad.
+7. Achicar y centrar el tamaño de 'Model.put"error"' y 'Model.put"exito"' usando un timeout de 2 segundos para que
+desaparezca.
+8. Crear vista "MI PERFIL / SER PROPIETARIO" donde se pueda modificar el rol de usuario a propietario y subir una imagen de
+perfil (propietarioServicio.crearPropietario() -> propietarioServicio.editarPropietario() (agregar inmuebles).
+9. Editar la vista Reserva que tiene multiples <head> y <body>.
+10. Provisoriamente usar la lista de provincias en el select de localidades del buscador accediendo al Enum Provincias.
+11. Desarrollar la vista para la creación de propiedades.
+
+
+BACKEND -------->
+
+1. Desarrollar el método POST para la búsqueda considerando los filtros aplicados.
+2. Establecer la lógica de comunicación entre el backend y el frontend para la transición del usuario a propietario.
+3. Desarrollar el endpoint GET y POST para la gestión de reservas./*Jonatan*/
+4. Desarrollar el endpoint POST para la creación de propiedades, integrando los tres formularios de la página.
+5. Agregar capa de seguridad con Spring Security.
+6. Crear el archivo de login y agregar los métodos POST y GET.
+7. Generar lógica de "favoritos" (atributo de la entidad Usuario).
+8. Crear objeto "ServiciosOfrecidos" con su lógica para mostrar en cada inmueble.
+9. Hacer lista de localidades para complementar con las provincias.
+
+
+POSIBLES FUNCIONALIDADES ADICIONALES // CARRY OVER -------->
+
+1. Evaluar la incorporación de un sistema de mensajería entre usuarios y propietarios.
+2. Analizar la posibilidad de implementar pagos a través de MercadoPago.
+3. Considerar la opción de permitir la cancelación de reservas y gestionar los posibles costos asociados.
+4. Implementar la lógica para el sistema de calificaciones.
+5. Investigar el funcionamiento de la API de Google Maps.
+6. Personalizar el carrusel con los colores del logo (Primary y Secondary flechas del carrousell azul inactivas y amarillo activas).
+
+
+TAREAS ADMINISTRATIVAS DEL EQUIPO -------->
+
+1. Generar documentación detallada del proyecto y de sus métodos./*Sergio*/
+2. Crear los términos y condiciones del sistema, considerando posiblemente la revisión con ChatGPT o Bard
+para su mejora continua.
+3. Al finalizar cada clase enviarle al Scrum Master un resumen del día de trabajo.
+4. Utilizar la branch personal para ir subiendo actualizaciones.

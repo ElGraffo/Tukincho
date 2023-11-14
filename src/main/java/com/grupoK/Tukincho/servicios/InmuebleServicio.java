@@ -1,23 +1,45 @@
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/InmuebleServicio.java
 package com.GrupoK.Tukincho.servicios;
 import com.GrupoK.Tukincho.entidades.Inmueble;
 import com.GrupoK.Tukincho.enums.Provincia;
 import com.GrupoK.Tukincho.repositorios.InmuebleRepositorio;
 import com.GrupoK.Tukincho.entidades.Propietario;
 import com.GrupoK.Tukincho.entidades.Reserva;
+=======
+package com.Tukincho.Tukincho.servicios;
+
+import com.Tukincho.Tukincho.entidades.Imagen;
+import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.Tukincho.Tukincho.enums.Provincia;
+import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
+import com.Tukincho.Tukincho.entidades.Propietario;
+import com.Tukincho.Tukincho.entidades.Reserva;
+import java.util.ArrayList;
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/InmuebleServicio.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class InmuebleServicio {
     @Autowired
     InmuebleRepositorio inmuebleRepositorio;
+    @Autowired
+    ImagenServicio imagenServicio;
+            
+    
     @Transactional
     public void crearImueble(Propietario propietario, String descripcionDelInmueble, Long precioPorNoche,
-                             String otrosDetallesDelInmueble, String direccion, Provincia provincia, boolean activa, Reserva reserva) throws Exception {
+                             String otrosDetallesDelInmueble, String direccion, Provincia provincia
+            , boolean activa, List<Reserva> reserva, List<MultipartFile> imagenes) throws Exception {
+        
+        
         validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
+        
+        
         Inmueble inmueble = new Inmueble();
         inmueble.setPropietario(propietario);
         inmueble.setDescripcionDelInmueble(descripcionDelInmueble);
@@ -27,12 +49,29 @@ public class InmuebleServicio {
         inmueble.setProvincia(provincia);
         inmueble.setActiva(true);
         inmueble.setReserva(reserva);
-        inmuebleRepositorio.save(inmueble);
+        
+        // Lógica para manejar las imágenes, por ejemplo, guardarlas en la base de datos o en el sistema de archivos.
+    // Aquí asumimos que tienes un servicio de imágenes (imagenServicio) para manejar la lógica de guardar las imágenes.
+    List<Imagen> imagenesGuardadas = new ArrayList<>();
+    for (MultipartFile imagen : imagenes) {
+        // Lógica para guardar la imagen (puedes adaptarla según tus necesidades)
+            
+        Imagen imagenGuardada = imagenServicio.guardar(imagen);
+        imagenesGuardadas.add(imagenGuardada);
     }
+
+    // Asignar las imágenes al inmueble
+    inmueble.setImagen(imagenesGuardadas);
+
+    // Guardar el inmueble en la base de datos
+    inmuebleRepositorio.save(inmueble);
+}
+ 
+    
 
     @Transactional
     public void editarInmueble(String id, String descripcionDelInmueble, Long precioPorNoche,
-                               String otrosDetallesDelInmueble, String direccion, Provincia provincia, Reserva reserva) throws Exception {
+                               String otrosDetallesDelInmueble, String direccion, Provincia provincia, List<Reserva> reserva) throws Exception {
         validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
         Optional<Inmueble> inmuebleOptional = inmuebleRepositorio.findById(id);
         if (inmuebleOptional.isPresent()){
@@ -59,7 +98,11 @@ public class InmuebleServicio {
 
     public Inmueble buscarInmueblePorId(String id){
         try{
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/InmuebleServicio.java
             return inmuebleRepositorio.findById(id).get();
+=======
+            return inmuebleRepositorio.getReferenceById(id);
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/InmuebleServicio.java
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -77,14 +120,6 @@ public class InmuebleServicio {
     public List<Inmueble> buscarInmueblePorProvincia(Provincia provincia){
         try{
             return inmuebleRepositorio.buscarInmueblePorProvincia(provincia);
-        }catch (Exception e){
-            return null;
-        }
-    }
-
-    public List<Inmueble> buscarInmueblePorProvincia(String provincia){
-        try{
-            return inmuebleRepositorio.buscarInmueblePorProvincia(Provincia.valueOf(provincia));
         }catch (Exception e){
             return null;
         }
@@ -120,4 +155,4 @@ public class InmuebleServicio {
         if(provincia == null)
             throw new IllegalArgumentException("La provincia del inmueble no puede estar vacía");
     }
-}
+} // todo --> buscar inmueble por localidad
