@@ -41,4 +41,8 @@ public class PortalControlador {
             return "registro.html";
         }
     }
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin.html";
+    }
 }
