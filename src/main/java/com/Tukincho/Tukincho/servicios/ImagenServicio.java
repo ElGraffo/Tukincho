@@ -1,68 +1,12 @@
-<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/ImagenServicio.java
-package com.GrupoK.Tukincho.servicios;
-import com.GrupoK.Tukincho.entidades.Imagen;
-import com.GrupoK.Tukincho.repositorios.ImagenRepositorio;
-import com.grupoK.Tukincho.excepciones.MiException;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-@Service
-public class ImagenServicio {
-    @Autowired
-    private ImagenRepositorio imagenRepositorio;
-    public Imagen guardar(MultipartFile archivo) throws MiException{
-        if(archivo !=null){
-            try{
-                Imagen imagen= new Imagen();
-                imagen.setMime(archivo.getContentType());
-                imagen.setNombre(archivo.getName());
-                imagen.setContenido(archivo.getBytes());
-                return imagenRepositorio.save(imagen);
-                
-            }catch (Exception e){
-                System.err.println(e.getMessage());
-            }
-        }
-        return null;
-    }
-    
-
-    public Imagen actualizar(MultipartFile  archivo, String idImagen) throws MiException{
-         if(archivo !=null){
-            try{
-                Imagen imagen= new Imagen();
-                if(idImagen !=null){
-                    Optional<Imagen> respuesta = imagenRepositorio.findById(idImagen);
-                    if(respuesta.isPresent()){
-                        imagen= respuesta.get();
-                    }
-                    
-                }
-                
-                imagen.setMime(archivo.getContentType());
-                imagen.setNombre(archivo.getName());
-                imagen.setContenido(archivo.getBytes());
-                return imagenRepositorio.save(imagen);
-                
-            }catch (Exception e){
-                System.err.println(e.getMessage());
-            }
-        }
-        return null;
-    }
-    }
-    
-
-=======
 package com.Tukincho.Tukincho.servicios;
 import com.Tukincho.Tukincho.entidades.Imagen;
 import com.Tukincho.Tukincho.excepciones.MiException;
 import java.util.Optional;
 
 import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
+import java.io.InputStream;
 import javax.transaction.Transactional;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,8 +22,9 @@ public class ImagenServicio {
             try{
                 Imagen imagen= new Imagen();
                 imagen.setMime(archivo.getContentType());
-                imagen.setNombre(archivo.getName());
-                imagen.setContenido(archivo.getBytes());
+                imagen.setNombre(archivo.getOriginalFilename());
+                InputStream inputStream = archivo.getInputStream();
+                 imagen.setContenido(IOUtils.toByteArray(inputStream));
                 return imagenRepositorio.save(imagen);
                 
             }catch (Exception e){
@@ -113,7 +58,4 @@ public class ImagenServicio {
         }
         return null;
     }
-    }
-    
-
->>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/ImagenServicio.java
+}

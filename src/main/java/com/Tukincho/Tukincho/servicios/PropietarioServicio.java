@@ -33,7 +33,7 @@ public class PropietarioServicio {
     @Autowired
     InmuebleRepositorio inmuebleRepositorio;
 
-    public void crearPropietario(Usuario usuario) {
+    public Propietario crearPropietario(Usuario usuario) {
         Propietario propietario = new Propietario();
 <<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/PropietarioServicio.java
         propietario.setNombreUsuario(usuario.getNombreUsuario());
@@ -45,10 +45,11 @@ public class PropietarioServicio {
         propietario.setActivo(usuario.getActivo());
         propietario.setRol(Rol.PROPIETARIO);
         try{
-            propietarioRepositorio.save(propietario);
+            return propietarioRepositorio.save(propietario);
         }catch (Exception e){
             e.printStackTrace();
         }
+        return null;
     }
 
 <<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/PropietarioServicio.java

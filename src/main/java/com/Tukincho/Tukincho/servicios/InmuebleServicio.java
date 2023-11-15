@@ -32,7 +32,7 @@ public class InmuebleServicio {
             
     
     @Transactional
-    public void crearImueble(Propietario propietario, String descripcionDelInmueble, Long precioPorNoche,
+    public void crearInmueble(Propietario propietario, String descripcionDelInmueble, Long precioPorNoche,
                              String otrosDetallesDelInmueble, String direccion, Provincia provincia
             , boolean activa, List<Reserva> reserva, List<MultipartFile> imagenes) throws Exception {
         
@@ -41,6 +41,11 @@ public class InmuebleServicio {
         
         
         Inmueble inmueble = new Inmueble();
+        
+        //creo un inmueble vacio para poder optener el id del inmueble y poder asignarlo a las imagenes
+         
+                
+                
         inmueble.setPropietario(propietario);
         inmueble.setDescripcionDelInmueble(descripcionDelInmueble);
         inmueble.setPrecioPorNoche(precioPorNoche);
@@ -50,6 +55,7 @@ public class InmuebleServicio {
         inmueble.setActiva(true);
         inmueble.setReserva(reserva);
         
+        inmueble = inmuebleRepositorio.save(inmueble);
         // Lógica para manejar las imágenes, por ejemplo, guardarlas en la base de datos o en el sistema de archivos.
     // Aquí asumimos que tienes un servicio de imágenes (imagenServicio) para manejar la lógica de guardar las imágenes.
     List<Imagen> imagenesGuardadas = new ArrayList<>();
@@ -57,6 +63,7 @@ public class InmuebleServicio {
         // Lógica para guardar la imagen (puedes adaptarla según tus necesidades)
             
         Imagen imagenGuardada = imagenServicio.guardar(imagen);
+        imagenGuardada.setInmueble(inmueble);
         imagenesGuardadas.add(imagenGuardada);
     }
 
@@ -89,8 +96,8 @@ public class InmuebleServicio {
 
     public List<Inmueble> listaDeInmuebles(){
         try{
-            inmuebleRepositorio.findAll();
-            return listaDeInmuebles();
+            
+            return inmuebleRepositorio.findAll();
         }catch (Exception e){
             return null;
         }

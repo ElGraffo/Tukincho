@@ -33,7 +33,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Propietario extends Usuario {
 
-    private String idPropietario;
     @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER)
     private List<Inmueble> inmuebles;
 >>>>>>> developer:src/main/java/com/Tukincho/Tukincho/entidades/Propietario.java

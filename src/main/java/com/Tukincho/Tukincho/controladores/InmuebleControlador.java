@@ -1,5 +1,6 @@
 package com.Tukincho.Tukincho.controladores;
 
+import com.Tukincho.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.entidades.Propietario;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import com.Tukincho.Tukincho.entidades.Usuario;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -42,7 +42,7 @@ public class InmuebleControlador {
     }
     
     @PostMapping("/registro")
-    public String registro(@RequestPart(required = false) List<MultipartFile> imagenes,@RequestParam String nombre,
+    public String registro(@RequestPart("imagenes[]") List<MultipartFile> imagenes,@RequestParam String nombre,
             @RequestParam String descripcion,@RequestParam Long precio,@RequestParam String otrosDetalles
     ,@RequestParam String direccion, @RequestParam Provincia provincia, @RequestParam boolean activa
     ,ModelMap modelo){
@@ -51,13 +51,20 @@ public class InmuebleControlador {
         //session.usuariosession.getId();
         Propietario propietario = propietarioServicio.buscarPropietario("id");
         if(propietario== null){
-            Usuario usuario = usuarioServicio.buscarUsuarioPorId("ad6a1980-bd41-421e-9603-507cd9dc8437");
-            propietarioServicio.crearPropietario(usuario);
-            propietario = propietarioServicio.buscarPropietario(usuario.getId());
+            System.out.println("EL PROPIETARIO ES NULO");
+            Usuario usuario = usuarioServicio.buscarUsuarioPorId("bcdc2cf4-1f1c-44eb-89bc-62692654f864");
+            propietario = propietarioServicio.crearPropietario(usuario);
+          
         }
+        System.out.println(propietario);
         List<Reserva> reservas= null;
         try {
-            inmuebleServicio.crearImueble(propietario, descripcion, precio, otrosDetalles, direccion, provincia, activa, reservas,imagenes);
+            for (MultipartFile imagen : imagenes) {
+                System.out.println("imagenes-size: "+imagenes.size());
+                System.out.println(imagen.getName());
+            }
+            
+            inmuebleServicio.crearInmueble(propietario, descripcion, precio, otrosDetalles, direccion, provincia, activa, reservas,imagenes);
             modelo.put("exito", "El inmueble se guardo correctamente!");
         } catch (Exception ex) {
             modelo.put("error",ex.getMessage());
@@ -69,9 +76,10 @@ public class InmuebleControlador {
     
     
     @GetMapping("/listar")
-    @ResponseBody
-    public String listarPropiedades(){
-        return "TODO_listarPropiedes";
+    public String listarPropiedades(ModelMap modelo) {
+        List<Inmueble> propiedades = inmuebleServicio.listaDeInmuebles();
+        modelo.put("propiedades", propiedades);
+        return "propiedades_listar.html";
     }
     
     
