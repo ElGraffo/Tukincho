@@ -29,6 +29,34 @@ perfil (propietarioServicio.crearPropietario() -> propietarioServicio.editarProp
 10. Provisoriamente usar la lista de provincias en el select de localidades del buscador accediendo al Enum Provincias.
 11. Desarrollar la vista para la creación de propiedades.
 
+12. administrador:
+abm usuarios
+alta baja modificacion propietarios
+abm inmuebles
+abm reservas
+abm reseñas
+
+listar usuarios 
+listar propietarios
+	ver inmuebles de c propietario
+listar reservas en inmuebles
+	poder bajarla o modificarla
+listar reservas en usuarios
+
+reserva:
+una vez que este haciendose la reserva poder dejar un msj al dueño y éste poder verlo
+
+Feedback de inmueble: (semana 19-11)
+reseñas:
+vinc usuario
+vinc inmueble
+vinc reserva (posterior a ella y si se cumplió)
+
+string titulo
+string texto
+imagenes (no requested)
+array de ints = calificacion
+
 
 BACKEND -------->
 
@@ -41,6 +69,34 @@ BACKEND -------->
 7. Generar lógica de "favoritos" (atributo de la entidad Usuario).
 8. Crear objeto "ServiciosOfrecidos" con su lógica para mostrar en cada inmueble.
 9. Hacer lista de localidades para complementar con las provincias.
+10. administrador:
+abm usuarios
+alta baja modificacion propietarios
+abm inmuebles
+abm reservas
+abm reseñas
+
+listar usuarios 
+listar propietarios
+	ver inmuebles de c propietario
+listar reservas en inmuebles
+	poder bajarla o modificarla
+listar reservas en usuarios
+
+reserva:
+una vez que este haciendose la reserva poder dejar un msj al dueño y éste poder verlo
+
+Feedback de inmueble: (semana 19-11)
+reseñas:
+vinc usuario
+vinc inmueble
+vinc reserva (posterior a ella y si se cumplió)
+
+string titulo
+string texto
+imagenes (no requested)
+array de ints = calificacion
+
 
 
 POSIBLES FUNCIONALIDADES ADICIONALES // CARRY OVER -------->
