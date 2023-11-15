@@ -1,5 +1,6 @@
 package com.Tukincho.Tukincho.entidades;
 
+import java.util.Base64;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,8 +34,9 @@ public class Imagen {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
-
-    public Imagen() {
+    
+    public String generateBase64Image() {
+        return Base64.getEncoder().encodeToString(this.contenido);
     }
 }
 

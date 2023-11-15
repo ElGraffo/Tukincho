@@ -127,6 +127,7 @@ public class InmuebleServicio {
             return null;
         }
     }
+  
 
     public void borrarInmueble(String id){
         Optional<Inmueble> inmuebleOptional = inmuebleRepositorio.findById(id);
