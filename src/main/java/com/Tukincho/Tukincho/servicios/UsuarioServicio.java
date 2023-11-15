@@ -1,4 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/UsuarioServicio.java
+
 package com.GrupoK.Tukincho.servicios;
 import com.GrupoK.Tukincho.entidades.Usuario;
 import com.GrupoK.Tukincho.enums.Rol;
