@@ -1,9 +1,3 @@
-
-package com.GrupoK.Tukincho.servicios;
-import com.GrupoK.Tukincho.entidades.Usuario;
-import com.GrupoK.Tukincho.enums.Rol;
-import com.GrupoK.Tukincho.repositorios.UsuarioRepositorio;
-=======
 package com.Tukincho.Tukincho.servicios;
 
 import com.Tukincho.Tukincho.entidades.Imagen;
@@ -12,7 +6,7 @@ import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 
 import org.apache.commons.io.IOUtils;
->>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -32,7 +26,6 @@ public class UsuarioServicio {
     public void registrar(String nombre, String email, String password, String password2) throws Exception {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
         // String defaultImagePath = "src//main//resources//static//imagenes//Default-Profile.jpg";
         // InputStream defaultImageStream = getClass().getResourceAsStream(defaultImagePath);
         // Imagen imagen = new Imagen();
@@ -42,24 +35,13 @@ public class UsuarioServicio {
         // imagen.setContenido(defaultImageBytes);
         // usuario.setImagen(imagen);
         usuario.setActivo(true);
-        usuario.setNombre(nombre);
+        usuario.setNombreUsuario(nombre);
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
         usuario.setPassword(password);
         usuarioRepositorio.save(usuario);
     }
-
     @Transactional
-<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/UsuarioServicio.java
-    public void actualizar( String idUsuario, Rol rol, String id,String email, String nombreUsuario,  String password, String password2) throws Exception{
-        validar(nombreUsuario, email, password, password2);
-        Optional<Usuario> respuesta= usuarioRepositorio.findById(idUsuario);
-        if(respuesta.isPresent()){
-            Usuario usuario = respuesta.get();
-            usuario.setId(id);
-            usuario.setEmail(email);
-            usuario.setNombreUsuario(nombreUsuario);
-=======
     public void editarUsuario(String idUsuario, Rol rol, String id, String email, String nombre, String password,
             String password2) throws Exception {
         validar(nombre, email, password, password2);
@@ -68,41 +50,25 @@ public class UsuarioServicio {
             Usuario usuario = respuesta.get();
             usuario.setId(id);
             usuario.setEmail(email);
-            usuario.setNombre(nombre);
->>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
+            usuario.setNombreUsuario(nombre);
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuarioRepositorio.save(usuario);
         }
     }
 
-<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/UsuarioServicio.java
-    public Usuario buscarUsuarioPorId(String id){
-        try{
-            return usuarioRepositorio.getOne(id);
-        }catch (Exception e){
-=======
     public Usuario buscarUsuarioPorId(String id) {
         try {
             return usuarioRepositorio.getReferenceById(id);
         } catch (Exception e) {
->>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
             e.printStackTrace();
             return null;
         }
     }
-
-<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/UsuarioServicio.java
-    public List<Usuario> listarUsuarios(){
-        try{
-            return usuarioRepositorio.findAll();
-        }catch (Exception e){
-=======
     public List<Usuario> listarUsuarios() {
         try {
             return usuarioRepositorio.findAll();
         } catch (Exception e) {
->>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
             e.printStackTrace();
             return null;
         }
@@ -119,7 +85,7 @@ public class UsuarioServicio {
                 usuario.setRol(Rol.USUARIO);
         }
     }
-
+    @Transactional
     public void borrarUsuario(String id) {
         Optional<Usuario> validacion = usuarioRepositorio.findById(id);
         if (validacion.isPresent()) {

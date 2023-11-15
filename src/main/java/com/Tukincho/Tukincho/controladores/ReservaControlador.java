@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/reserva")
-public class ReservaController {
+public class ReservaControlador {
     @Autowired
     ReservaServicio reservaServicio;
 
