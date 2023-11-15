@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <head th:replace="/fragments/head :: head"></head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--th:text="Registro Inmueble"-->
     <body>
         <nav th:replace="/fragments/navbar :: nav"></nav>
@@ -63,7 +64,7 @@
                 <div id="miniaturas-container"></div>
 
                 <!--input type="file" id="imagenes" multiple style="display: none;"-->
-                <input type="file" class="form-control-file" id="imagenes" name="imagenes[]" multiple accept="image/*" style="display:none;" />
+                <input type="file" class="form-control-file" id="imagenes" name="imagenes[]" multiple="multiple" accept="image/*" style="display:none;" />
                 <button type="button" id="agregar-boton" onclick="document.getElementById('imagenes').click()">
                     <i class="fas fa-image"></i> <!-- Ícono de Fotografía -->
                     <span>+</span>
@@ -80,11 +81,12 @@
             </form>
         </div>
 
-        <script>
+        <!--script>
             function agregarImagen() {
                 var input = document.getElementById('imagenes');
                 var miniaturasContainer = document.getElementById('miniaturas-container');
                 var miniaturaDiv;
+                 var files = [].concat(input.files); 
 
                 for (var i = 0; i < input.files.length; i++) {
                     var file = input.files[i];
@@ -117,7 +119,56 @@
 
             // Manejar cambios en el input de tipo file
             document.getElementById('imagenes').addEventListener('change', agregarImagen);
-        </script>
+        </script-->
+        
+        <script type="text/javascript">
+            const miniaturasContainer = document.getElementById('miniaturas-container');
+            $(document).ready(function () {
+
+            // Al seleccionar una imagen, se muestra una miniatura en el formulario
+            $("#imagenes").on("change", function () {
+                var input = $(this);
+
+                var files = input[0].files;
+
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+
+                    // Creamos una miniatura de la imagen
+                    var miniatura = document.createElement('div');
+                    miniatura.classList.add('miniatura');
+
+                    var img = document.createElement("img");
+                    img.src = URL.createObjectURL(file);
+
+                    var eliminarIcono = document.createElement('span');
+                    eliminarIcono.classList.add('eliminar-icono');
+                    eliminarIcono.innerHTML = '❌';
+                    eliminarIcono.onclick = function (div) {
+                        return function () {
+                            miniaturasContainer.removeChild(div);
+                            //files.splice(i, 1); // Eliminamos el archivo del arreglo
+                            files.removeChild(files[i]);
+                            
+                        };
+                        
+                    }(miniatura);
+
+                    miniatura.appendChild(img);
+                    miniatura.appendChild(eliminarIcono);
+
+                    miniaturasContainer.appendChild(miniatura);
+                }
+
+                input.value = ''; // Limpiar el valor del input para permitir la selección de las mismas imágenes nuevamente
+            });
+        //             // Añadimos la miniatura al formulario
+        //             var thumbnails = $("#thumbnails");
+        //             thumbnails.append(image);
+        //         }
+        //     });
+        });
+            </script>
     </body>
 
 </html>

@@ -8,10 +8,11 @@ import javax.persistence.*;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuario{
+public class Usuario {
+
     @Id
-    @GeneratedValue(generator ="uuid")
-    @GenericGenerator(name ="uuid", strategy= "uuid2")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String nombre;
     private String email;
@@ -19,7 +20,8 @@ public class Usuario{
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
+
 }
