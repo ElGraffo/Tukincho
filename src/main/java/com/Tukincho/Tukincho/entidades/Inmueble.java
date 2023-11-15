@@ -1,12 +1,10 @@
+package com.Tukincho.Tukincho.entidades;
 
-package com.GrupoK.Tukincho.entidades;
-
-import com.GrupoK.Tukincho.enums.Provincia;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.List;
+import com.Tukincho.Tukincho.enums.Provincia;
 
 @Data
 @Entity
