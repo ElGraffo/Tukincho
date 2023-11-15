@@ -28,7 +28,14 @@ perfil (propietarioServicio.crearPropietario() -> propietarioServicio.editarProp
 9. Editar la vista Reserva que tiene multiples <head> y <body>.
 10. Provisoriamente usar la lista de provincias en el select de localidades del buscador accediendo al Enum Provincias.
 11. Desarrollar la vista para la creación de propiedades.
-
+12. Desarrollar la vistas de administrador donde se pueda hacer: abm usuarios, abm propietarios, abm inmuebles, abm reservas,
+abm reseñas.
+12.1 Asimismo, en la vista general de administrador se debe poder: listar usuarios, listar propietarios, ver inmuebles de cada
+propietario, listar reservas en inmuebles, poder bajarla o modificarla, listar reservas en usuarios.
+13. Desarrollar vista para realizar la reserva, una vez que este haciendose la reserva poder dejar un msj al dueño y éste poder verlo
+14. Desarrollar vista de reseña (posterior a la reserva) (carry over a semana 19-11) se deberia ver "usuario", "titulo y mensaje de
+reseña", "calificacion" (1 a 5 estrellas), "imagenes o videos" (no exclusivamente necesario)
+15. Dentro de las cards de inmuebles debe figurar un promedio de calificacion (float "#.# estrellas")
 
 BACKEND -------->
 
@@ -41,6 +48,14 @@ BACKEND -------->
 7. Generar lógica de "favoritos" (atributo de la entidad Usuario).
 8. Crear objeto "ServiciosOfrecidos" con su lógica para mostrar en cada inmueble.
 9. Hacer lista de localidades para complementar con las provincias.
+10. Hacer controlador administrador que llame a cruds de Usuarios, Propietarios, Inmuebles, Reservas y Reseñas
+11. Querys personalizadas para: listar usuarios y filtrarlos por "Nombre", "Estado de alta"; listar propietarios y 
+ver inmuebles de cada propietario; listar reservas desde inmuebles, listar reservas desde usuarios
+12. Entidad reserva/usuario: una vez que este haciendose la reserva poder dejar un msj al dueño y éste poder verlo
+13. Entidad reseña: (posible carry over a semana 19-11) vincula usuario, inmueble, reserva, agrega string titulo,
+string texto, list imagenes (no requested), array de ints = calificacion {1,2,3,4,5}
+14. En entidad inmueble, agregar float "CalificacionGral" que vincule con todas las reseñas de ese inmueble en BD y 
+calcule el promedio.
 
 
 POSIBLES FUNCIONALIDADES ADICIONALES // CARRY OVER -------->
