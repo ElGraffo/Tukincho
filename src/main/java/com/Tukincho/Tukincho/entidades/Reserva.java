@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -37,8 +38,9 @@ public class Reserva extends Usuario {
    @OneToOne
    @JoinColumn(name = "propietario_id")
     private Propietario propietario;
-    
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaInicioReserva;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date fechaFinReserva;
     private Double costoReserva;
     private Double costoServiciosSeleccionados;
