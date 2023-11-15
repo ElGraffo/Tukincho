@@ -1,3 +1,9 @@
+
+package com.GrupoK.Tukincho.servicios;
+import com.GrupoK.Tukincho.entidades.Usuario;
+import com.GrupoK.Tukincho.enums.Rol;
+import com.GrupoK.Tukincho.repositorios.UsuarioRepositorio;
+=======
 package com.Tukincho.Tukincho.servicios;
 
 import com.Tukincho.Tukincho.entidades.Imagen;
@@ -6,10 +12,10 @@ import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 
 import org.apache.commons.io.IOUtils;
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
 import java.io.InputStream;
@@ -44,6 +50,16 @@ public class UsuarioServicio {
     }
 
     @Transactional
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/UsuarioServicio.java
+    public void actualizar( String idUsuario, Rol rol, String id,String email, String nombreUsuario,  String password, String password2) throws Exception{
+        validar(nombreUsuario, email, password, password2);
+        Optional<Usuario> respuesta= usuarioRepositorio.findById(idUsuario);
+        if(respuesta.isPresent()){
+            Usuario usuario = respuesta.get();
+            usuario.setId(id);
+            usuario.setEmail(email);
+            usuario.setNombreUsuario(nombreUsuario);
+=======
     public void editarUsuario(String idUsuario, Rol rol, String id, String email, String nombre, String password,
             String password2) throws Exception {
         validar(nombre, email, password, password2);
@@ -53,25 +69,40 @@ public class UsuarioServicio {
             usuario.setId(id);
             usuario.setEmail(email);
             usuario.setNombre(nombre);
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuarioRepositorio.save(usuario);
         }
     }
 
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/UsuarioServicio.java
+    public Usuario buscarUsuarioPorId(String id){
+        try{
+            return usuarioRepositorio.getOne(id);
+        }catch (Exception e){
+=======
     public Usuario buscarUsuarioPorId(String id) {
         try {
             return usuarioRepositorio.getReferenceById(id);
         } catch (Exception e) {
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
             e.printStackTrace();
             return null;
         }
     }
 
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/UsuarioServicio.java
+    public List<Usuario> listarUsuarios(){
+        try{
+            return usuarioRepositorio.findAll();
+        }catch (Exception e){
+=======
     public List<Usuario> listarUsuarios() {
         try {
             return usuarioRepositorio.findAll();
         } catch (Exception e) {
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/UsuarioServicio.java
             e.printStackTrace();
             return null;
         }

@@ -1,6 +1,7 @@
-package com.Tukincho.Tukincho.entidades;
 
-import com.Tukincho.Tukincho.enums.Provincia;
+package com.GrupoK.Tukincho.entidades;
+
+import com.GrupoK.Tukincho.enums.Provincia;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -31,11 +32,12 @@ public class Inmueble {
     private Provincia provincia;
     @Basic
     private boolean activa;
-    
+
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Reserva> reserva;
     
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <Imagen> imagen;
     // todo --> agregar lista de reseñas / agregar localidad
+
 }

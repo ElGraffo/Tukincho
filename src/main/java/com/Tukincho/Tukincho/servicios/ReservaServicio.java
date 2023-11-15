@@ -1,9 +1,16 @@
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/ReservaServicio.java
+package com.GrupoK.Tukincho.servicios;
+import com.GrupoK.Tukincho.entidades.Inmueble;
+import com.GrupoK.Tukincho.entidades.Reserva;
+import com.GrupoK.Tukincho.entidades.Usuario;
+=======
 package com.Tukincho.Tukincho.servicios;
 
 import com.Tukincho.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import com.Tukincho.Tukincho.entidades.Usuario;
 
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/ReservaServicio.java
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +18,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/ReservaServicio.java
+import com.GrupoK.Tukincho.repositorios.ReservaRepositorio;
+=======
 import com.Tukincho.Tukincho.repositorios.ReservaRepositorio;
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/ReservaServicio.java
 
 /**
  * 

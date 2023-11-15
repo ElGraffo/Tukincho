@@ -1,3 +1,11 @@
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/InmuebleServicio.java
+package com.GrupoK.Tukincho.servicios;
+import com.GrupoK.Tukincho.entidades.Inmueble;
+import com.GrupoK.Tukincho.enums.Provincia;
+import com.GrupoK.Tukincho.repositorios.InmuebleRepositorio;
+import com.GrupoK.Tukincho.entidades.Propietario;
+import com.GrupoK.Tukincho.entidades.Reserva;
+=======
 package com.Tukincho.Tukincho.servicios;
 
 import com.Tukincho.Tukincho.entidades.Imagen;
@@ -7,10 +15,10 @@ import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
 import com.Tukincho.Tukincho.entidades.Propietario;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import java.util.ArrayList;
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/InmuebleServicio.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,7 +105,11 @@ public class InmuebleServicio {
 
     public Inmueble buscarInmueblePorId(String id){
         try{
+<<<<<<< HEAD:src/main/java/com/grupoK/Tukincho/servicios/InmuebleServicio.java
+            return inmuebleRepositorio.findById(id).get();
+=======
             return inmuebleRepositorio.getReferenceById(id);
+>>>>>>> developer:src/main/java/com/Tukincho/Tukincho/servicios/InmuebleServicio.java
         }catch (Exception e){
             e.printStackTrace();
             return null;
