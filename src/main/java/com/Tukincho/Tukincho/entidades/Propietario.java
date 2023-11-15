@@ -14,5 +14,6 @@ public class Propietario extends Usuario {
     @OneToOne
     @JoinColumn(name = "reserva_id")
     private Reserva reserva;
+    }
 
-}
+

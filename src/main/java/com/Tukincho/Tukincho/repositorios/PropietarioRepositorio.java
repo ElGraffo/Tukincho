@@ -1,3 +1,4 @@
+
 package com.Tukincho.Tukincho.repositorios;
 
 import com.Tukincho.Tukincho.entidades.Propietario;

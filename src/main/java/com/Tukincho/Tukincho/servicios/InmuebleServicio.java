@@ -7,10 +7,10 @@ import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
 import com.Tukincho.Tukincho.entidades.Propietario;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.multipart.MultipartFile;

@@ -6,10 +6,10 @@ import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 
 import org.apache.commons.io.IOUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
 import java.io.InputStream;
@@ -26,7 +26,6 @@ public class UsuarioServicio {
     public void registrar(String nombre, String email, String password, String password2) throws Exception {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
         // String defaultImagePath = "src//main//resources//static//imagenes//Default-Profile.jpg";
         // InputStream defaultImageStream = getClass().getResourceAsStream(defaultImagePath);
         // Imagen imagen = new Imagen();
@@ -36,13 +35,12 @@ public class UsuarioServicio {
         // imagen.setContenido(defaultImageBytes);
         // usuario.setImagen(imagen);
         usuario.setActivo(true);
-        usuario.setNombre(nombre);
+        usuario.setNombreUsuario(nombre);
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
         usuario.setPassword(password);
         usuarioRepositorio.save(usuario);
     }
-
     @Transactional
     public void editarUsuario(String idUsuario, Rol rol, String id, String email, String nombre, String password,
             String password2) throws Exception {
@@ -52,7 +50,7 @@ public class UsuarioServicio {
             Usuario usuario = respuesta.get();
             usuario.setId(id);
             usuario.setEmail(email);
-            usuario.setNombre(nombre);
+            usuario.setNombreUsuario(nombre);
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuarioRepositorio.save(usuario);
@@ -67,7 +65,6 @@ public class UsuarioServicio {
             return null;
         }
     }
-
     public List<Usuario> listarUsuarios() {
         try {
             return usuarioRepositorio.findAll();
@@ -88,7 +85,7 @@ public class UsuarioServicio {
                 usuario.setRol(Rol.USUARIO);
         }
     }
-
+    @Transactional
     public void borrarUsuario(String id) {
         Optional<Usuario> validacion = usuarioRepositorio.findById(id);
         if (validacion.isPresent()) {

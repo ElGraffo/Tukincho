@@ -1,7 +1,7 @@
 package com.Tukincho.Tukincho.repositorios;
-
 import com.Tukincho.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.enums.Provincia;
+import com.Tukincho.Tukincho.entidades.Propietario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +25,6 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
     List<Inmueble> buscarPropietarioPorInmueble(@Param("propietarioId") String propietarioId);
 
     // todo -> hacer query de buscar por localidad
+
 }
 

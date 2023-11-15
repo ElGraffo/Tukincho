@@ -22,7 +22,8 @@ public class PropietarioServicio {
 
     public Propietario crearPropietario(Usuario usuario) {
         Propietario propietario = new Propietario();
-        propietario.setNombre(usuario.getNombre());
+        propietario.setNombreUsuario(usuario.getNombreUsuario());
+        propietario.setNombreUsuario(usuario.getNombreUsuario());
         propietario.setEmail(usuario.getEmail());
         propietario.setPassword(usuario.getPassword());
         propietario.setActivo(usuario.getActivo());
@@ -34,6 +35,7 @@ public class PropietarioServicio {
         }
         return null;
     }
+
 
     public void editarPropietario(String id, List<Inmueble> inmuebles, Reserva reserva){
         Optional<Propietario> propietarioOptional = propietarioRepositorio.findById(id);
@@ -50,6 +52,7 @@ public class PropietarioServicio {
     }
 
     public Propietario buscarPropietario(String id){
+
         Optional<Propietario> propietarioOptional = propietarioRepositorio.findById(id);
         if(propietarioOptional.isPresent()){
             return propietarioOptional.get();
