@@ -20,7 +20,7 @@ public class PropietarioServicio {
     @Autowired
     InmuebleRepositorio inmuebleRepositorio;
 
-    public void crearPropietario(Usuario usuario) {
+    public Propietario crearPropietario(Usuario usuario) {
         Propietario propietario = new Propietario();
         propietario.setNombre(usuario.getNombre());
         propietario.setEmail(usuario.getEmail());
@@ -28,10 +28,11 @@ public class PropietarioServicio {
         propietario.setActivo(usuario.getActivo());
         propietario.setRol(Rol.PROPIETARIO);
         try{
-            propietarioRepositorio.save(propietario);
+            return propietarioRepositorio.save(propietario);
         }catch (Exception e){
             e.printStackTrace();
         }
+        return null;
     }
 
     public void editarPropietario(String id, List<Inmueble> inmuebles, Reserva reserva){

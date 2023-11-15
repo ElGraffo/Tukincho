@@ -14,14 +14,16 @@ public class Inmueble {
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")
     private String id;
+    
     @ManyToOne
-    @JoinColumn(name = "inmuebles")
+    @JoinColumn(name = "id_propietario")
     private Propietario propietario;
-    @Basic
+    
+    @Column(length = 500)
     private String descripcionDelInmueble;
     @Basic
     private Long precioPorNoche;
-    @Basic
+    @Column(length = 500)
     private String otrosDetallesDelInmueble;
     @Basic
     private String direccion;
@@ -29,9 +31,11 @@ public class Inmueble {
     private Provincia provincia;
     @Basic
     private boolean activa;
-    @OneToMany
+    
+    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Reserva> reserva;
-    @OneToMany
+    
+    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <Imagen> imagen;
     // todo --> agregar lista de reseñas / agregar localidad
 }
