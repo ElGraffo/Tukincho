@@ -37,11 +37,12 @@ propietario, listar reservas en inmuebles, poder bajarla o modificarla, listar r
 reseña", "calificacion" (1 a 5 estrellas), "imagenes o videos" (no exclusivamente necesario)
 15. Dentro de las cards de inmuebles debe figurar un promedio de calificacion (float "#.# estrellas")
 
+
 BACKEND -------->
 
 1. Desarrollar el método POST para la búsqueda considerando los filtros aplicados.
 2. Establecer la lógica de comunicación entre el backend y el frontend para la transición del usuario a propietario.
-3. Desarrollar el endpoint GET y POST para la gestión de reservas./*Jonatan*/
+3. Desarrollar el endpoint GET y POST para la gestión de reservas.
 4. Desarrollar el endpoint POST para la creación de propiedades, integrando los tres formularios de la página.
 5. Agregar capa de seguridad con Spring Security.
 6. Crear el archivo de login y agregar los métodos POST y GET.
