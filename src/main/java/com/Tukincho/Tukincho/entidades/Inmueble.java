@@ -30,6 +30,8 @@ public class Inmueble {
     private Provincia provincia;
     @Basic
     private boolean activa;
+    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServiciosExtra> serviciosExtra;
 
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Reserva> reserva;
