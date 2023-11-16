@@ -1,6 +1,4 @@
-
 package com.Tukincho.Tukincho;
-
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

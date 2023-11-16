@@ -1,7 +1,6 @@
 package com.Tukincho.Tukincho.servicios;
 import com.Tukincho.Tukincho.entidades.Imagen;
 import java.util.Optional;
-
 import com.Tukincho.Tukincho.excepciones.MiException;
 import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
 import java.io.InputStream;
@@ -10,6 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 @Service
 public class ImagenServicio {
@@ -24,7 +24,7 @@ public class ImagenServicio {
                 imagen.setMime(archivo.getContentType());
                 imagen.setNombre(archivo.getOriginalFilename());
                 InputStream inputStream = archivo.getInputStream();
-                 imagen.setContenido(IOUtils.toByteArray(inputStream));
+                Imagen setContenido = imagen.setContenido(IOUtils.toByteArray(inputStream));
                 return imagenRepositorio.save(imagen);
             }catch (Exception e){
                 System.err.println(e.getMessage());
