@@ -1,9 +1,6 @@
 package com.Tukincho.Tukincho.controladores;
 
-import com.Tukincho.Tukincho.entidades.Inmueble;
-import com.Tukincho.Tukincho.entidades.Propietario;
-import com.Tukincho.Tukincho.entidades.Reserva;
-import com.Tukincho.Tukincho.entidades.Usuario;
+import com.Tukincho.Tukincho.entidades.*;
 import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.servicios.InmuebleServicio;
 import com.Tukincho.Tukincho.servicios.PropietarioServicio;
@@ -44,8 +41,8 @@ public class InmuebleControlador {
     @PostMapping("/registro")
     public String registro(@RequestPart("imagenes[]") List<MultipartFile> imagenes,@RequestParam String nombre,
             @RequestParam String descripcion,@RequestParam Long precio,@RequestParam String otrosDetalles
-    ,@RequestParam String direccion, @RequestParam Provincia provincia, @RequestParam boolean activa
-    ,ModelMap modelo){
+    ,@RequestParam String direccion, @RequestParam Provincia provincia, @RequestParam List<Reserva> reservas
+    ,ModelMap modelo, @RequestParam List<ServiciosExtra> serviciosExtra){
         
         System.out.println("ingreso al controlador de registro");
         //session.usuariosession.getId();
@@ -57,14 +54,13 @@ public class InmuebleControlador {
           
         }
         System.out.println(propietario);
-        List<Reserva> reservas= null;
         try {
             for (MultipartFile imagen : imagenes) {
                 System.out.println("imagenes-size: "+imagenes.size());
                 System.out.println(imagen.getName());
             }
             
-            inmuebleServicio.crearInmueble(propietario, descripcion, precio, otrosDetalles, direccion, provincia, activa, reservas,imagenes);
+            inmuebleServicio.crearInmueble(propietario, descripcion, precio, otrosDetalles, direccion, provincia, reservas,imagenes,serviciosExtra);
             modelo.put("exito", "El inmueble se guardo correctamente!");
         } catch (Exception ex) {
             modelo.put("error",ex.getMessage());
@@ -74,13 +70,10 @@ public class InmuebleControlador {
         return "propiedades_listar.html";
     }
     
-    
     @GetMapping("/listar")
     public String listarPropiedades(ModelMap modelo) {
         List<Inmueble> propiedades = inmuebleServicio.listaDeInmuebles();
         modelo.put("propiedades", propiedades);
         return "propiedades_listar.html";
     }
-    
-    
 }
