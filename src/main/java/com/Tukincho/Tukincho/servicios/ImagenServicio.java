@@ -24,7 +24,7 @@ public class ImagenServicio {
                 imagen.setMime(archivo.getContentType());
                 imagen.setNombre(archivo.getOriginalFilename());
                 InputStream inputStream = archivo.getInputStream();
-                Imagen setContenido = imagen.setContenido(IOUtils.toByteArray(inputStream));
+                imagen.setContenido(IOUtils.toByteArray(inputStream));
                 return imagenRepositorio.save(imagen);
             }catch (Exception e){
                 System.err.println(e.getMessage());
