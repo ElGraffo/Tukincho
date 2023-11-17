@@ -37,6 +37,9 @@ public class Inmueble {
     
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <Imagen> imagen;
+    
+    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServiciosExtra> serviciosExtra;
     // todo --> agregar lista de reseñas / agregar localidad
 
 }

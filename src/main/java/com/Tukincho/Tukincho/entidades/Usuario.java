@@ -23,6 +23,7 @@ public class Usuario {
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
+    
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;

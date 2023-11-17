@@ -44,12 +44,11 @@ public class InmuebleServicio {
         inmueble.setReserva(reserva);
 
         inmueble = inmuebleRepositorio.save(inmueble);
-        // Lógica para manejar las imágenes, por ejemplo, guardarlas en la base de datos o en el sistema de archivos.
-        // Aquí asumimos que tienes un servicio de imágenes (imagenServicio) para manejar la lógica de guardar las imágenes.
+       
+        // guardar las imágenes.
         List<Imagen> imagenesGuardadas = new ArrayList<>();
         for (MultipartFile imagen : imagenes) {
-            // Lógica para guardar la imagen (puedes adaptarla según tus necesidades)
-
+            //guardo la imagen y la retorna con su id
             Imagen imagenGuardada = imagenServicio.guardar(imagen);
             imagenGuardada.setInmueble(inmueble);//le asigno a quien pertenese esa imagen
             imagenesGuardadas.add(imagenGuardada);
