@@ -11,7 +11,7 @@
 
             <h2>Registro de Inmueble</h2>
 
-            <!--<!-- FORMULARIO REGISTRO INMUEBLE -->
+            <!--FORMULARIO REGISTRO INMUEBLE -->
 
             <form class="mt-4" th:action="@{/propiedad/registro}" method="post" enctype="multipart/form-data" th:object="${Inmueble}">
                 <!-- Nombre del Inmueble -->
@@ -60,7 +60,7 @@
                     <input type="checkbox" class="form-check-input" id="activa" name="activa" checked>
                     <label class="form-check-label" for="activa">Activa</label>
                 </div>
-                <!--<!-- Miniaturas -->
+                <!-- Miniaturas -->
                 <div id="miniaturas-container"></div>
 
                 <!--input type="file" id="imagenes" multiple style="display: none;"-->

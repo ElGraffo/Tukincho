@@ -12,6 +12,7 @@ public class ServiciosExtra {
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")
     private String id;
+<<<<<<< HEAD
     
     private String nombreDelServicioExtra;
     private int precioDelServicioExtra;
@@ -20,3 +21,11 @@ public class ServiciosExtra {
     @JoinColumn(name = "inmueble_id")
     private Inmueble inmueble;
 }
+=======
+    String nombreDelServicioExtra;
+    int precioDelServicioExtra;
+    @ManyToOne
+    @JoinColumn(name = "inmueble_id")
+    Inmueble inmueble;
+}
+>>>>>>> developer

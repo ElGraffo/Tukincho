@@ -1,11 +1,13 @@
 package com.Tukincho.Tukincho.servicios;
-
 import com.Tukincho.Tukincho.entidades.Imagen;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+>>>>>>> developer
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -14,9 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
+<<<<<<< HEAD
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+=======
+>>>>>>> developer
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -27,7 +32,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
+<<<<<<< HEAD
 public class UsuarioServicio implements UserDetailsService {
+=======
+public class UsuarioServicio implements UserDetailsService{
+>>>>>>> developer
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -163,4 +172,29 @@ public class UsuarioServicio implements UserDetailsService {
             return IOUtils.toByteArray(inputStream);
         }
     }
+    
+    
+    
+    @Override    
+    public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+        if (usuario != null) {
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+
+            permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("usuariosession", usuario);
+
+            return new User(usuario.getNombreUsuario(), usuario.getPassword(), permisos);
+
+        } else {
+            return null;
+        }
+}
 }

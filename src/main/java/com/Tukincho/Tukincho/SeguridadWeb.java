@@ -54,3 +54,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter  {
                         
                         }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> developer
