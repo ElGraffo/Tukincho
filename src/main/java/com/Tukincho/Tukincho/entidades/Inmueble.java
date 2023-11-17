@@ -17,6 +17,7 @@ public class Inmueble {
     @ManyToOne
     @JoinColumn(name = "id_propietario")
     private Propietario propietario;
+    private String nombre;
     
     @Column(length = 500)
     private String descripcionDelInmueble;

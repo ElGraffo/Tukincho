@@ -13,11 +13,11 @@
 
             <!--<!-- FORMULARIO REGISTRO INMUEBLE -->
 
-            <form class="mt-4" th:action="@{/propiedad/registro}" method="post" enctype="multipart/form-data">
+            <form class="mt-4" th:action="@{/propiedad/registro}" method="post" enctype="multipart/form-data" th:object="${Inmueble}">
                 <!-- Nombre del Inmueble -->
                 <div class="form-group">
                     <label for="nombre">Nombre del Inmueble</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" required>
                 </div>
 
                 <!-- Descripción del Inmueble -->
