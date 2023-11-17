@@ -1,10 +1,6 @@
 package com.Tukincho.Tukincho.controladores;
 
-import com.Tukincho.Tukincho.entidades.Imagen;
-import com.Tukincho.Tukincho.entidades.Inmueble;
-import com.Tukincho.Tukincho.entidades.Propietario;
-import com.Tukincho.Tukincho.entidades.Reserva;
-import com.Tukincho.Tukincho.entidades.Usuario;
+import com.Tukincho.Tukincho.entidades.*;
 import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.servicios.InmuebleServicio;
 import com.Tukincho.Tukincho.servicios.PropietarioServicio;
@@ -48,12 +44,10 @@ public class InmuebleControlador {
     @PostMapping("/registro")
     public String registro(@RequestPart("imagenes[]") List<MultipartFile> imagenes,
             @RequestParam String nombre,
-            @RequestParam String descripcion,
-            @RequestParam Long precio,@RequestParam String otrosDetalles,
-            @RequestParam String direccion,
-            @RequestParam Provincia provincia, 
-            @RequestParam boolean activa,
-            ModelMap modelo){
+            @RequestParam String descripcion,@RequestParam Long precio,@RequestParam String otrosDetalles,
+            @RequestParam String direccion, @RequestParam Provincia provincia, 
+            @RequestParam List<Reserva> reservas,ModelMap modelo, 
+            @RequestParam List<ServiciosExtra> serviciosExtra){
         
         //session.usuariosession.getId();
         Propietario propietario = propietarioServicio.buscarPropietario("id");
@@ -62,7 +56,6 @@ public class InmuebleControlador {
             propietario = propietarioServicio.crearPropietario(usuario);
           
         }
-        List<Reserva> reservas= null;
         try {
             inmuebleServicio.crearInmueble(propietario, nombre,descripcion, precio, otrosDetalles, direccion, provincia, activa, reservas,imagenes);
             modelo.put("exito", "El inmueble se guardo correctamente!");
@@ -72,9 +65,6 @@ public class InmuebleControlador {
         }
         return "propiedades_listar.html";
     }
-    
-    
-    
     
     @GetMapping("/listar")
     public String listarPropiedades(ModelMap modelo) {

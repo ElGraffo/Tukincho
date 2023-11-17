@@ -1,13 +1,12 @@
-package com.Tukincho.Tukincho.servicios;
+|package com.Tukincho.Tukincho.servicios;
 
-import com.Tukincho.Tukincho.entidades.Imagen;
-import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.Tukincho.Tukincho.entidades.*;
 import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
-import com.Tukincho.Tukincho.entidades.Propietario;
-import com.Tukincho.Tukincho.entidades.Reserva;
+
 import java.util.ArrayList;
 
+import com.Tukincho.Tukincho.repositorios.ServiciosExtraRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,16 +21,17 @@ public class InmuebleServicio {
     InmuebleRepositorio inmuebleRepositorio;
     @Autowired
     ImagenServicio imagenServicio;
-
+    @Autowired
+    ServiciosExtraRepositorio serviciosExtraRepositorio;
+    
     @Transactional
-    public void crearInmueble(Propietario propietario, String nombre, String descripcionDelInmueble, Long precioPorNoche,
-            String otrosDetallesDelInmueble, String direccion, Provincia provincia,
-             boolean activa, List<Reserva> reserva, List<MultipartFile> imagenes) throws Exception {
-
-        validar(nombre, descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
-
+    public void crearInmueble(Propietario propietario, String descripcionDelInmueble, Long precioPorNoche,
+                              String otrosDetallesDelInmueble, String direccion, Provincia provincia,
+                              List<Reserva> reserva, List<MultipartFile> imagenes,
+                              List<ServiciosExtra> serviciosExtras) throws Exception {
+        
+        validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
         Inmueble inmueble = new Inmueble();
-
         //creo un inmueble vacio para poder optener el id del inmueble y poder asignarlo a las imagenes
         inmueble.setPropietario(propietario);
         inmueble.setNombre(nombre);
@@ -42,7 +42,7 @@ public class InmuebleServicio {
         inmueble.setProvincia(provincia);
         inmueble.setActiva(true);
         inmueble.setReserva(reserva);
-
+        inmueble.setServiciosExtra(serviciosExtras);
         inmueble = inmuebleRepositorio.save(inmueble);
         // Lógica para manejar las imágenes, por ejemplo, guardarlas en la base de datos o en el sistema de archivos.
         // Aquí asumimos que tienes un servicio de imágenes (imagenServicio) para manejar la lógica de guardar las imágenes.
@@ -63,12 +63,10 @@ public class InmuebleServicio {
     }
 
     @Transactional
-    public void editarInmueble(String id, String nombre, String descripcionDelInmueble, Long precioPorNoche,
-            String otrosDetallesDelInmueble, String direccion,
-            Provincia provincia, List<Reserva> reserva, List<MultipartFile> imagenes) throws Exception {
-
-        validar(nombre, descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
-
+    public void editarInmueble(String id, String descripcionDelInmueble, Long precioPorNoche,
+                               String otrosDetallesDelInmueble, String direccion, Provincia provincia, List<Reserva> reserva,
+                               List<ServiciosExtra> serviciosExtras, boolean activa) throws Exception {
+        validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
         Optional<Inmueble> inmuebleOptional = inmuebleRepositorio.findById(id);
 
         if (inmuebleOptional.isPresent()) {
@@ -79,7 +77,7 @@ public class InmuebleServicio {
             inmueble.setOtrosDetallesDelInmueble(otrosDetallesDelInmueble);
             inmueble.setDireccion(direccion);
             inmueble.setProvincia(provincia);
-            inmueble.setActiva(true);
+            inmueble.setActiva(activa);
             inmueble.setReserva(reserva);
 
             // Lógica para manejar las imágenes, por ejemplo, guardarlas en la base de datos o en el sistema de archivos.
@@ -97,6 +95,7 @@ public class InmuebleServicio {
             // Asignar las imágenes al inmueble
             inmueble.setImagen(imagenesGuardadas);
 
+            inmueble.setServiciosExtra(serviciosExtras);
             inmuebleRepositorio.save(inmueble);
         }
     }
@@ -138,7 +137,12 @@ public class InmuebleServicio {
         }
     }
 
-    public void borrarInmueble(String id) {
+    /*public List<Inmueble> buscarInmueblePorServiciosExtra(ServiciosExtra servicioExtra){
+        return serviciosExtraRepositorio.buscarInmueblePorServiciosExtra(servicioExtra);
+    }*/
+  
+    @Transactional
+    public void borrarInmueble(String id){
         Optional<Inmueble> inmuebleOptional = inmuebleRepositorio.findById(id);
         try {
             if (inmuebleOptional.isPresent()) {
