@@ -17,11 +17,19 @@ import java.util.List;
 public class ReservaControlador {
     @Autowired
     ReservaServicio reservaServicio;
-
+    @Autowired
+    InmuebleServicio inmuebleServicio;
+    
     @GetMapping("/crear/{id}")
-    public String reserva(@PathVariable String id, ModelMap model, Inmueble inmueble){
-        model.put("inmueble", inmueble);
-        return "reserva.html";
+    public String reserva(@PathVariable String id, ModelMap model){
+        try{
+            Inmueble inmueble = inmuebleServicio.buscarInmueblePorId(id);
+            model.put("inmueble", inmueble);
+            return "reserva.html";
+        } catch (Exception e) {
+            model.put("error", e.getmessage();
+            return "reserva.html";
+        }
     }
 
     @PostMapping("/reservado")
