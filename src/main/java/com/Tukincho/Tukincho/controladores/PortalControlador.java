@@ -103,7 +103,7 @@ public class PortalControlador {
       }catch(MiException ex){
           
         modelo.put("error", ex.getMessage());
-        modelo.put("nombre", nombre);
+        modelo.put("password", password);
         modelo.put("email", email);
         
         return "usuario_modificar.html";

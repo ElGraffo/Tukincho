@@ -3,6 +3,7 @@ package com.Tukincho.Tukincho.controladores;
 import com.Tukincho.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import com.Tukincho.Tukincho.entidades.Usuario;
+import com.Tukincho.Tukincho.servicios.InmuebleServicio;
 import com.Tukincho.Tukincho.servicios.ReservaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class ReservaControlador {
             model.put("inmueble", inmueble);
             return "reserva.html";
         } catch (Exception e) {
-            model.put("error", e.getmessage();
+            model.put("error", e.getMessage());
             return "reserva.html";
         }
     }
