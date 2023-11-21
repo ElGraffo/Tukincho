@@ -63,10 +63,13 @@ public class PortalControlador {
     
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
-        if (error != null) {
-            modelo.put("error", "Usuario o contraseña invalido!");
+        if (error == null) {
+            model.put("exito", "se ha iniciado sesion correctamente");
+            return "login.html";
+        }else {
+            model.put("error", "Usuario o contraseña inválidos");
+            return null;
         }
-        return "login.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -115,16 +118,5 @@ public class PortalControlador {
         
         return "usuario_modificar.html";
       }
-    }
-
-    @GetMapping("/login")
-    public String logIn(@RequestParam(required = false) String error, ModelMap model) {
-        if (error == null) {
-            model.put("exito", "se ha iniciado sesion correctamente");
-            return "login.html";
-        }else {
-            model.put("error", "Usuario o contraseña inválidos");
-            return null;
-        }
     }
 }
