@@ -72,7 +72,7 @@ public class PortalControlador {
             return "redirect:/admin/dashboard";
         }
 
-        return "inicio.html";
+        return "index.html";
     }
     
      @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -99,7 +99,7 @@ public class PortalControlador {
         usuarioServicio.editarUsuario(password2, Rol.ADMIN, id, email, nombre, password, password2);
         modelo.put("exito", "El usuario ha sido actualizado con exito");
           
-          return "inicio.html";
+          return "index.html";
       }catch(MiException ex){
           
         modelo.put("error", ex.getMessage());
@@ -108,16 +108,8 @@ public class PortalControlador {
         
         return "usuario_modificar.html";
       }
-    }
+    
 
-    @GetMapping("/login")
-    public String logIn(@RequestParam(required = false) String error, ModelMap model) {
-        if (error == null) {
-            model.put("exito", "se ha iniciado sesion correctamente");
-            return "login.html";
-        }else {
-            model.put("error", "Usuario o contraseña inválidos");
-            return null;
-        }
+   
     }
 }
