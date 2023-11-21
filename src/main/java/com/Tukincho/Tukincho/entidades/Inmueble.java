@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 import com.Tukincho.Tukincho.enums.Provincia;
+import java.util.ArrayList;
 
 @Data
 @Entity
@@ -31,8 +32,9 @@ public class Inmueble {
     private Provincia provincia;
     @Basic
     private boolean activa;
-    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ServiciosExtra> serviciosExtra;
+    
+   @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InmuebleServicioExtra> inmuebleServiciosExtras = new ArrayList<>();
 
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Reserva> reserva;
@@ -40,8 +42,7 @@ public class Inmueble {
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <Imagen> imagen;
     
-    @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ServiciosExtra> serviciosExtra;
+
     // todo --> agregar lista de reseñas / agregar localidad
 
 }

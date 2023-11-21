@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--th:text="Registro Inmueble"-->
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+
+        <h2>Formulario de Servicio Extra</h2>
+        <form class="mt-4" th:action="@{/admin/servicios/registro}" th:object="${servicio}" method="post">
+            <div class="form-group">
+                <label for="nombreDelServicioExtra">Nombre del Servicio Extra:</label>
+                <input type="text" id="nombreDelServicioExtra" th:field="*{nombreDelServicioExtra}" required>
+            </div>
+            <br>
+
+            <button type="submit">Guardar</button>
+        </form>
+    </body>
+</html>

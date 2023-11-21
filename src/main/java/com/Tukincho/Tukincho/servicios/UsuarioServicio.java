@@ -4,10 +4,8 @@ import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
-<<<<<<< HEAD
 import java.io.IOException;
-=======
->>>>>>> developer
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -16,27 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
-<<<<<<< HEAD
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-=======
->>>>>>> developer
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-<<<<<<< HEAD
-public class UsuarioServicio implements UserDetailsService {
-=======
 public class UsuarioServicio implements UserDetailsService{
->>>>>>> developer
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -48,6 +40,7 @@ public class UsuarioServicio implements UserDetailsService{
     public void registrar(String nombre, String email, String password, String password2) throws Exception {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
+        //cuando hago un new usuario se supone que tiene id?
         usuario = usuarioRepositorio.save(usuario);
         //establesco la imagen por defecto para el usuario
         Imagen imagen = new Imagen();
@@ -62,7 +55,8 @@ public class UsuarioServicio implements UserDetailsService{
         usuario.setNombreUsuario(nombre);
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
-        usuario.setPassword(password);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+       
         usuarioRepositorio.save(usuario);
     }
 
@@ -78,6 +72,8 @@ public class UsuarioServicio implements UserDetailsService{
             usuario.setNombreUsuario(nombre);
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+       
             usuarioRepositorio.save(usuario);
         }
     }
@@ -174,27 +170,4 @@ public class UsuarioServicio implements UserDetailsService{
     }
     
     
-    
-    @Override    
-    public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
-        if (usuario != null) {
-            List<GrantedAuthority> permisos = new ArrayList();
-
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-
-            permisos.add(p);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
-            HttpSession session = attr.getRequest().getSession(true);
-
-            session.setAttribute("usuariosession", usuario);
-
-            return new User(usuario.getNombreUsuario(), usuario.getPassword(), permisos);
-
-        } else {
-            return null;
-        }
-}
 }

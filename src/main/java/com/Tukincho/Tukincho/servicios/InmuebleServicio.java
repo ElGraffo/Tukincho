@@ -1,18 +1,21 @@
-|package com.Tukincho.Tukincho.servicios;
+package com.Tukincho.Tukincho.servicios;
 
-import com.Tukincho.Tukincho.entidades.*;
+import com.Tukincho.Tukincho.entidades.Imagen;
+import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.Tukincho.Tukincho.entidades.InmuebleServicioExtra;
+import com.Tukincho.Tukincho.entidades.Propietario;
+import com.Tukincho.Tukincho.entidades.Reserva;
 import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
-
-import java.util.ArrayList;
-
 import com.Tukincho.Tukincho.repositorios.ServiciosExtraRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class InmuebleServicio {
@@ -25,13 +28,18 @@ public class InmuebleServicio {
     ServiciosExtraRepositorio serviciosExtraRepositorio;
     
     @Transactional
-    public void crearInmueble(Propietario propietario, String descripcionDelInmueble, Long precioPorNoche,
-                              String otrosDetallesDelInmueble, String direccion, Provincia provincia,
-                              List<Reserva> reserva, List<MultipartFile> imagenes,
-                              List<ServiciosExtra> serviciosExtras) throws Exception {
+    public void crearInmueble(Propietario propietario,Inmueble inmueble,
+            String nombre, 
+            String descripcionDelInmueble, 
+            Long precioPorNoche,
+                              String otrosDetallesDelInmueble, 
+                              String direccion, Provincia provincia,
+                              List<Reserva> reserva, 
+                              List<MultipartFile> imagenes,
+                              List<InmuebleServicioExtra> serviciosExtras) throws Exception {
         
-        validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
-        Inmueble inmueble = new Inmueble();
+        validar(nombre,descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
+        //Inmueble inmueble = new Inmueble();
         //creo un inmueble vacio para poder optener el id del inmueble y poder asignarlo a las imagenes
         inmueble.setPropietario(propietario);
         inmueble.setNombre(nombre);
@@ -42,7 +50,7 @@ public class InmuebleServicio {
         inmueble.setProvincia(provincia);
         inmueble.setActiva(true);
         inmueble.setReserva(reserva);
-        inmueble.setServiciosExtra(serviciosExtras);
+        inmueble.setInmuebleServiciosExtras(serviciosExtras);
         inmueble = inmuebleRepositorio.save(inmueble);
        
         // guardar las imágenes.
@@ -62,10 +70,10 @@ public class InmuebleServicio {
     }
 
     @Transactional
-    public void editarInmueble(String id, String descripcionDelInmueble, Long precioPorNoche,
+    public void editarInmueble(String id, String nombre,String descripcionDelInmueble, Long precioPorNoche,
                                String otrosDetallesDelInmueble, String direccion, Provincia provincia, List<Reserva> reserva,
-                               List<ServiciosExtra> serviciosExtras, boolean activa) throws Exception {
-        validar(descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
+                               List<InmuebleServicioExtra> serviciosExtras, boolean activa, List<MultipartFile> imagenes) throws Exception {
+        validar(nombre,descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
         Optional<Inmueble> inmuebleOptional = inmuebleRepositorio.findById(id);
 
         if (inmuebleOptional.isPresent()) {
@@ -94,7 +102,7 @@ public class InmuebleServicio {
             // Asignar las imágenes al inmueble
             inmueble.setImagen(imagenesGuardadas);
 
-            inmueble.setServiciosExtra(serviciosExtras);
+            inmueble.setInmuebleServiciosExtras(serviciosExtras);
             inmuebleRepositorio.save(inmueble);
         }
     }
