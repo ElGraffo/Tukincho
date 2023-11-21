@@ -98,7 +98,9 @@ public class PortalControlador {
       @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
       
-      public String actualizar( MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo)throws MiException, Exception{
+      public String actualizar( MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
+                                @RequestParam String email, @RequestParam String password, @RequestParam String password2,
+                                ModelMap modelo)throws MiException, Exception{
        
           try{
         usuarioServicio.editarUsuario(password2, Rol.ADMIN, id, email, nombre, password, password2);
@@ -113,10 +115,16 @@ public class PortalControlador {
         
         return "usuario_modificar.html";
       }
-          
-      
-      }
+    }
 
-
-
+    @GetMapping("/login")
+    public String logIn(@RequestParam(required = false) String error, ModelMap model) {
+        if (error == null) {
+            model.put("exito", "se ha iniciado sesion correctamente");
+            return "login.html";
+        }else {
+            model.put("error", "Usuario o contraseña inválidos");
+            return null;
+        }
+    }
 }
