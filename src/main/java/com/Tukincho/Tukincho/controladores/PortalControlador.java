@@ -2,6 +2,7 @@ package com.Tukincho.Tukincho.controladores;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.excepciones.MiException;
+import com.Tukincho.Tukincho.repositorios.PropietarioRepositorio;
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,19 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
-
+    @Autowired
+    PropietarioRepositorio propietarioRepositorio;
 
     @Autowired
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/")
     public String index() {
+        return "index.html";
+    }
+    
+    @GetMapping("/index")
+    public String mostrarIndex() {
         return "index.html";
     }
 
