@@ -83,7 +83,7 @@ public class PortalControlador {
             return "redirect:/admin/dashboard";
         }
 
-        return "inicio.html";
+        return "index.html";
     }
     
      @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_PROPIETARIO')")
@@ -110,14 +110,15 @@ public class PortalControlador {
         usuarioServicio.editarUsuario(password2, Rol.ADMIN, id, email, nombre, password, password2);
         modelo.put("exito", "El usuario ha sido actualizado con exito");
           
-          return "inicio.html";
+          return "index.html";
       }catch(MiException ex){
           
         modelo.put("error", ex.getMessage());
-        modelo.put("nombre", nombre);
+        modelo.put("password", password);
         modelo.put("email", email);
         
         return "usuario_modificar.html";
       }
+
     }
 }
