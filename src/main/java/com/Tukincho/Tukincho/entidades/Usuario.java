@@ -2,6 +2,7 @@
 package com.Tukincho.Tukincho.entidades;
 
 import com.Tukincho.Tukincho.enums.Rol;
+import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
@@ -27,5 +28,9 @@ public class Usuario {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
+    
+    @OneToMany
+    @JoinColumn(name = "reserva_id")
+    private List<Reserva> reserva;
 
 }

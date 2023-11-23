@@ -11,6 +11,20 @@
 
             <h2>Registro de Inmueble</h2>
 
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                <div class="card-body">
+                    <h5 class="card-title">Error!</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div>
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
+            
+            
             <!--FORMULARIO REGISTRO INMUEBLE -->
 
             <form class="mt-4" th:action="@{/propiedad/registro}" method="post" enctype="multipart/form-data">
@@ -107,45 +121,7 @@
             </form>
         </div>
 
-        <!--script>
-            function agregarImagen() {
-                var input = document.getElementById('imagenes');
-                var miniaturasContainer = document.getElementById('miniaturas-container');
-                var miniaturaDiv;
-                 var files = [].concat(input.files); 
 
-                for (var i = 0; i < input.files.length; i++) {
-                    var file = input.files[i];
-
-                    miniaturaDiv = document.createElement('div');
-                    miniaturaDiv.classList.add('miniatura');
-
-
-                    var img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
-
-                    var eliminarIcono = document.createElement('span');
-                    eliminarIcono.classList.add('eliminar-icono');
-                    eliminarIcono.innerHTML = '❌';
-                    eliminarIcono.onclick = function (div) {
-                        return function () {
-                            miniaturasContainer.removeChild(div);
-                        };
-                    }(miniaturaDiv);
-
-
-                    miniaturaDiv.appendChild(img);
-                    miniaturaDiv.appendChild(eliminarIcono);
-
-                    miniaturasContainer.appendChild(miniaturaDiv);
-                }
-
-                input.value = ''; // Limpiar el valor del input para permitir la selección de las mismas imágenes nuevamente
-            }
-
-            // Manejar cambios en el input de tipo file
-            document.getElementById('imagenes').addEventListener('change', agregarImagen);
-        </script-->
 
         <script type="text/javascript">
             const miniaturasContainer = document.getElementById('miniaturas-container');

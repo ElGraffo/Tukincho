@@ -21,7 +21,32 @@
 </head>
 
 <body>
-<nav th:replace="/fragments/navbar :: nav"></nav>
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+
+    <div class="container mt-5">
+        <h2>Propiedades Registradas</h2>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Iterar sobre las propiedades y mostrarlas en grupos de tres por fila -->
+            <div th:each="propiedad : ${propiedades}" class="col">
+                <div class="card">
+                    <!-- Mostrar la primera imagen (si existe) como miniatura -->
+                     <!-- Convertir el array de bytes a una URL de datos (data URL) -->    
+                     <h4 th:text="${propiedad.getImagen() !=null+'cantidad imagen: ' +propiedad.getImagen().size()}"></h4>
+                    <img th:if="${propiedad.getImagen() != null && propiedad.getImagen().size()>0}" th:src="'data:' + ${propiedad.getImagen()[0].getMime()} + ';base64,' + ${propiedad.getImagen()[0].generateBase64Image()}"/>
+                    <img th:unless="${propiedad.getImagen() != null && propiedad.getImagen().size()>0}" th:src="@{/imagenes/logo.png}"/>
+                    
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${propiedad.descripcionDelInmueble}"></h5>
+                        <p class="card-text"><strong>Precio por Noche:</strong> $<span
+                                th:text="${propiedad.precioPorNoche}"></span></p>
+                        <p class="card-text"><strong>Dirección:</strong> <span th:text="${propiedad.direccion}"></span>
+                        </p>
+                        <!-- Agrega más detalles según tus necesidades -->
+                        <a th:href="@{/propiedad/detalle/{id}(id=${propiedad.id})}" class="btn btn-primary">Ver
+                            Detalles</a>
+
+<!-- <nav th:replace="/fragments/navbar :: nav"></nav>
 
 
 
@@ -55,7 +80,7 @@
                         </div>
 
                         <div class="col-md-2 cardCentral">
-                            <!-- bg-body-secondary -->
+                            <bg-body-secondary> 
                             <div class="d-grid card-body justify-content-center align-content-center">
                                 <h5 class="card-title">Calificación</h5>
                                 <p>8.8 - Excelente</p>
@@ -69,7 +94,7 @@
                         </div>
 
                         <div class="col-md-2 cardDerecho d-grid justify-content-center align-content-center">
-                            <!-- bg-body-secondary -->
+                            <bg-body-secondary>
                             <div class="card-body ">
                                 <h5 class="card-title">Precio</h5>
 
@@ -78,8 +103,7 @@
 
                             </div>
 
-                        </div>
-
+                        </div>-->
                     </div>
                 </div>
 

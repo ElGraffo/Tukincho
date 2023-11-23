@@ -37,7 +37,7 @@ public class PropietarioServicio {
     }
 
 
-    public void editarPropietario(String id, List<Inmueble> inmuebles, Reserva reserva){
+    public void editarPropietario(String id, List<Inmueble> inmuebles, List<Reserva> reserva){
         Optional<Propietario> propietarioOptional = propietarioRepositorio.findById(id);
         if(propietarioOptional.isPresent()){
             Propietario propietario = propietarioOptional.get();
@@ -68,6 +68,7 @@ public class PropietarioServicio {
             return null;
         }
     }
+    
 
     public List<Inmueble> buscarPropietarioPorInmueble(String id){
         try{

@@ -40,10 +40,14 @@
 .card-body{
   height: 200px;
 }
-
+ 
+.card-body2{
+    min-height: 200px;
+}
 
 #logo{
-  height: 25px;
+  height:  25px;
+  width: 25px;
 }
 
 .formulario{
