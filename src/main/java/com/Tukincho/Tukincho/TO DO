@@ -76,3 +76,15 @@ TAREAS ADMINISTRATIVAS DEL EQUIPO -------->
 para su mejora continua.
 3. Al finalizar cada clase enviarle al Scrum Master un resumen del día de trabajo.
 4. Utilizar la branch personal para ir subiendo actualizaciones.
+
+
+propietario_reserva                                                                 reserva
+id                                                                                             id 12121 
+id_propietario
+id_reserva
+
+
+usuario_reserva
+id
+id_usuario
+id_reserva

@@ -2,6 +2,8 @@ package com.Tukincho.Tukincho.controladores;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.excepciones.MiException;
+import com.Tukincho.Tukincho.repositorios.PropietarioRepositorio;
+import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,19 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
-
+    @Autowired
+    PropietarioRepositorio propietarioRepositorio;
 
     @Autowired
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/")
     public String index() {
+        return "index.html";
+    }
+    
+    @GetMapping("/index")
+    public String mostrarIndex() {
         return "index.html";
     }
 
@@ -56,10 +64,13 @@ public class PortalControlador {
     
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
-        if (error != null) {
-            modelo.put("error", "Usuario o contraseña invalido!");
+        if (error == null) {
+            model.put("exito", "se ha iniciado sesion correctamente");
+            return "login.html";
+        }else {
+            model.put("error", "Usuario o contraseña inválidos");
+            return null;
         }
-        return "login.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -75,7 +86,7 @@ public class PortalControlador {
         return "index.html";
     }
     
-     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_PROPIETARIO')")
     @GetMapping("/perfil")
      
      public String perfil(ModelMap modelo, HttpSession session){
@@ -108,8 +119,6 @@ public class PortalControlador {
         
         return "usuario_modificar.html";
       }
-    
 
-   
     }
 }

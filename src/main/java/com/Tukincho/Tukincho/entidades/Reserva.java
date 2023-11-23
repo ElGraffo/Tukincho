@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Data
 
-public class Reserva extends Usuario {
+public class Reserva{
     @Id
     @GeneratedValue
     private String id;
@@ -27,12 +27,12 @@ public class Reserva extends Usuario {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
    //un propietario puede tener muchas reservas corregir
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "propietario_id")
     private Propietario propietario;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaInicioReserva;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinReserva;
     private Double costoReserva;
     private Double costoServiciosSeleccionados;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="/fragments/head :: head"><title th:text="Registrar Inmueble"></title></head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--th:text="Registro Inmueble"-->
     <body>
@@ -11,6 +11,20 @@
 
             <h2>Registro de Inmueble</h2>
 
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                <div class="card-body">
+                    <h5 class="card-title">Error!</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div>
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
+            
+            
             <!--FORMULARIO REGISTRO INMUEBLE -->
 
             <form class="mt-4" th:action="@{/propiedad/registro}" method="post" enctype="multipart/form-data">
@@ -23,27 +37,27 @@
                 <!-- Descripción del Inmueble -->
                 <div class="form-group">
                     <label for="descripcionDelInmueble">Descripción del Inmueble</label>
-                    <textarea class="form-control" id="descripcionDelInmueble" name="descripcion" rows="3"
+                    <textarea class="form-control" id="descripcionDelInmueble"name="descripcion" rows="3"
                               required></textarea>
                 </div>
 
                 <!-- Precio por Noche -->
                 <div class="form-group">
                     <label for="precioPorNoche">Precio por Noche</label>
-                    <input type="number" class="form-control" id="precioPorNoche" name="precio" required>
+                    <input type="number" class="form-control" id="precioPorNoche"  name="precio" required>
                 </div>
 
                 <!-- Otros Detalles del Inmueble -->
                 <div class="form-group">
                     <label for="otrosDetallesDelInmueble">Otros Detalles del Inmueble</label>
-                    <textarea class="form-control" id="otrosDetallesDelInmueble" name="otrosDetalles"
+                    <textarea class="form-control" id="otrosDetallesDelInmueble"  name="otrosDetalles"
                               rows="3"></textarea>
                 </div>
 
                 <!-- Dirección -->
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                    <input type="text" class="form-control" id="direccion"  name="direccion" required>
                 </div>
 
                 <!-- Provincia -->
@@ -60,6 +74,32 @@
                     <input type="checkbox" class="form-check-input" id="activa" name="activa" checked>
                     <label class="form-check-label" for="activa">Activa</label>
                 </div>
+                <hr />
+
+                <!--<!-- Lista de servicios Extras -->
+                <div class="form-group">
+                    <label>Servicios Extras</label>
+                    <div th:if="${servicios.size()>0}" th:each="servicio : ${servicios}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="checkbox" class="form-check-input" th:id="${'servicio_' + servicio.id}"
+                                       th:name="${'servicio_'+servicio}" th:value="${servicio.id}" />
+                                <label class="form-check-label" th:for="${'servicio_' + servicio.id}"
+                                       th:text="${servicio.getNombreDelServicioExtra()}"></label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control" th:id="${'precio_' + servicio.id}"
+                                       th:name="${'precio_'+servicio}" placeholder="Precio" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
                 <!-- Miniaturas -->
                 <div id="miniaturas-container"></div>
 
@@ -81,94 +121,56 @@
             </form>
         </div>
 
-        <!--script>
-            function agregarImagen() {
-                var input = document.getElementById('imagenes');
-                var miniaturasContainer = document.getElementById('miniaturas-container');
-                var miniaturaDiv;
-                 var files = [].concat(input.files); 
-
-                for (var i = 0; i < input.files.length; i++) {
-                    var file = input.files[i];
-
-                    miniaturaDiv = document.createElement('div');
-                    miniaturaDiv.classList.add('miniatura');
 
 
-                    var img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
-
-                    var eliminarIcono = document.createElement('span');
-                    eliminarIcono.classList.add('eliminar-icono');
-                    eliminarIcono.innerHTML = '❌';
-                    eliminarIcono.onclick = function (div) {
-                        return function () {
-                            miniaturasContainer.removeChild(div);
-                        };
-                    }(miniaturaDiv);
-
-
-                    miniaturaDiv.appendChild(img);
-                    miniaturaDiv.appendChild(eliminarIcono);
-
-                    miniaturasContainer.appendChild(miniaturaDiv);
-                }
-
-                input.value = ''; // Limpiar el valor del input para permitir la selección de las mismas imágenes nuevamente
-            }
-
-            // Manejar cambios en el input de tipo file
-            document.getElementById('imagenes').addEventListener('change', agregarImagen);
-        </script-->
-        
         <script type="text/javascript">
             const miniaturasContainer = document.getElementById('miniaturas-container');
             $(document).ready(function () {
 
-            // Al seleccionar una imagen, se muestra una miniatura en el formulario
-            $("#imagenes").on("change", function () {
-                var input = $(this);
+                // Al seleccionar una imagen, se muestra una miniatura en el formulario
+                $("#imagenes").on("change", function () {
+                    var input = $(this);
 
-                var files = input[0].files;
+                    var files = input[0].files;
 
-                for (var i = 0; i < files.length; i++) {
-                    var file = files[i];
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
 
-                    // Creamos una miniatura de la imagen
-                    var miniatura = document.createElement('div');
-                    miniatura.classList.add('miniatura');
+                        // Creamos una miniatura de la imagen
+                        var miniatura = document.createElement('div');
+                        miniatura.classList.add('miniatura');
 
-                    var img = document.createElement("img");
-                    img.src = URL.createObjectURL(file);
+                        var img = document.createElement("img");
+                        img.src = URL.createObjectURL(file);
 
-                    var eliminarIcono = document.createElement('span');
-                    eliminarIcono.classList.add('eliminar-icono');
-                    eliminarIcono.innerHTML = '❌';
-                    eliminarIcono.onclick = function (div) {
-                        return function () {
-                            miniaturasContainer.removeChild(div);
-                            //files.splice(i, 1); // Eliminamos el archivo del arreglo
-                            files.removeChild(files[i]);
-                            
-                        };
-                        
-                    }(miniatura);
+                        var eliminarIcono = document.createElement('span');
+                        eliminarIcono.classList.add('eliminar-icono');
+                        eliminarIcono.innerHTML = '❌';
+                        eliminarIcono.onclick = function (div) {
+                            return function () {
+                                miniaturasContainer.removeChild(div);
+                                //files.splice(i, 1); // Eliminamos el archivo del arreglo
+                                files.removeChild(files[i]);
 
-                    miniatura.appendChild(img);
-                    miniatura.appendChild(eliminarIcono);
+                            };
 
-                    miniaturasContainer.appendChild(miniatura);
-                }
+                        }(miniatura);
 
-                input.value = ''; // Limpiar el valor del input para permitir la selección de las mismas imágenes nuevamente
+                        miniatura.appendChild(img);
+                        miniatura.appendChild(eliminarIcono);
+
+                        miniaturasContainer.appendChild(miniatura);
+                    }
+
+                    input.value = ''; // Limpiar el valor del input para permitir la selección de las mismas imágenes nuevamente
+                });
+                //             // Añadimos la miniatura al formulario
+                //             var thumbnails = $("#thumbnails");
+                //             thumbnails.append(image);
+                //         }
+                //     });
             });
-        //             // Añadimos la miniatura al formulario
-        //             var thumbnails = $("#thumbnails");
-        //             thumbnails.append(image);
-        //         }
-        //     });
-        });
-            </script>
+        </script>
     </body>
 
 </html>
