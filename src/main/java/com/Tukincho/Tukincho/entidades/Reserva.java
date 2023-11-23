@@ -30,9 +30,9 @@ public class Reserva{
     @ManyToOne
     @JoinColumn(name = "propietario_id")
     private Propietario propietario;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaInicioReserva;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinReserva;
     private Double costoReserva;
     private Double costoServiciosSeleccionados;
