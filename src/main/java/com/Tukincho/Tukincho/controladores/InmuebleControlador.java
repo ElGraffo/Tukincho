@@ -46,9 +46,6 @@ public class InmuebleControlador {
     @Autowired
     ServiciosExtraRepositorio serviciosExtrasRepositorio;
 
-    
-    
-    
     @GetMapping("/registrar")
     @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_USUARIO')")
     public String registrarInmueble(ModelMap modelo) {
@@ -74,71 +71,90 @@ public class InmuebleControlador {
             ModelMap modelo) {
 
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
-        Propietario propietario = propietarioServicio.buscarPropietario(logueado.getId());
-        if (propietario == null) {
-            Usuario usuario = usuarioServicio.buscarUsuarioPorId(logueado.getId());
-            //propietario = propietarioServicio.crearPropietario(usuario);
-            usuario.setRol(Rol.PROPIETARIO);
-            propietario = propietarioServicio.buscarPropietario(logueado.getId());
-
+        Propietario propietario=null;
+        System.out.println(logueado.getClass().getSimpleName());
+        //Propietario propietario = propietarioServicio.buscarPropietario(logueado.getId());
+        //if (propietario == null) {
+        
+        if(!logueado.getClass().getSimpleName().equals("Propietario")){
+            System.out.println("NO ESTA COMO PROPIETARIO SE CREA PROPIETARIO");
+           // Usuario usuario = usuarioServicio.buscarUsuarioPorId(logueado.getId());
+            propietario = propietarioServicio.crearPropietario(logueado);
+            usuarioServicio.borrarUsuario(logueado.getId());
         }
         try {
             // Obtener los valores de servicios extras y sus precios
             Map<String, Long> preciosServiciosExtras = new HashMap<>();
-
+            //recorro cada input del formulario y consulto si el nombre comienza por servicio_
             Enumeration<String> parameterNames = request.getParameterNames();
             while (parameterNames.hasMoreElements()) {
                 String paramName = parameterNames.nextElement();
-                if (paramName.startsWith("precio_")) {
-                    String servicioId = paramName.replace("precio_", "");
-                    Long precioServicio = Long.parseLong(request.getParameter(paramName));
+                if (paramName.startsWith("servicio_")) {
+                    //paramName viene asi servicio_34rf5t0r2rhk8xf32010 y le quito servicio_
+                    //y asi obtengo el id del servicio que fue tildado en el checkbox, el precio
+                    //viene igual a servicio solo que empieza con precio_
+                    String servicioId = paramName.replace("servicio_", "");
+                    String precioId = paramName.replace("servicio_", "precio_");
+                    Long precioServicio = Long.parseLong(request.getParameter(precioId));
                     preciosServiciosExtras.put(servicioId, precioServicio);
                 }
             }
+
             
-            Inmueble inmueble= new Inmueble();//creo un inmueble para obtener su id;
-            List<InmuebleServicioExtra> inmuebleServiciosExtra = crearInmuebleServiciosExtras(preciosServiciosExtras,inmueble);
+            
+
+            Inmueble inmueble = new Inmueble();//creo un inmueble para obtener su id;
+            List<InmuebleServicioExtra> inmuebleServiciosExtra = crearInmuebleServiciosExtras(preciosServiciosExtras, inmueble);
             List<Reserva> reserva = null;
-            inmuebleServicio.crearInmueble(propietario,inmueble, nombre, descripcion, precio, otrosDetalles, direccion, provincia, reservas, imagenes, inmuebleServiciosExtra);
+            inmuebleServicio.crearInmueble(propietario, inmueble, nombre, descripcion, precio, otrosDetalles, direccion, provincia, reservas, imagenes, inmuebleServiciosExtra);
             modelo.put("exito", "El inmueble se guardó correctamente!");
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
             return "propiedad_nueva.html";
         }
 
-        return "propiedades_listar.html";
+        return "redirect:/propiedad/listar";
     }
 
-    
-    
-    private List<InmuebleServicioExtra> crearInmuebleServiciosExtras(Map<String, Long> preciosServiciosExtras,Inmueble inmueble) {
-    List<InmuebleServicioExtra> inmuebleServiciosExtra = new ArrayList<>();
+    private List<InmuebleServicioExtra> crearInmuebleServiciosExtras(Map<String, Long> preciosServiciosExtras, Inmueble inmueble) {
+        List<InmuebleServicioExtra> inmuebleServiciosExtra = new ArrayList<>();
 
-    if (preciosServiciosExtras != null && !preciosServiciosExtras.isEmpty()) {
-        for (Map.Entry<String, Long> entry : preciosServiciosExtras.entrySet()) {
-            String servicioExtraId = entry.getKey();
-            Long precio = entry.getValue();
-            
-            ServiciosExtra servicioExtra = serviciosExtrasRepositorio.findById(servicioExtraId).orElse(null);
+        if (preciosServiciosExtras != null && !preciosServiciosExtras.isEmpty()) {
+            for (Map.Entry<String, Long> entry : preciosServiciosExtras.entrySet()) {
+                String servicioExtraId = entry.getKey();
+                Long precio = entry.getValue();
 
-            if (servicioExtra != null) {
-                InmuebleServicioExtra inmuebleServicioExtra = new InmuebleServicioExtra();
-                inmuebleServicioExtra.setServicioExtra(servicioExtra);
-                inmuebleServicioExtra.setPrecio(precio); // Establecer el precio asociado al servicio
-                inmuebleServicioExtra.setInmueble(inmueble);
+                ServiciosExtra servicioExtra = serviciosExtrasRepositorio.findById(servicioExtraId).orElse(null);
 
-                inmuebleServiciosExtra.add(inmuebleServicioExtra);
+                if (servicioExtra != null) {
+                    InmuebleServicioExtra inmuebleServicioExtra = new InmuebleServicioExtra();
+                    inmuebleServicioExtra.setServicioExtra(servicioExtra);
+                    inmuebleServicioExtra.setPrecio(precio); // Establecer el precio asociado al servicio
+                    inmuebleServicioExtra.setInmueble(inmueble);
+
+                    inmuebleServiciosExtra.add(inmuebleServicioExtra);
+                }
             }
         }
-    }
 
-    return inmuebleServiciosExtra;
-}
+        return inmuebleServiciosExtra;
+    }
 
     @GetMapping("/listar")
     public String listarPropiedades(ModelMap modelo) {
         List<Inmueble> propiedades = inmuebleServicio.listaDeInmuebles();
+        modelo.put("propiedades", propiedades);
+        return "propiedades_listar.html";
+    }
+    
+    
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_USUARIO')")
+     @GetMapping("/mispropiedades/listar")
+    public String listarPropiedadesPorPropietrio(HttpSession session, ModelMap modelo) {
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        
+        List<Inmueble> propiedades = propietarioServicio.buscarPropietarioPorInmueble(logueado.getId());
         modelo.put("propiedades", propiedades);
         return "propiedades_listar.html";
     }

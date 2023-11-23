@@ -14,9 +14,10 @@
             <div th:each="propiedad : ${propiedades}" class="col">
                 <div class="card">
                     <!-- Mostrar la primera imagen (si existe) como miniatura -->
-                     <!-- Convertir el array de bytes a una URL de datos (data URL) -->                                                                                                           
-                    <img th:if="${propiedad.getImagen != null and propiedad.getImagen().size()>0}" th:src="'data:' + ${propiedad.getImagen()[0].getMime()} + ';base64,' + ${propiedad.getImagen()[0].generateBase64Image()}"/>
-                    <img th:unless="${propiedad.getImagen != null and propiedad.getImagen().size()>0}" th:src="@{/imagenes/logo.png}"/>
+                     <!-- Convertir el array de bytes a una URL de datos (data URL) -->    
+                     <h4 th:text="${propiedad.getImagen() !=null+'cantidad imagen: ' +propiedad.getImagen().size()}"></h4>
+                    <img th:if="${propiedad.getImagen() != null && propiedad.getImagen().size()>0}" th:src="'data:' + ${propiedad.getImagen()[0].getMime()} + ';base64,' + ${propiedad.getImagen()[0].generateBase64Image()}"/>
+                    <img th:unless="${propiedad.getImagen() != null && propiedad.getImagen().size()>0}" th:src="@{/imagenes/logo.png}"/>
                     
                     <div class="card-body">
                         <h5 class="card-title" th:text="${propiedad.descripcionDelInmueble}"></h5>

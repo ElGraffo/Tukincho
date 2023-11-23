@@ -3,6 +3,7 @@ import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.excepciones.MiException;
 import com.Tukincho.Tukincho.repositorios.PropietarioRepositorio;
+import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class PortalControlador {
         return "inicio.html";
     }
     
-     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_PROPIETARIO')")
     @GetMapping("/perfil")
      
      public String perfil(ModelMap modelo, HttpSession session){
