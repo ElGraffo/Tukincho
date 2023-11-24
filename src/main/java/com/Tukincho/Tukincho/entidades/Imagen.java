@@ -35,7 +35,10 @@ public class Imagen {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
-    
+
+    @ManyToOne
+    private Feedback feedback;
+
     public String generateBase64Image() {
         return Base64.getEncoder().encodeToString(this.contenido);
     }

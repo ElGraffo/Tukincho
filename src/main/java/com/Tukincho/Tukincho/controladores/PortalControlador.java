@@ -63,7 +63,7 @@ public class PortalControlador {
     
     
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
+    public String login(@RequestParam(required = false) String error, ModelMap model) {
         if (error == null) {
             modelo.put("exito", "se ha iniciado sesion correctamente");
             return "login.html";

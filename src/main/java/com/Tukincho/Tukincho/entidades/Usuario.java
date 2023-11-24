@@ -28,9 +28,12 @@ public class Usuario {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
-    
+
     @OneToMany
     @JoinColumn(name = "reserva_id")
     private List<Reserva> reserva;
 
+    @OneToMany
+    @JoinColumn(name = "feedback_id")
+    private List<Feedback> feedback;
 }
