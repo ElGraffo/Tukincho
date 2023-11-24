@@ -65,10 +65,10 @@ public class PortalControlador {
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error == null) {
-            model.put("exito", "se ha iniciado sesion correctamente");
+            modelo.put("exito", "se ha iniciado sesion correctamente");
             return "login.html";
         }else {
-            model.put("error", "Usuario o contraseña inválidos");
+            modelo.put("error", "Usuario o contraseña inválidos");
             return null;
         }
     }
