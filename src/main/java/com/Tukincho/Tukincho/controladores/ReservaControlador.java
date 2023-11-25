@@ -55,21 +55,14 @@ public class ReservaControlador {
             Date inicioReserva = formato.parse(fechaInicioReserva);
             Date finReserva = formato.parse(fechaFinReserva);
 
-
             Inmueble inmueble = inmuebleServicio.buscarInmueblePorId(inmuebleId);
             Usuario usuario = usuarioServicio.buscarUsuarioPorId(usuarioId);
-
             reserva = reservaServicio.crearReserva(inmueble, usuario, inicioReserva,
                     finReserva, costoReserva, costoServiciosSeleccionados);
 
             List<Reserva> reservas= inmueble.getReserva();
             reservas.add(reserva);
-
-
-
-
             inmueble.setReserva(reservas);
-
             model.put("exito","La reserva se ha generado exitosamente");
         } catch (Exception e) {
             model.put("error","Ha habido un error, vuelva a intentarlo nuevamente");

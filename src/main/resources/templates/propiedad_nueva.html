@@ -56,8 +56,9 @@
 
                 <!-- Dirección -->
                 <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" class="form-control" id="direccion"  name="direccion" required>
+                    <label for="autocomplete">Dirección</label>
+                    <br>
+                    <input class="form-control" type="text" id="autocomplete" placeholder="Enter an address" name="direccion">
                 </div>
 
                 <!-- Provincia -->
@@ -76,7 +77,7 @@
                 </div>
                 <hr />
 
-                <!--<!-- Lista de servicios Extras -->
+                <!-- Lista de servicios Extras -->
                 <div class="form-group">
                     <label>Servicios Extras</label>
                     <div th:if="${servicios.size()>0}" th:each="servicio : ${servicios}">
@@ -94,11 +95,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
 
                 <!-- Miniaturas -->
                 <div id="miniaturas-container"></div>
@@ -170,6 +166,52 @@
                 //         }
                 //     });
             });
+        </script>
+        <script>
+            let autocomplete;
+            function initAutocomplete(){
+                autocomplete = new google.maps.places.Autocomplete(
+                    document.getElementById('autocomplete'),
+                    {
+                        types: ['address'],
+                        componentRestrictions: {'country' :['AR']},
+                        fields: ['place_id', 'geometry', 'name']
+                    });
+                autocomplete.addListener('place_changed', onPlaceChanged);
+            }
+            function onPlaceChanged(){
+                var place = autocomplete.getPlace();
+                if(!place.geometry){
+                    document.getElementById('autocomplete').placeholder = 'enter a place';
+                } else {
+                    document.getElementById('details').innerHTML = place.name;
+                }
+            }
+            function onPlaceChanged() {
+                var place = autocomplete.getPlace();
+                if (place.geometry) {
+                    document.getElementById('latitude').value = place.geometry.location.lat();
+                    document.getElementById('longitude').value = place.geometry.location.lng();
+                }
+                document.querySelector('form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    var latitude = document.getElementById('latitude').value;
+                    var longitude = document.getElementById('longitude').value;
+
+                    var data = {
+                        latitude: latitude,
+                        longitude: longitude
+                    };
+
+                    // Enviar datos a la base de datos
+                    //xRepository.save(data);
+                });
+
+            }
+        </script>
+        <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS0NeUXe8wjoTSO1P91zaxAnfein1S6n0&libraries=places&callback=initAutocomplete" async defer>
+
         </script>
     </body>
 

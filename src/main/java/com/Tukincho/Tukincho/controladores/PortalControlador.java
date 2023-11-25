@@ -1,5 +1,6 @@
 package com.Tukincho.Tukincho.controladores;
 import com.Tukincho.Tukincho.entidades.Usuario;
+import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.excepciones.MiException;
 import com.Tukincho.Tukincho.repositorios.PropietarioRepositorio;
@@ -27,7 +28,8 @@ public class PortalControlador {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/")
-    public String index() {
+    public String index(ModelMap modelo) {
+        modelo.addAttribute("provincias", Provincia.values());
         return "index.html";
     }
     
@@ -75,19 +77,16 @@ public class PortalControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
-
     public String inicio(HttpSession session) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
-
         return "index.html";
     }
     
      @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_PROPIETARIO')")
-    @GetMapping("/perfil")
+     @GetMapping("/perfil")
      
      public String perfil(ModelMap modelo, HttpSession session){
          
@@ -100,7 +99,7 @@ public class PortalControlador {
      
      
       @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    @PostMapping("/perfil/{id}")
+      @PostMapping("/perfil/{id}")
       
       public String actualizar( MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
                                 @RequestParam String email, @RequestParam String password, @RequestParam String password2,

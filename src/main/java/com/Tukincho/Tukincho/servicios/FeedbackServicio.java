@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 public class FeedbackServicio {
     @Autowired
     FeedbackRepositorio feedbackRepositorio;
-
-
     @Transactional
     public void crearFeedback (String titulo, String detalle, List<Imagen> imagenes, Integer calificacion){
         Feedback feedback = new Feedback();

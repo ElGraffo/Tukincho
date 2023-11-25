@@ -12,8 +12,6 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public class Usuario {
-
-
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -24,15 +22,12 @@ public class Usuario {
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
-
     @OneToMany
     @JoinColumn(name = "reserva_id")
     private List<Reserva> reserva;
-
     @OneToMany
     @JoinColumn(name = "feedback_id")
     private List<Feedback> feedback;

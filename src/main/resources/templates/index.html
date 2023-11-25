@@ -21,10 +21,9 @@
 
       <form class="row g-5 mx-3 mb-4  bg-light buscador">
         <div class="col-md-4 p-2">
-            <label for="inputState" class="form-label">Localidad</label>
-            <select id="inputState" class="form-select">
-              <option selected>Choose...</option>
-              <option>...</option>
+            <label for="provincia" class="form-label">Busca por provincia</label>
+          <select class="select" id="provincia" name="provincia" required>
+              <option th:each="p : ${provincias}" th:value="${p}" th:text="${p}">Provincias</option>
             </select>
         </div>
 
@@ -63,7 +62,7 @@
             <button  type="submit" class="btn btn-primary">Buscar</button>
           </div>
       </form>
-
+  <a th:href="@{/propiedad/listar}" target="_blank" class="btn btn-primary m-4">Propiedades en alquiler</a>
       
 
 </header>

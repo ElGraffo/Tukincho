@@ -22,12 +22,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter  {
     public void configureGlobal(AuthenticationManagerBuilder auth)throws Exception{
         auth.userDetailsService(usuarioServicio)
                 .passwordEncoder(new BCryptPasswordEncoder());
-       
-    }
-    
-    
-    
-    @Override
+    }@Override
     protected void configure(HttpSecurity http)throws Exception{
         http
                 .authorizeRequests()
@@ -49,9 +44,5 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter  {
               .and()
                 .csrf()
                 .disable();
-        
-                
-
-                        
-                        }
+    }
 }

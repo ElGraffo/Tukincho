@@ -59,3 +59,4 @@ pom.xml.backup
 # Local repository
 repository/
 src/main/resources/application.properties
+

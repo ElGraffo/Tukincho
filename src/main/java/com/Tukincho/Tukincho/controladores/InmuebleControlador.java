@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-
 /**
  *
  * @author Jonatan Atencio
@@ -99,10 +98,7 @@ public class InmuebleControlador {
                     preciosServiciosExtras.put(servicioId, precioServicio);
                 }
             }
-
             
-            
-
             Inmueble inmueble = new Inmueble();//creo un inmueble para obtener su id;
             List<InmuebleServicioExtra> inmuebleServiciosExtra = crearInmuebleServiciosExtras(preciosServiciosExtras, inmueble);
             List<Reserva> reserva = null;
@@ -112,7 +108,6 @@ public class InmuebleControlador {
             modelo.put("error", ex.getMessage());
             return "propiedad_nueva.html";
         }
-
         return "redirect:/propiedad/listar";
     }
 
@@ -136,7 +131,6 @@ public class InmuebleControlador {
                 }
             }
         }
-
         return inmuebleServiciosExtra;
     }
 
@@ -169,7 +163,6 @@ public class InmuebleControlador {
         } catch (Exception ex) {
             return "propiedad_listar.html";
         }
-
         return "inmueble_detalle.html";
     }
 
@@ -186,7 +179,6 @@ public class InmuebleControlador {
             @RequestParam List<Reserva> reserva,
             @RequestParam List<InmuebleServicioExtra> inmuebleServiciosExtra,
             ModelMap modelo) {
-
         try {
             Inmueble inmueble = inmuebleServicio.buscarInmueblePorId(id);
 
@@ -213,7 +205,6 @@ public class InmuebleControlador {
             System.out.println(ex.getMessage());
             return "error.html"; // Puedes redirigir a una página de error o hacer lo que consideres adecuado.
         }
-
         return "redirect:/propiedades/listar"; // Redirigir a la página de listar propiedades después de la edición.
     }
 }
