@@ -33,6 +33,10 @@ public class ImagenControlador {
         
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     
-    
+    /**este controlador manejara las solicitudes relacionadas 
+    *a la obtención de imágenes de perfil de usuario. Accede a "/imagen/perfil/{id}", 
+    *y busca a un usuario por su identificador (@param id), obtiene el contenido de la imagen 
+    * y la devuelve en formato de bytes con las cabeceras adecuadas.
+    */
 }
 }
