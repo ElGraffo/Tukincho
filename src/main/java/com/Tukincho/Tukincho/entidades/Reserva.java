@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -16,7 +17,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Reserva{
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
     @ManyToOne
@@ -34,7 +36,7 @@ public class Reserva{
     private Date fechaInicioReserva;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinReserva;
-    private Double costoReserva;
+    private Long costoReserva;
     private Double costoServiciosSeleccionados;
     private Boolean activo;
 }
