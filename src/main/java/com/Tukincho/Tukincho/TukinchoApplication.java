@@ -8,6 +8,6 @@ public class TukinchoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TukinchoApplication.class, args);
-	}
+		}
 
 }
