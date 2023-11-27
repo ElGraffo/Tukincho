@@ -41,6 +41,9 @@ public class ReservaServicio {
 
         reserva.setInmueble(inmueble);
         reserva.setUsuario(usuario);
+        System.out.println("el usuario tiene el id: "+reserva.getUsuario().getId());
+        reserva.setPropietario(inmueble.getPropietario());
+        System.out.println("el propietario tiene el id: "+reserva.getPropietario().getId());
         reserva.setFechaInicioReserva(fechaInicioReserva);
         reserva.setFechaFinReserva(fechaFinReserva);
         reserva.setCostoReserva(costoReserva);
