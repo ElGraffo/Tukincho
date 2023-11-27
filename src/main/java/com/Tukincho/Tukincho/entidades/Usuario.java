@@ -29,11 +29,9 @@ public class Usuario {
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
 
-    @OneToMany
-    @JoinColumn(name = "reserva_id")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reserva;
 
-    @OneToMany
-    @JoinColumn(name = "feedback_id")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedback;
 }

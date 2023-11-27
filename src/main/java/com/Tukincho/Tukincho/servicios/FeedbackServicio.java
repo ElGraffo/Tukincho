@@ -17,10 +17,22 @@ public class FeedbackServicio {
 
 
     @Transactional
-    public void crearFeedback (String titulo, String detalle, List<Imagen> imagenes, Integer calificacion){
+    public void crearFeedback (String titulo, String detalle, List<Imagen> imagenes, Integer calificacion, Usuario usuario, Inmueble inmueble){
+        System.out.println("entrando a feedback");
+
         Feedback feedback = new Feedback();
         feedback.setTitulo(titulo);
+        System.out.println(feedback.getTitulo());
+
         feedback.setDetalle(detalle);
+        System.out.println(feedback.getDetalle());
+
+        feedback.setUsuario(usuario);
+        System.out.println(feedback.getUsuario());
+
+        feedback.setInmueble(inmueble);
+        System.out.println(feedback.getInmueble());
+
         feedback.setActivo(true);
         if(imagenes!=null||!imagenes.isEmpty()){
             feedback.setImagen(imagenes);

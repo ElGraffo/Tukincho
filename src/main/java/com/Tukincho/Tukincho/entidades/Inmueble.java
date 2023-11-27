@@ -37,7 +37,7 @@ public class Inmueble {
     private List<InmuebleServicioExtra> inmuebleServiciosExtras = new ArrayList<>();
 
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Reserva> reserva;
+    private List<Reserva> reservas;
     
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <Imagen> imagen;
