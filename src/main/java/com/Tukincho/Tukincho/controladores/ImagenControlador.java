@@ -37,6 +37,10 @@ public class ImagenControlador {
     *a la obtención de imágenes de perfil de usuario. Accede a "/imagen/perfil/{id}", 
     *y busca a un usuario por su identificador (@param id), obtiene el contenido de la imagen 
     * y la devuelve en formato de bytes con las cabeceras adecuadas.
+    * @param usuario referencia a la entidad usuario
+    * @param imagen el contenido de la imagen representado en forma de bytes
+    * @param headers encabezados http
+    * @return devuelve el contenido de la imagen con los headers y su estado http
     */
 }
 }
