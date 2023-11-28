@@ -17,7 +17,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     @Query("select u from Usuario u where u.activo = :activo")
     List<Usuario> filtrarUsuariosActivos(@Param("activo") Boolean activo);
     
-   @Query("select u from Usuario u where u.reserva = :nombreUsuario")
+   @Query("select u from Usuario u where u.reserva = :reserva")
    public Usuario filtrarPorReserva(@Param("reserva") List<Reserva> reserva);
     
     
