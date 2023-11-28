@@ -49,7 +49,7 @@ public class InmuebleServicio {
         inmueble.setDireccion(direccion);
         inmueble.setProvincia(provincia);
         inmueble.setActiva(true);
-        inmueble.setReserva(reserva);
+        inmueble.setReservas(reserva);
         inmueble.setInmuebleServiciosExtras(serviciosExtras);
         inmueble = inmuebleRepositorio.save(inmueble);
        
@@ -85,7 +85,7 @@ public class InmuebleServicio {
             inmueble.setDireccion(direccion);
             inmueble.setProvincia(provincia);
             inmueble.setActiva(activa);
-            inmueble.setReserva(reserva);
+            inmueble.setReservas(reserva);
 
             // Lógica para manejar las imágenes, por ejemplo, guardarlas en la base de datos o en el sistema de archivos.
             // Aquí asumimos que tienes un servicio de imágenes (imagenServicio) para manejar la lógica de guardar las imágenes.
