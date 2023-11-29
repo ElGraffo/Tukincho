@@ -1,4 +1,3 @@
-
 Alquiler de quinchos proyecto final EGG Cooperation.
 
 Equipo formado por:
