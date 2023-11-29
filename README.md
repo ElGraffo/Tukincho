@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Alquileres de quinchos EGG Cooperation
-=======
 Alquiler de quinchos proyecto final EGG Cooperation.
 
 Equipo formado por:
@@ -13,4 +10,3 @@ Pedro Palermo.
 Octavio Palermo.
 Silvana Gimenez.
 Sergio Fuentes.
->>>>>>> developer
