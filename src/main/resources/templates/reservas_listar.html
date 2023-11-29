@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head">
+    
+</head>
+<body>
+    <nav th:replace= "/fragments/navbar :: nav" ></nav>
+
+
+<h2>Lista de Reservas</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Inmueble</th>
+            <th>Propietario</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Costo de Reserva</th>
+            <th>Costo de Servicios Seleccionados</th>
+            <th>Activo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Itera sobre la lista de reservas y muestra los datos -->
+        <tr th:each="reserva : ${reservas}">
+            <td th:text="${reserva.id}"></td>
+            <td th:text="${reserva.inmueble.getNombre()}"></td>
+            <td th:text="${#dates.format(reserva.getFechaInicioReserva, 'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(reserva.getFechaFinReserva, 'yyyy-MM-dd')}"></td>
+            <td th:text="${reserva.getCostoReserva}"></td>
+            <td th:text="${reserva.getCostoServiciosSeleccionados}"></td>
+            <td th:text="${reserva.getActivo} ? 'Sí' : 'No'"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

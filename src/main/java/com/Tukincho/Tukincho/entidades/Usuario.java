@@ -34,4 +34,15 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedback;
+    
+    @Override
+    public String toString(){
+        return "usuario["+
+                "id"+id+
+                "NombreUsuario"+nombreUsuario+
+                "email"+email+
+                "activo?:"+activo+
+                "Rol:"+rol+"]";
+                
+    }
 }
