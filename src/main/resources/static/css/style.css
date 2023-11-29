@@ -1,3 +1,7 @@
+
+.navbar {
+    background-color: rgb(0, 43, 91) !important;
+}
 .card {
 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -36,10 +40,14 @@
 .card-body{
   height: 200px;
 }
-
+ 
+.card-body2{
+    min-height: 200px;
+}
 
 #logo{
-  height: 25px;
+  height:  25px;
+  width: 25px;
 }
 
 .formulario{
