@@ -2,10 +2,13 @@
 package com.Tukincho.Tukincho.entidades;
 
 
+import com.Tukincho.Tukincho.repositorios.FeedbackRepositorio;
+import com.Tukincho.Tukincho.servicios.FeedbackServicio;
 import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 @Entity
@@ -32,6 +35,8 @@ public class Feedback {
 
     private Boolean activo;
     
+ 
+     
     @Override
     public String toString() {
         return "Feedback{" +
