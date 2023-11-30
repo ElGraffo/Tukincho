@@ -417,3 +417,27 @@ textarea.input100 {
 .contact100-more-highlight {
     color: #bd59d4;
 }
+
+/*
+    estilos para las calificacion por estrellas
+*/
+
+
+.rating {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.star {
+    font-size: 32px;
+    color: #ddd;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.star:hover,
+.star.checked {
+    color: gold;
+}
+/*fin estilo estrellas*/
