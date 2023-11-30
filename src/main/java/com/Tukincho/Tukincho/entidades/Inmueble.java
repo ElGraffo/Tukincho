@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 import com.Tukincho.Tukincho.enums.Provincia;
+import com.Tukincho.Tukincho.servicios.FeedbackServicio;
 import java.util.ArrayList;
 
 @Data
@@ -37,7 +38,7 @@ public class Inmueble {
     private List<InmuebleServicioExtra> inmuebleServiciosExtras = new ArrayList<>();
 
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Reserva> reserva;
+    private List<Reserva> reservas;
     
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <Imagen> imagen;
@@ -45,7 +46,23 @@ public class Inmueble {
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedback;
     
+      public Double getCalificacionTotal() {
+        if (feedback != null && !feedback.isEmpty()) {
+            int totalCalificaciones = 0;
+
+            for (Feedback fb : feedback) {
+                totalCalificaciones += fb.getCalificacion();
+            }
+
+            return (double) totalCalificaciones / feedback.size();
+        }
+
+        return 0.0;
+    }
 
     // todo --> agregar lista de reseñas / agregar localidad
-
+@Override
+public String toString(){
+    return "Inmueble[nombre: "+nombre+"Descripcion: "+descripcionDelInmueble+"Precio:"+precioPorNoche+"]";
+}
 }

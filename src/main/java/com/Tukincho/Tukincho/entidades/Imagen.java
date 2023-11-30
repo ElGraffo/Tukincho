@@ -25,11 +25,11 @@ public class Imagen {
     @ManyToOne
     @JoinColumn(name = "inmueble_id")
     private Inmueble inmueble;
-    
+
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    
+
     private String mime;
     private String nombre;
     @Lob
@@ -37,10 +37,17 @@ public class Imagen {
     private byte[] contenido;
 
     @ManyToOne
+    @JoinColumn(name = "feedback_id")
     private Feedback feedback;
 
     public String generateBase64Image() {
         return Base64.getEncoder().encodeToString(this.contenido);
     }
+    
+    @Override
+    public String toString(){
+        return "Imagen["+
+                "nombre"+nombre+"]";
+                
+    }
 }
-

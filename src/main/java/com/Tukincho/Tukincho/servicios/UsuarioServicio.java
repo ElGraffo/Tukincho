@@ -1,4 +1,5 @@
 package com.Tukincho.Tukincho.servicios;
+
 import com.Tukincho.Tukincho.entidades.Imagen;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
@@ -28,11 +29,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class UsuarioServicio implements UserDetailsService{
+public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-    
+
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
@@ -72,10 +73,51 @@ public class UsuarioServicio implements UserDetailsService{
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-       
+
             usuarioRepositorio.save(usuario);
         }
     }
+
+    @Transactional
+    public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
+            String password2) throws Exception {
+
+        validar(nombre, email, password, password2);
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            usuario.setEmail(email);
+            usuario.setNombreUsuario(nombre);
+//            usuario.setActivo(true);
+//            usuario.setRol(Rol.USUARIO); ////y esto por que?
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+
+
+    @Transactional
+    public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
+                                  String password2) throws Exception {
+        validar(nombre, email, password, password2);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            usuario.setEmail(email);
+            usuario.setNombreUsuario(nombre);
+//            usuario.setActivo(true);
+//            usuario.setRol(Rol.USUARIO); ////y esto por que?
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
 
     public Usuario buscarUsuarioPorId(String id) {
         try {
@@ -167,6 +209,4 @@ public class UsuarioServicio implements UserDetailsService{
             return IOUtils.toByteArray(inputStream);
         }
     }
-    
-    
 }

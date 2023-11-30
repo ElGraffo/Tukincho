@@ -2,10 +2,13 @@
 package com.Tukincho.Tukincho.entidades;
 
 
+import com.Tukincho.Tukincho.repositorios.FeedbackRepositorio;
+import com.Tukincho.Tukincho.servicios.FeedbackServicio;
 import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 @Entity
@@ -31,4 +34,19 @@ public class Feedback {
     private Usuario usuario;
 
     private Boolean activo;
+    
+ 
+     
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", detalle='" + detalle + '\'' +
+                ", calificacion=" + calificacion +
+                // Evitar imprimir la relación inversa de Usuario
+                // Evitar imprimir la relación inversa de Inmueble
+                // Evitar imprimir la relación inversa de Imagen
+                '}';
+    }
 }

@@ -19,8 +19,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     
    @Query("select u from Usuario u where u.reserva = :reserva")
    public Usuario filtrarPorReserva(@Param("reserva") List<Reserva> reserva);
-    
-    
+   
 }
 
 

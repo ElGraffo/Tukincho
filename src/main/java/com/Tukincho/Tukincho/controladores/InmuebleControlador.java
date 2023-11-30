@@ -81,6 +81,8 @@ public class InmuebleControlador {
            // Usuario usuario = usuarioServicio.buscarUsuarioPorId(logueado.getId());
             propietario = propietarioServicio.crearPropietario(logueado);
             usuarioServicio.borrarUsuario(logueado.getId());
+        }else{
+            propietario=(Propietario) logueado;
         }
         try {
             // Obtener los valores de servicios extras y sus precios
@@ -96,6 +98,7 @@ public class InmuebleControlador {
                     String servicioId = paramName.replace("servicio_", "");
                     String precioId = paramName.replace("servicio_", "precio_");
                     Long precioServicio = Long.parseLong(request.getParameter(precioId));
+                    
                     preciosServiciosExtras.put(servicioId, precioServicio);
                 }
             }
