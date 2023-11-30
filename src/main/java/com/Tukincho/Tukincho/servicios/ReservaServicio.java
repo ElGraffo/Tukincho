@@ -1,6 +1,7 @@
 package com.Tukincho.Tukincho.servicios;
 
 import com.Tukincho.Tukincho.entidades.Inmueble;
+import com.Tukincho.Tukincho.entidades.Propietario;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import com.Tukincho.Tukincho.entidades.Usuario;
 
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.Tukincho.Tukincho.repositorios.ReservaRepositorio;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 /**
  *
@@ -30,22 +30,22 @@ public class ReservaServicio {
     private ReservaRepositorio reservaRepositorio;
 
     @Transactional
-    public Reserva crearReserva(Inmueble inmueble, Usuario usuario, Date fechaInicioReserva,
+    public Reserva crearReserva(Inmueble inmueble, Usuario usuario,Propietario propietario, Date fechaInicioReserva,
             Date fechaFinReserva, Long costoReserva, Double costoServiciosSeleccionados) throws Exception {
         System.out.println("fecha inicio en reserva-crear: " + fechaInicioReserva);
-        System.out.println("fecha inicio en reserva-crear" + fechaFinReserva);
-        validarReserva(inmueble, usuario, fechaInicioReserva, fechaInicioReserva,
+        System.out.println("fecha Fin en reserva-crear" + fechaFinReserva);
+        validarReserva(inmueble, usuario,propietario, fechaInicioReserva, fechaInicioReserva,
                 costoReserva, costoServiciosSeleccionados);
 
         Reserva reserva = new Reserva();
 
         reserva.setInmueble(inmueble);
         reserva.setUsuario(usuario);
-        System.out.println("el usuario tiene el id: "+reserva.getUsuario().getId());
-        reserva.setPropietario(inmueble.getPropietario());
-        System.out.println("el propietario tiene el id: "+reserva.getPropietario().getId());
+        reserva.setPropietario(propietario);
         reserva.setFechaInicioReserva(fechaInicioReserva);
         reserva.setFechaFinReserva(fechaFinReserva);
+        System.out.println("DENTRO DE CREAR RESERVA-COSTO RESERVA :"+costoReserva);
+        reserva.setActivo(true);
         reserva.setCostoReserva(costoReserva);
         reserva.setCostoServiciosSeleccionados(costoServiciosSeleccionados);
         return reservaRepositorio.save(reserva);
@@ -157,7 +157,7 @@ public class ReservaServicio {
      * @param costoServiciosSeleccionados
      * @throws Exception
      */
-    public void validarReserva(Inmueble inmueble, Usuario usuario, Date fechaInicioReserva,
+    public void validarReserva(Inmueble inmueble, Usuario usuario,Propietario propietario, Date fechaInicioReserva,
             Date fechaFinReserva, Long costoReserva, Double costoServiciosSeleccionados) throws Exception {
         if (inmueble == null) {
             throw new Exception("El inmueble no puede ser nulo");
@@ -166,6 +166,11 @@ public class ReservaServicio {
         if (usuario == null) {
             throw new Exception("El usuario no puede ser nulo");
         }
+        
+        if(propietario == null){
+            throw new Exception("El propietario no puede ser nulo");
+        }
+        
         Instant ahora = Instant.now();
         ZoneId zonaHorariaArgentina = ZoneId.of("America/Argentina/Buenos_Aires");
 
@@ -178,11 +183,11 @@ public class ReservaServicio {
         System.out.println("Fecha de inicio (UTC): " + inicioReservaUtc);
         System.out.println("Fecha de fin (UTC): " + finReservaUtc);
 
-        if (inicioReservaUtc.isBefore(ahoraUtc) || inicioReservaUtc.equals(ahoraUtc)) {
+        if (inicioReservaUtc==null || inicioReservaUtc.isBefore(ahoraUtc)) {
             throw new Exception("La fecha de inicio de reserva no puede ser anterior o igual a la fecha actual");
         }
 
-        if (finReservaUtc.isBefore(ahoraUtc) || finReservaUtc.isBefore(inicioReservaUtc)) {
+        if (finReservaUtc==null || finReservaUtc.isBefore(ahoraUtc) || finReservaUtc.isBefore(inicioReservaUtc)) {
             throw new Exception("La fecha de fin de reserva no puede ser anterior a la fecha actual o anterior a la fecha de inicio de la reserva");
         }
 

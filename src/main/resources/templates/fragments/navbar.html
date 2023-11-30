@@ -28,7 +28,7 @@
                            </li>  -->
 
                 <li class="nav-item">
-                    <a class="nav-link active" th:if="${session.usuariosession != null and #strings.toString(session.usuariosession.rol) == 'ADMIN'}" aria-current="page" th:href="@{/admin/dashboard}">Panel de control</a>
+                    <a   class="nav-link active"  sec:authorize="hasAuthority('ROLE_ADMIN')" aria-current="page"  th:href="@{/admin/dashboard}">Panel de control</a>
 
                     <!--                    <a   class="nav-link active"  sec:authorize="hasAuthority('ADMIN')" aria-current="page"  th:href="@{/admin/dashboard}">Panel de control</a>-->
                 </li>

@@ -47,5 +47,8 @@ public class Inmueble {
     
 
     // todo --> agregar lista de reseñas / agregar localidad
-
+@Override
+public String toString(){
+    return "Inmueble[nombre: "+nombre+"Descripcion: "+descripcionDelInmueble+"Precio:"+precioPorNoche+"]";
+}
 }

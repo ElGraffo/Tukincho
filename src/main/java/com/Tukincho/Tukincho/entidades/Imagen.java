@@ -43,4 +43,11 @@ public class Imagen {
     public String generateBase64Image() {
         return Base64.getEncoder().encodeToString(this.contenido);
     }
+    
+    @Override
+    public String toString(){
+        return "Imagen["+
+                "nombre"+nombre+"]";
+                
+    }
 }

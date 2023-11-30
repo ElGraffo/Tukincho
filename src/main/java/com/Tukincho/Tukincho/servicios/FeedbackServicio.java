@@ -28,13 +28,15 @@ public class FeedbackServicio {
         System.out.println(feedback.getDetalle());
 
         feedback.setUsuario(usuario);
-        System.out.println(feedback.getUsuario());
+        System.out.println(feedback.getUsuario().getNombreUsuario());//el error se origina porque imprime el objeto completo
 
         feedback.setInmueble(inmueble);
-        System.out.println(feedback.getInmueble());
+        System.out.println(feedback.getInmueble().getNombre());
+        
+        //TODO si existe un comentario del usuario para el id del inmueble pasado por paramentro, no puede volver a comentar
 
         feedback.setActivo(true);
-        if(imagenes!=null||!imagenes.isEmpty()){
+        if(imagenes!=null && !imagenes.isEmpty()){
             feedback.setImagen(imagenes);
         }
         feedback.setCalificacion(calificacion);

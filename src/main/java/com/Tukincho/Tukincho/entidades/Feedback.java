@@ -31,4 +31,17 @@ public class Feedback {
     private Usuario usuario;
 
     private Boolean activo;
+    
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", detalle='" + detalle + '\'' +
+                ", calificacion=" + calificacion +
+                // Evitar imprimir la relación inversa de Usuario
+                // Evitar imprimir la relación inversa de Inmueble
+                // Evitar imprimir la relación inversa de Imagen
+                '}';
+    }
 }

@@ -57,7 +57,7 @@ public class FeedbackControlador {
 
         try {
 
-            List<Imagen> imagenes= new ArrayList<Imagen>();
+            List<Imagen> imagenes= null;
 
             System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             Reserva reserva=reservaServicio.buscarReservaById(reservaId);
@@ -79,3 +79,4 @@ public class FeedbackControlador {
         return "index.html";
     }
 }
+
