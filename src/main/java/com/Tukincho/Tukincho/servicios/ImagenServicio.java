@@ -2,7 +2,6 @@ package com.Tukincho.Tukincho.servicios;
 
 import com.Tukincho.Tukincho.entidades.Imagen;
 import java.util.Optional;
-import com.Tukincho.Tukincho.excepciones.MiException;
 import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
 import java.io.InputStream;
 import javax.transaction.Transactional;
@@ -18,7 +17,7 @@ public class ImagenServicio {
     private ImagenRepositorio imagenRepositorio;
 
     @Transactional
-    public Imagen guardar(MultipartFile archivo) throws MiException {
+    public Imagen guardar(MultipartFile archivo) throws Exception {
         if (archivo != null) {
             try {
                 Imagen imagen = new Imagen();
@@ -37,7 +36,7 @@ public class ImagenServicio {
         return null;
     }
 
-    public Imagen actualizar(MultipartFile archivo, String idImagen) throws MiException {
+    public Imagen actualizar(MultipartFile archivo, String idImagen) throws Exception {
         if (archivo != null) {
             try {
                 Imagen imagen = new Imagen();

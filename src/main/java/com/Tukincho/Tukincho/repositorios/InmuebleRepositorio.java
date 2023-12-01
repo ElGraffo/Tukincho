@@ -24,9 +24,6 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
     @Query("SELECT p.inmuebles FROM Propietario p WHERE p.id = :propietarioId")
     List<Inmueble> buscarPropietarioPorInmueble(@Param("propietarioId") String propietarioId);
 
-    /*@Query("SELECT i FROM Inmueble i JOIN i.serviciosExtras s WHERE s.nombre = :nombreDelServicioExtra")
-    List<Inmueble> findByServicioExtra(@Param("nombreDelServicioExtra") String nombreDelServicioExtra);*/
-
     // todo -> hacer query de buscar por localidad
 
 }

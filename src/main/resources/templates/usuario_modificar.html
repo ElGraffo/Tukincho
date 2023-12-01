@@ -3,7 +3,6 @@
     <head th:replace="/fragments/head :: head" >
         <link rel="stylesheet" href="/css/perfil.css">
     </head>
-
     <body>
         <div class="contenedor">
         <nav th:replace="/fragments/navbar :: nav" ></nav>
@@ -42,19 +41,13 @@
                     <div class="form-group my-3">
                         <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA">
                     </div>
-
-                    <!--        <div class="form-group my-3">
-                                <input type="file" class="form-control" name="Newarchivo" placeholder="selecciona imagen">
-                            </div> -->
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Actualizar perfil</button>
-                            </div>
+                    <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Actualizar perfil</button>
+                    </div>
             </form>
         </div>
     </div>
         <footer th:replace= "/fragments/footer :: footer" ></footer>
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -56,25 +56,6 @@
                             th:aria-label="'Slide ' + ${iterStat.index + 1}"></button>
                 </div>
                 <div class="carousel-inner">
-                    <!--                 <div class="carousel-item active ">
-                            <div class="d-flex justify-content-center">
-                                <img src="/imagenes/1.jpg" class="c" alt="...">
-            
-                            </div>
-            
-                        </div>
-                        <div class="carousel-item ">
-                            <div class="d-flex justify-content-center">
-                                <img src="/imagenes/2.jpg" class="c" alt="...">
-            
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <div class="d-flex justify-content-center">
-                                <img src="/imagenes/3.jpg" class="c" alt="...">
-            
-                            </div>
-                        </div> -->
 
                     <!-- carrusel con thymeleaf (?) -->
                     <div class="carousel-item" th:each="imagen, iterStat : ${inmueble.getImagen()}"
@@ -90,11 +71,6 @@
                             <img th:src="@{/imagenes/logo.png}" class="c" />
                         </div>
                     </div>
-
-
-
-
-
                     <!-- ------------------------------------------------------- -->
 
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -152,12 +128,6 @@
                         <!-- escribo el costo base-->
                         <p id="costoReservaSinServiciosExtra"><strong>Precio base: </strong> (Ingrese fechas de entrada y
                             salida)</p>
-
-
-                        <!-- <div class="formulario-item">
-                                <label for="mensaje-id">Mensaje al propietario (opcional)</label><br>
-                                <textarea name="mensaje" id="mensaje-id" cols="30" rows="10" th:value="${mensaje}"></textarea>
-                            </div> -->
 
                         <!------------------------------------------------------------------------------------>
                         <!---------------------------- servicios y prestaciones --------------------------------->
@@ -236,25 +206,7 @@
             <div class="contenedor-descripcion">
                 <h4>Descripción</h4>
                 <div class="contenedor-descripcion-interno">
-                    <!--                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, est autem. Alias magnam, aperiam
-                    vitae
-                    dolorum fuga, esse eum cum voluptas rem eos quos et eaque. Debitis distinctio facilis doloremque
-                    dignissimos id ducimus nostrum. Minus labore facilis sed hic debitis excepturi consequuntur quidem
-                    unde
-                    odio ducimus blanditiis culpa distinctio eius harum ipsum possimus quas, fugiat enim optio, modi
-                    nostrum
-                    voluptatem. Expedita quisquam laboriosam nesciunt pariatur! Impedit rem, voluptas quaerat explicabo
-                    veniam odio consequatur amet reiciendis porro. Quasi soluta consectetur quis doloribus amet beatae
-                    nam
-                    facilis. Delectus consequuntur quia in explicabo fugiat temporibus quo saepe. Fugiat explicabo odit
-                    officiis modi minus, laudantium numquam voluptates obcaecati molestiae eius nesciunt excepturi
-                    asperiores esse dignissimos porro tempore repellat suscipit illum natus perspiciatis dolor corporis
-                    nisi
-                    quod? At maxime temporibus culpa iure nesciunt enim facilis, tempore voluptatum quos, voluptatem
-                    quisquam in harum impedit, expedita aliquam perferendis! Inventore dignissimos enim doloremque fuga
-                    dolorum exercitationem tenetur laudantium -->
                     <p th:text="${inmueble.descripcionDelInmueble}"></p>
-
                     <p class="card-text"><strong>Precio por Noche:</strong><span th:text="${inmueble.precioPorNoche}"></span></p>
                     <p class="card-text"><strong>Dirección:</strong> <span th:text="${inmueble.direccion}"></span></p>
                     <p class="card-text"><strong>Otro Detalle:</strong> <span th:text="${inmueble.otrosDetallesDelInmueble}"></span></p>
@@ -272,9 +224,8 @@
 
 
         </div>
+        <footer th:replace="/fragments/footer :: footer"></footer>
 
-            <!-- por alguna razon si pongo el footer adentro del div contenedor de arriba se rompe un poco y se ve mas chiquito...-->
-            <footer th:replace="/fragments/footer :: footer"></footer>
 
 
             <!-- ================================================================================= -->
