@@ -9,8 +9,10 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
 
-                    <a class="nav-link active" aria-current="page" href="/login">Inicia sesion</a>
-
+                    <li class="nav-item">
+                    <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/login}">Inicia Sesion</a>
+                    <a  th:unless="${session.usuariosession == null}" class="nav-link" th:href="@{/perfil}" th:text="${session.usuariosession.getNombreUsuario()}">Perfil</a>
+                </li>
                    <!-- <a  th:if="${session.usuariosession == null}" class="nav-link active" aria-current="page"  th:href="@{/login}">Inicia sesion</a>-->
                 </li>
                 <li class="nav-item">

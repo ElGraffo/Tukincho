@@ -9,6 +9,7 @@ import com.Tukincho.Tukincho.repositorios.ReservaRepositorio;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 import com.Tukincho.Tukincho.servicios.ReservaServicio;
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -173,18 +174,36 @@ public class PortalControlador {
 
 
         }
-    @GetMapping("/perfil/misReservasCliente/{id}")
+    @GetMapping("/perfil/misReservasCliente/{nombreUsuario}")
 
-    public String listarPropiedades(@PathVariable String id,
+    public String listarPropiedades(@PathVariable String nombreUsuario,
                                     ModelMap modelo) throws Exception {
         List<Reserva> reservas = null;
         try {
-            reservas = reservaServicio.buscarPorIdUsuario(id);
+            //usuario tiene una lista de reservas
+            reservas = usuarioServicio.buscarUsuarioRolUsuario(nombreUsuario).getReserva();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+           // throw new RuntimeException(e);
+           modelo.put("reservas",new ArrayList<Reserva>());
+            System.out.println("SIN RESERVAS PARA EL USUARIO");
         }
         modelo.put("reservas", reservas);
         return "reservas_listar_por_usuario.html";
+    }
+    
+    @GetMapping("/mostrar/reservas/misinmuebles/{idPropietario}")
+    public String mostrarReservasAmisInmuebles(@PathVariable String idPropietario, ModelMap modelo){
+        try{
+            
+        
+        List<Reserva> reservas =reservaServicio.buscabuscarPorPropietarioId(idPropietario);
+        modelo.put("reservas",reservas);
+        }catch(Exception e){
+            System.out.println("error"+e.getMessage());
+            return "propiedad/listar";
+        }
+        return "reservas_a_mis_inmuebles.html";
+        
     }
 
     }

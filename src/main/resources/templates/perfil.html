@@ -41,7 +41,6 @@
 
 
 
-    <script src="../static/js/script.js" defer></script>
 </head>
 
 
@@ -85,12 +84,12 @@
         <div class="botonera">
             <a class="boton izquierdo" id="boton-usuario">Datos
                 usuario</a>
-            <a th:if="${#strings.toString(usuario.rol) == 'PROPIETARIO'}" class="boton" th:href="@{/propiedad/listar}"
+            <a th:if="${#strings.toString(usuario.rol) == 'PROPIETARIO'}" class="boton" th:href="@{/propiedad/mispropiedades/listar}"
                 id="boton-propiedades">Mis propiedades</a>
-            <a th:if="${#strings.toString(usuario.rol) == 'PROPIETARIO'}" class="boton" th:href="@{/propiedad/listar}"
-                id="boton-reservas-a-mi">Reservas a mis propiedades</a>
+            <a th:if="${#strings.toString(usuario.rol) == 'PROPIETARIO'}" class="boton" th:href="@{/mostrar/reservas/misinmuebles/__${usuario.getId()}__}"
+                id="boton-reservas-a-mi">Me hicieron Reservas</a>
             <!-- <a class="boton" sec:authorize="hasAuthority('PROPIETARIO')" th:href="@{/propiedad/listar}">Mis propiedades</a> -->
-            <a class="boton derecho"  th:href="@{/perfil/misReservasCliente/__${usuario.id}__}" id="boton-reservas">Mis reservas</a>
+            <a class="boton derecho"  th:href="@{/perfil/misReservasCliente/__${usuario.getNombreUsuario()}__}" id="boton-reservas">Mis reservas</a>
         </div>
 
 
