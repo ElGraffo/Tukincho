@@ -15,11 +15,11 @@
 }
 
 .novisible {
-   display: none;
+    display: none;
 }
 
 .visible {
-   display: initial;
+    display: initial;
 }
 
 .contenido_panel {
