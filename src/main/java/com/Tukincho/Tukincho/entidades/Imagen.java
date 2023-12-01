@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -24,19 +25,29 @@ public class Imagen {
     @ManyToOne
     @JoinColumn(name = "inmueble_id")
     private Inmueble inmueble;
-    
-    @ManyToOne
+
+    @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    
+
     private String mime;
     private String nombre;
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "feedback_id")
+    private Feedback feedback;
+
     public String generateBase64Image() {
         return Base64.getEncoder().encodeToString(this.contenido);
     }
+    
+    @Override
+    public String toString(){
+        return "Imagen["+
+                "nombre"+nombre+"]";
+                
+    }
 }
-

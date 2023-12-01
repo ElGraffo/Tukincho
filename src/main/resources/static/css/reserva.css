@@ -1,0 +1,344 @@
+:root {
+    --color1: #61A3BA;
+    --color2: #FFFFDD;
+    --color3: #D2DE32;
+    --color4: #A2C579;
+}
+
+.contenedor {
+    display: grid;
+    column-gap: 5px;
+    row-gap: 20px;
+    margin: 100px;
+
+    grid-template: repeat(4, auto) / 50% 50%;
+    grid-template-areas: "header header"
+        "formulario-datos-cliente carrusel"
+        "comentarios contenedor-descripcion"
+        "footer footer"
+}
+
+header {
+    grid-area: header;
+}
+
+footer {
+    grid-area: footer;
+}
+
+body {
+   /*  background-color: var(--color4); */
+   background-image: radial-gradient(circle at bottom, var(--color1),white);
+   
+}
+
+
+
+.navbar {
+    background-color: var(--color1) !important;
+}
+
+/* copiado del style */
+#logo {
+    height: 25px;
+}
+
+/* --------------------------------------------------------------------------*/
+/*--------------------------- formulario---------------------------- */
+/* --------------------------------------------------------------------------*/
+
+.contenedor-formulario {
+    /* padding: 40px; */
+    background-color: white;
+    border-radius: 15px;
+/*     border: solid 1px;
+    border-color: var(--color1); */
+    width: 80%;
+
+    background-color: var(--color1);
+
+}
+
+.contenedor-formulario-interno {
+    background-color: white;
+    padding: 40px;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px;
+   /*  border-color: var(--color1); */
+}
+
+.contenedor-formulario h2 {
+    padding: 20px 40px;
+    color: white;
+}
+
+.formulario-reserva {
+    display: grid;
+    gap: 20px;
+    grid-area: formulario;
+}
+
+.boton-reservar {
+    background-color: var(--color4);
+    border-radius: 15px;
+    color: aliceblue;
+    border: none;
+    width: 50%;
+    height: 5vh;
+
+    font-size: large;
+}
+
+.boton-reservar:hover {
+    opacity: 80%;
+}
+
+/* .boton-reservar:active{
+    background-color: #61A3BA;
+} */
+
+#mensaje-id {
+    height: 10vh;
+    width: 80%;
+}
+
+
+
+
+.desplegable {
+    position: relative;
+    display: inline-block;
+}
+
+.contenido-desplegable {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+}
+
+.contenido-desplegable label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contenido-desplegable input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.div-servicios-incluidos ul {
+    list-style: none;
+}
+
+.boton-desplegar,
+.div-servicios-incluidos ul li {
+    /* background-color: var(--color2); */
+    background-image: linear-gradient(to bottom, var(--color4),var(--color2));
+    border-radius: 15px;
+    border: solid 1px;
+    border-color: var(--color3);
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+
+/* --------------------------------------------------------------------------*/
+/*--------------------------- cosas del carrusel---------------------------- */
+/* --------------------------------------------------------------------------*/
+
+
+#carouselExampleIndicators {
+    width: 750px;
+    padding: 50px;
+    /* background-color: white; */
+   border-radius: 100px;
+   /*  border: solid 1px;  */
+    /* border-color: var(--color2); */
+    background-image: radial-gradient(at center, var(--color1), white);
+    grid-area: carrusel;
+}
+
+.carousel-item img {
+    width: 80%;
+    height: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+
+
+/* Cambiar el color de los íconos de las flechas */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+
+}
+
+
+/* Cambiar el color de fondo de los indicadores activos */
+.carousel-indicators .active {
+    background-color: var(--color1);
+}
+
+/* Cambiar el color de fondo de los indicadores inactivos */
+/* .carousel-indicators button {
+    background-color: #f81313;
+
+} */
+
+/* .contenedor-servicios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+    border: solid 1px;
+    border-color: rgb(228, 220, 207);
+
+    grid-area: servicios;
+} */
+
+ul {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* robada del style */
+.c {
+    width: auto;
+    height: 50vh !important;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------*/
+/* ------------------------------ comentarios ----------------------------------*/
+/* -----------------------------------------------------------------------------*/
+
+.contenedor-comentarios {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color1);
+    /* background-color: rgb(228, 220, 207); */
+    color: white;
+
+
+
+    border-radius: 15px;
+    border: solid 1px;
+    border-color: var(--color1);
+    width: 80%;
+    height: 25vh;
+
+    grid-area: comentarios;
+}
+
+.contenedor-comentarios-interno {
+    overflow-y: scroll;
+    /*     scrollbar-color: rgb(0, 43, 91);
+    scrollbar-width: thin; */
+
+}
+
+.contenedor-comentarios h4 {
+    padding: 10px 30px;
+}
+
+.comentario {
+    background-color: white;
+    color: black;
+    border-top: solid 1px;
+    border-color: var(--color2);
+    padding: 10px 30px;
+}
+
+/* Ancho del scrollbar */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Color del fondo del scrollbar */
+::-webkit-scrollbar-track {
+    background-color: white;
+}
+
+/* Color del coso del scrollbar */
+::-webkit-scrollbar-thumb {
+    background-color: var(--color1);
+}
+
+
+/*--------------------------------------------------------------------------*/
+/*---------------------------------- descripcion ---------------------------*/
+/*--------------------------------------------------------------------------*/
+.contenedor-descripcion {
+    background-color: var(--color1);
+    /* background-color: rgb(228, 220, 207); */
+    color: white;
+
+
+
+    border-radius: 15px;
+    border: solid 1px;
+    border-color: var(--color1);
+    width: 750px;
+    height: fit-content;
+    grid-area: contenedor-descripcion;
+}
+
+.contenedor-descripcion-interno,
+.contenedor-descripcion h4 {
+    padding: 10px 30px;
+}
+
+.contenedor-descripcion-interno {
+    background-color: white;
+    color: black;
+}
+
+
+/*--------------------------------------------------------------------------*/
+/*---------------------------------- responsive ---------------------------*/
+/*--------------------------------------------------------------------------*/
+
+@media(max-width:1200px) {
+    .contenedor {
+
+
+
+        margin: 50px;
+
+        grid-template: repeat(6, auto) / 100%;
+        grid-template-areas: "header"
+            "formulario-datos-cliente"
+            "carrusel"
+            "comentarios"
+            "contenedor-descripcion"
+            "footer"
+    }
+
+
+    .contenedor-formulario,
+    #carouselExampleIndicators,
+    .contenedor-comentarios,
+    .contenedor-descripcion {
+        width: 650px
+    }
+
+    #carouselExampleIndicators {
+        padding: 25px;
+    }
+}

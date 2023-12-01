@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+
+        <div class="container mt-5">
+            <h2>Lsitado de Servicios</h2>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Iterar sobre las propiedades y mostrarlas en grupos de tres por fila -->
+                <div th:each="servicio : ${servicios}" class="col">
+                    <div class="card-body">
+                        <p class="card-title" th:text="${servicio.nombreDelServicioExtra}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

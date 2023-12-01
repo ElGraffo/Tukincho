@@ -9,11 +9,10 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Propietario extends Usuario {
 
-    @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<Inmueble> inmuebles;
-    @OneToOne
-    @JoinColumn(name = "reserva_id")
-    private Reserva reserva;
+    @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    private List<Reserva> reserva;
     }
 
 

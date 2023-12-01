@@ -2,15 +2,15 @@
 
 TAREAS IMPORTANTES -------->
 
-1. (FRONT)  6.)
-2. (FRONT)  8.)
-3. (FRONT) 10.)
-4. (FRONT) 11.)
-5. (BACK)   2.)
-6. (BACK)   3.)
-7. (BACK)   4.)
-8. (BACK)   5.)
-9. (BACK)   6.)
+1. (FRONT)  6.) --- octavio y pedro
+2. (FRONT)  8.) --- silvana
+3. (FRONT) 10.) --- jona (hecho)
+4. (FRONT) 11.) --- jona
+5. (BACK)   2.) --- ??
+6. (BACK)   3.) --- pablo
+7. (BACK)   4.) --- jona (hecho)
+8. (BACK)   5.) --- ana
+9. (BACK)   6.) --- hecho ?? chequear
 
 
 FRONTEND -------->
@@ -37,11 +37,12 @@ propietario, listar reservas en inmuebles, poder bajarla o modificarla, listar r
 reseña", "calificacion" (1 a 5 estrellas), "imagenes o videos" (no exclusivamente necesario)
 15. Dentro de las cards de inmuebles debe figurar un promedio de calificacion (float "#.# estrellas")
 
+
 BACKEND -------->
 
 1. Desarrollar el método POST para la búsqueda considerando los filtros aplicados.
 2. Establecer la lógica de comunicación entre el backend y el frontend para la transición del usuario a propietario.
-3. Desarrollar el endpoint GET y POST para la gestión de reservas./*Jonatan*/
+3. Desarrollar el endpoint GET y POST para la gestión de reservas.
 4. Desarrollar el endpoint POST para la creación de propiedades, integrando los tres formularios de la página.
 5. Agregar capa de seguridad con Spring Security.
 6. Crear el archivo de login y agregar los métodos POST y GET.
@@ -75,3 +76,15 @@ TAREAS ADMINISTRATIVAS DEL EQUIPO -------->
 para su mejora continua.
 3. Al finalizar cada clase enviarle al Scrum Master un resumen del día de trabajo.
 4. Utilizar la branch personal para ir subiendo actualizaciones.
+
+
+propietario_reserva                                                                 reserva
+id                                                                                             id 12121 
+id_propietario
+id_reserva
+
+
+usuario_reserva
+id
+id_usuario
+id_reserva

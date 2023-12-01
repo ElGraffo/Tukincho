@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -14,9 +15,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Data
 
-public class Reserva extends Usuario {
+public class Reserva{
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
     @ManyToOne
@@ -27,14 +29,14 @@ public class Reserva extends Usuario {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
    //un propietario puede tener muchas reservas corregir
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "propietario_id")
     private Propietario propietario;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaInicioReserva;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaFinReserva;
-    private Double costoReserva;
+    private Long costoReserva;
     private Double costoServiciosSeleccionados;
     private Boolean activo;
 }
