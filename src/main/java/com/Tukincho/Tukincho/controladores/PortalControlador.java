@@ -3,7 +3,7 @@ import com.Tukincho.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
-import com.Tukincho.Tukincho.excepciones.MiException;
+
 import com.Tukincho.Tukincho.repositorios.PropietarioRepositorio;
 import com.Tukincho.Tukincho.repositorios.ReservaRepositorio;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
@@ -129,14 +129,14 @@ public class PortalControlador {
 
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
                              @RequestParam String email, @RequestParam String password, @RequestParam String password2,
-                             ModelMap modelo) throws MiException, Exception {
+                             ModelMap modelo) throws Exception {
 
         try {
             usuarioServicio.editarUsuario(password2, Rol.ADMIN, id, email, nombre, password, password2);
             modelo.put("exito", "El usuario ha sido actualizado con exito");
 
             return "index.html";
-        } catch (MiException ex) {
+        } catch (Exception ex) {
 
             modelo.put("error", ex.getMessage());
             modelo.put("password", password);
