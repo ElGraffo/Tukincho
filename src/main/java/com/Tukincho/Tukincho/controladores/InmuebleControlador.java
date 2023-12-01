@@ -80,7 +80,7 @@ public class InmuebleControlador {
             System.out.println("NO ESTA COMO PROPIETARIO SE CREA PROPIETARIO");
            // Usuario usuario = usuarioServicio.buscarUsuarioPorId(logueado.getId());
             propietario = propietarioServicio.crearPropietario(logueado);
-            usuarioServicio.borrarUsuario(logueado.getId());
+            //usuarioServicio.borrarUsuario(logueado.getId());
         }else{
             propietario=(Propietario) logueado;
         }
@@ -156,8 +156,10 @@ public class InmuebleControlador {
      @GetMapping("/mispropiedades/listar")
     public String listarPropiedadesPorPropietrio(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        
-        List<Inmueble> propiedades = propietarioServicio.buscarPropietarioPorInmueble(logueado.getId());
+        System.out.println(logueado.getRol());
+        Propietario propietario= propietarioServicio.buscarPropietarioPorNombreUsuario(logueado.getNombreUsuario());
+        System.out.println("Propietario ID: "+propietario.getId());
+        List<Inmueble> propiedades = propietarioServicio.buscarPropietarioPorInmueble(propietario.getId());
         modelo.put("propiedades", propiedades);
         return "propiedades_listar.html";
     }

@@ -127,6 +127,14 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
+    
+    public Usuario buscarUsuarioRolUsuario(String nombreUsuario)throws Exception{
+        return usuarioRepositorio.buscarUsuarioRolUsuario(nombreUsuario);
+    }
+    
+    public Usuario buscarUsuarioPorRolUsuario(String nombreUsuario)throws Exception{
+        return usuarioRepositorio.buscarUsuarioRolUsuario(nombreUsuario);
+    }
 
     public List<Usuario> listarUsuarios() {
         try {
@@ -176,7 +184,16 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+        //Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+        //buscar por nombre de usuario podria devolver una lista, recorrer y obtener el rol user, o propietario, etc
+        List<Usuario> listUsuario= usuarioRepositorio.buscarPorNombreUsuario(nombreUsuario);
+        Usuario usuario;
+        //if(listUsuario!=null && listUsuario.size()>0)
+            usuario= listUsuario.get(0);
+//         else
+//            usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+//        
+        
         if (usuario != null) {
             List<GrantedAuthority> permisos = new ArrayList();
 

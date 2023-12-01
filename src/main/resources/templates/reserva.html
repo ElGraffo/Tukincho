@@ -129,7 +129,7 @@
                         <!-- estos inputs me dan sospecha...no se si se puede mandar objetos enteros asi como asi-->
 
                         <!------------------------------------ recibo la sesion del usuario-------------------------------->
-                        <input hidden th:value="${session.usuariosession.id}" name="usuarioId">
+                        <input hidden th:value="${session.usuariosession.getNombreUsuario()}" name="usuarioId">
                         <!-- <input type="hidden" th:object="${session.getAttribute('usuariosession')}" name="usuario" /> -->
 
                         <!-- recibo el inmueble como objeto-->
@@ -196,7 +196,7 @@
                                             <div class="col-md-4">
                                                 <input type="number" class="form-control" th:id="${'precio_' + servicio.id}"
                                                        th:name="${'precio_'+servicio.getServicioExtra()}" placeholder="Precio"
-                                                       th:value="${servicio.getPrecio()}" />
+                                                       th:value="${servicio.getPrecio()}" readonly/>
                                             </div>
                                         </div>
                                     </div>

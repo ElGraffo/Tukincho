@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Lista de Reservas</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Lista de Reservas</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Fin</th>
+                    <th>Usuario_Reservo</th>
+                    <th>Nombre_Inmueble</th>
+                    <th>Costo Reserva</th>
+                    <th>Dueño</th>
+                    <th>Costo Servicios</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                    <th>Habilitar/Inhabilitar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterar sobre la lista de reservas -->
+                <tr th:each="reserva : ${reservas}">
+                    <td th:text="${reserva.id}"></td>
+                    <td th:text="${#dates.format(reserva.getFechaInicioReserva(), 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(reserva.getFechaFinReserva(), 'yyyy-MM-dd')}"></td>
+                    <td th:text="${reserva.getUsuario.getNombreUsuario()}"></td>
+                    <td th:text="${reserva.getInmueble().getNombre()}"></td>
+                    <td th:text="${reserva.getCostoReserva()}"></td>
+                    <td th:text="${reserva.getInmueble().getPropietario().getNombreUsuario()}"></td>
+                    <td th:text="${reserva.getCostoServiciosSeleccionados()}"></td>
+                    <td th:text="${reserva.getActivo()}"></td>
+                    <td>
+                        <!-- Botones de Editar y Cancelar -->
+                        <a class="btn btn-primary btn-sm" th:href="@{/editar/{id}(id=${reserva.id})}">Editar</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/cancelar/{id}(id=${reserva.id})}">Cancelar</a>
+                    </td>
+                    <td>
+                        <!-- Checkbox para Habilitar/Inhabilitar -->
+                        <input type="checkbox" th:checked="${reserva.activo}" disabled/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Agregar scripts de Bootstrap y Thymeleaf -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
