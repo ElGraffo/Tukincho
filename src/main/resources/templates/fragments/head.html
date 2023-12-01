@@ -8,6 +8,7 @@
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
 
 
@@ -24,13 +25,10 @@
     </th:block>-->
 
 
+    <th:block th:unless="${#strings.contains(#httpServletRequest.requestURI, 'reserva')}">
 
-    <th:block th:unless="${#strings.contains(#httpServletRequest.requestURI, 'reserva')} or ${#strings.contains(#httpServletRequest.requestURI, 'admin')}">
         <link rel="stylesheet" th:href="@{/css/style.css}" />
     </th:block>
-
-
-
 
     <script src="../static/js/script.js" defer></script>
 </head>
