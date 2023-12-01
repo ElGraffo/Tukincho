@@ -3,8 +3,7 @@
 
     <head th:replace="/fragments/head :: head"><title th:text="Registrar Inmueble"></title></head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <!--th:text="Registro Inmueble"-->
+
     <body>
         <nav th:replace="/fragments/navbar :: nav"></nav>
 
@@ -78,7 +77,7 @@
                         </div>
                         <hr />
 
-                        <!--<!-- Lista de servicios Extras -->
+                        <!-- Lista de servicios Extras -->
                         <div class="form-group">
                             <label>Servicios Extras</label>
                             <div th:if="${servicios.size()>0}" th:each="servicio : ${servicios}">
@@ -97,21 +96,13 @@
                             </div>
                         </div>
 
-
-
-
-
-
                         <!-- Miniaturas -->
                         <div id="miniaturas-container"></div>
-
-                        <!--input type="file" id="imagenes" multiple style="display: none;"-->
                         <input type="file" class="form-control-file" id="imagenes" name="imagenes[]" multiple="multiple" accept="image/*" style="display:none;" />
                         <button type="button" id="agregar-boton" onclick="document.getElementById('imagenes').click()">
                             <i class="fas fa-image"></i> <!-- Ícono de Fotografía -->
                             <span>+</span>
                         </button>
-
 
                         <!-- Cargar Imágenes -->
                         <div class="form-group">
@@ -128,9 +119,6 @@
 
             </div>
         </div>
-
-
-
         <script type="text/javascript">
             const miniaturasContainer = document.getElementById('miniaturas-container');
             $(document).ready(function () {
@@ -222,11 +210,6 @@
         //console.log('Longitud: ' + location.lng());
     }
 </script>
-
-
-
-
-
 <script>
     google.maps.event.addDomListener(window, 'load', buscarDireccion());
 </script>
