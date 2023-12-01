@@ -1,17 +1,17 @@
 package com.Tukincho.Tukincho.controladores;
 
-<<<<<<< Updated upstream
-import com.Tukincho.Tukincho.entidades.Usuario;
-import com.Tukincho.Tukincho.servicios.UsuarioServicio;
-=======
->>>>>>> Stashed changes
+
+import com.Tukincho.Tukincho.entidades.ServiciosExtra;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Tukincho.Tukincho.entidades.ServiciosExtra;
@@ -27,6 +27,10 @@ public class AdminControlador {
     
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private ServiciosExtraServicio serviciosExtraServicio;
+    @Autowired
+    private ServiciosExtraRepositorio serviciosExtraRepositorio;
     
     
     @GetMapping("/dashboard")
@@ -49,4 +53,48 @@ public class AdminControlador {
        return "redirect:/admin/usuarios";
    }
    
+   /**
+    * 
+    * @param modelo envia un objeto del tipo ServicioExtra para poder ser llenado
+    * desde el formulario, es equivalente a recibir un string nombre y asignarlo como
+    * servico.setNombreDelServicioExtra(nombre).
+    * @return devuelve al usuario el formulario que va a rellenar para crear un nuevo 
+    * servicio.
+    * @authot Jonatan Atencio
+    */
+   @GetMapping("/servicios/nuevo")
+   public String formCrearNuevoServicio(ModelMap modelo){
+       modelo.put("servicio",new ServiciosExtra());
+       return "servicios_crear.html";
+   }
+   
+   /**
+    * 
+    * Trae los datos del formulario de nuevo servicio y lo guarda en la base de datos
+    * @param servicio Recibe un Objeto ServiciosExtra desde el formulario
+    * @param modelo Para pasar los resultado de la persistencia a la base de Datos.
+    * @return devuelve una vista para exito y otra por si hay error.
+    * @author Jonatan Atencio.
+    */
+   @PostMapping("/servicios/registro")
+    public String crearNuevoServicio(@ModelAttribute ServiciosExtra servicio,ModelMap modelo,BindingResult bindingResult) {
+        try {
+            if(bindingResult.hasErrors()){
+                return "servicios_crear.html";
+            }
+            serviciosExtraServicio.crear(servicio);
+            modelo.put("exito","el servicio se creao correctamente");
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            return "servicios_crear.html";
+        }
+        
+        return "redirect:/admin/servicios/listar";
+    }
+    
+    @GetMapping("/servicios/listar")
+    public String serviciosListar(ModelMap modelo){
+        modelo.put("servicios",serviciosExtraRepositorio.findAll());
+        return "serviciosExtras_listar.html";
+    }
 }

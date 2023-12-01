@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Alexi
+ * @author Jonatan Atencio
+ * @version 1.0
+ * 
  */
 
 @Repository
