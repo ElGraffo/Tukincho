@@ -47,7 +47,6 @@
                                 <h6 th:text="${propiedad.provincia}" class="provincia"></h6>
                                 <h6 th:text="${propiedad.direccion}" class="ciudad"></h6>
                                 <p class="card-text reseña" th:text="${propiedad.descripcionDelInmueble}"></p>
-
                             </div>
 
                         </div>
@@ -70,33 +69,23 @@
                             <!-- bg-body-secondary -->
                             <div class="card-body ">
                                 <h5 class="card-title">Precio</h5>
-
                                 <p class="precio" th:text="${propiedad.precioPorNoche}"></p>
                                 <a class="btn boton" id="botonId" th:href= "@{/reserva/crear/__${propiedad.id}__}" role="button">Ver oferta</a>
 
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
-
-
-
-
-
-
         </div>
 
         <script>
             new WOW().init();
         </script>
-        
-        <!--<script src="/js/app.js"></script>-->
+
+    </div>
         <footer th:replace="/fragments/footer :: footer"></footer>
-    </body>
+    </div>
+</body>
 
 </html>

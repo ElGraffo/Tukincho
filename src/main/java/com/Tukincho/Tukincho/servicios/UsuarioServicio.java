@@ -161,19 +161,12 @@ public class UsuarioServicio implements UserDetailsService{
         Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
         if (usuario != null) {
             List<GrantedAuthority> permisos = new ArrayList();
-
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-
             permisos.add(p);
-
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
             HttpSession session = attr.getRequest().getSession(true);
-
             session.setAttribute("usuariosession", usuario);
-
             return new User(usuario.getNombreUsuario(), usuario.getPassword(), permisos);
-
         } else {
             return null;
         }
@@ -181,7 +174,7 @@ public class UsuarioServicio implements UserDetailsService{
 
     public byte[] obtenerBytesDeImagenPorDefecto() throws IOException {
         // Ruta relativa del archivo de imagen por defecto
-        String rutaImagenPorDefecto = "static/imagenes/Default-Profile.jpg";
+        String rutaImagenPorDefecto = "static/imagenes/default-profile.jpg";
 
         // Cargar el recurso de la imagen por defecto desde el classpath
         Resource resource = new ClassPathResource(rutaImagenPorDefecto);
@@ -191,9 +184,4 @@ public class UsuarioServicio implements UserDetailsService{
             return IOUtils.toByteArray(inputStream);
         }
     }
-    
-
-
-
-
 }

@@ -13,7 +13,13 @@ import javax.persistence.*;
 
 public class Usuario {
 
-
+    /**Esta entidad  
+    *a la obtención de imágenes de perfil de usuario. Accede a "/imagen/perfil/{id}", 
+    *y busca a un usuario por su identificador (@param id), obtiene el contenido de la imagen 
+    * y la devuelve en formato de bytes con las cabeceras adecuadas.
+    * @param id busca id del usuario
+    * 
+    */
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -24,14 +30,11 @@ public class Usuario {
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reserva;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedback;
     

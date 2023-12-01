@@ -17,26 +17,19 @@ public class Feedback {
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")
     private String id;
-    
     private String titulo;
     private String detalle;
     private Integer calificacion;
-
     @OneToMany(mappedBy = "feedback", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <Imagen> imagen;
-    
     @ManyToOne
     @JoinColumn(name = "inmueble_id")
     private Inmueble inmueble;
-    
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
     private Boolean activo;
-    
  
-     
     @Override
     public String toString() {
         return "Feedback{" +
