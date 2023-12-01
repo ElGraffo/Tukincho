@@ -32,8 +32,11 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter  {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
+
                     .antMatchers("/css/*", "/js/*", "/img/*", "/**","/index")
                     .permitAll()
+
+                .anyRequest().authenticated()
                 .and().formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/logincheck")

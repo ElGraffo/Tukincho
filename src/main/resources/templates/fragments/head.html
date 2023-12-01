@@ -12,6 +12,7 @@
 
 
 
+
     <th:block th:if="${#strings.contains(#httpServletRequest.requestURI, 'reserva')}">
         <link rel="stylesheet" th:href="@{/css/reserva.css}" />
     </th:block>
@@ -25,14 +26,12 @@
 
 
 
-    <th:block th:unless="${#strings.contains(#httpServletRequest.requestURI, 'reserva')} or ${#strings.contains(#httpServletRequest.requestURI, 'admin')}">
+
+    <th:block th:unless="${#strings.contains(#httpServletRequest.requestURI, 'reserva')}">
         <link rel="stylesheet" th:href="@{/css/style.css}" />
     </th:block>
 
 
-
-
-    
 </head>
 
 <!--     <th:block th:unless="${#strings.contains(#httpServletRequest.requestURI, 'archivo1')} or

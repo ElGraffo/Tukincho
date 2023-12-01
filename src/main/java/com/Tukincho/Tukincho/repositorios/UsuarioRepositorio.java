@@ -23,7 +23,6 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     
     @Query("select u from Usuario u where u.nombreUsuario = :nombreUsuario and u.rol='ADMIN'")
     public Usuario buscarUsuarioRolAdmin(@Param("nombreUsuario") String nombreUsuario);
-    
    
 }
 

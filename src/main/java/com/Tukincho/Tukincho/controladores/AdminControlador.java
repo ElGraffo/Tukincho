@@ -1,11 +1,7 @@
 package com.Tukincho.Tukincho.controladores;
 
-import com.Tukincho.Tukincho.entidades.ServiciosExtra;
-import com.Tukincho.Tukincho.entidades.Usuario;
-import com.Tukincho.Tukincho.repositorios.ServiciosExtraRepositorio;
-import com.Tukincho.Tukincho.servicios.ServiciosExtraServicio;
-import com.Tukincho.Tukincho.servicios.UsuarioServicio;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.Tukincho.Tukincho.entidades.ServiciosExtra;
+import com.Tukincho.Tukincho.entidades.Usuario;
+import com.Tukincho.Tukincho.repositorios.ServiciosExtraRepositorio;
+import com.Tukincho.Tukincho.servicios.ServiciosExtraServicio;
+import com.Tukincho.Tukincho.servicios.UsuarioServicio;
 
 
 @Controller
@@ -31,7 +33,7 @@ public class AdminControlador {
     
     @GetMapping("/dashboard")
     public String panelAdministrativo(){
-        return"panel.html";
+        return"admin.html";
     }
     
     @GetMapping("/usuarios")
