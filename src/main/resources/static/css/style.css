@@ -39,7 +39,12 @@
 
 
 #logo{
+<<<<<<< Updated upstream
   height: 25px;
+=======
+  height:  45px;
+  width: 45px;
+>>>>>>> Stashed changes
 }
 
 .formulario{
