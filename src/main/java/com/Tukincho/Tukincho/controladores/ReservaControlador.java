@@ -82,7 +82,7 @@ public class ReservaControlador {
             Inmueble inmueble = inmuebleServicio.buscarInmueblePorId(inmuebleId);
             //ANTES BUSCABA POR ID DE USUARIO, pero si es un propietario, no va a encontrar 
             //un id de usuario, por eso busco con rol de usuario
-            Usuario usuario = usuarioServicio.buscarUsuarioPorRolUsuario(usuarioId);
+            Usuario usuario = usuarioServicio.buscarUsuarioPorId(usuarioId);
             Propietario propietario = inmueble.getPropietario();
             System.out.println("PROPIETARIO ID: "+propietario.getId());
             System.out.println("USUARIO ID:"+usuario.getId());

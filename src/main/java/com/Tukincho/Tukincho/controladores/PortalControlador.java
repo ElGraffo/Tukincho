@@ -174,23 +174,23 @@ public class PortalControlador {
 
 
         }
-    @GetMapping("/perfil/misReservasCliente/{nombreUsuario}")
+    @GetMapping("/perfil/misReservasCliente/{id}")
 
-    public String listarPropiedades(@PathVariable String nombreUsuario,
+    public String listarPropiedades(@PathVariable String id,
                                     ModelMap modelo) throws Exception {
         List<Reserva> reservas = null;
         try {
-            //usuario tiene una lista de reservas
-            reservas = usuarioServicio.buscarUsuarioRolUsuario(nombreUsuario).getReserva();
+            reservas = reservaServicio.buscarPorIdUsuario(id);
         } catch (Exception e) {
-           // throw new RuntimeException(e);
-           modelo.put("reservas",new ArrayList<Reserva>());
-            System.out.println("SIN RESERVAS PARA EL USUARIO");
+            throw new RuntimeException(e);
         }
         modelo.put("reservas", reservas);
         return "reservas_listar_por_usuario.html";
     }
-    
+
+
+
+
     @GetMapping("/mostrar/reservas/misinmuebles/{idPropietario}")
     public String mostrarReservasAmisInmuebles(@PathVariable String idPropietario, ModelMap modelo){
         try{
