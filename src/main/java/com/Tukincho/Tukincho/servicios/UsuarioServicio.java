@@ -1,5 +1,4 @@
 package com.Tukincho.Tukincho.servicios;
-
 import com.Tukincho.Tukincho.entidades.Imagen;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
@@ -29,11 +28,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class UsuarioServicio implements UserDetailsService {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-
+    
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
@@ -57,6 +56,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        System.out.println(usuario.toString());
         usuarioRepositorio.save(usuario);
     }
 
@@ -73,15 +73,19 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
+       
             usuarioRepositorio.save(usuario);
         }
     }
 
+
+
     @Transactional
     public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
-                                  String password2) throws Exception {
+            String password2) throws Exception {
+
         validar(nombre, email, password, password2);
+
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
@@ -104,14 +108,6 @@ public class UsuarioServicio implements UserDetailsService {
             e.printStackTrace();
             return null;
         }
-    }
-    
-    public Usuario buscarUsuarioRolUsuario(String nombreUsuario)throws Exception{
-        return usuarioRepositorio.buscarUsuarioRolUsuario(nombreUsuario);
-    }
-    
-    public Usuario buscarUsuarioPorRolUsuario(String nombreUsuario)throws Exception{
-        return usuarioRepositorio.buscarUsuarioRolUsuario(nombreUsuario);
     }
 
     public List<Usuario> listarUsuarios() {
@@ -162,16 +158,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        //Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
-        //buscar por nombre de usuario podria devolver una lista, recorrer y obtener el rol user, o propietario, etc
-        List<Usuario> listUsuario= usuarioRepositorio.buscarPorNombreUsuario(nombreUsuario);
-        Usuario usuario;
-        //if(listUsuario!=null && listUsuario.size()>0)
-            usuario= listUsuario.get(0);
-//         else
-//            usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
-//        
-        
+        Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
         if (usuario != null) {
             List<GrantedAuthority> permisos = new ArrayList();
 
@@ -204,4 +191,9 @@ public class UsuarioServicio implements UserDetailsService {
             return IOUtils.toByteArray(inputStream);
         }
     }
+    
+
+
+
+
 }

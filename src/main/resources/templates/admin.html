@@ -7,7 +7,37 @@
         
         <div class="container" id="admin-menu-contenedor">
 
+            <div class="wrapper">
+                <!-- Sidebar -->
+                <nav id="sidebar">
+                    <ul class="list-unstyled components">
+                        <li class="active">
+                            <a id="listaUsuario" href="#">Lista de usuarios</a>
+                        </li>
+                        <li>
+                            <a id="listaPropietario" href="#">Lista de propietarios</a>
+                        </li>
+                        <li>
+                            <a id="listaInmueble" href="#">Lista de inmuebles</a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <!-- Page Content -->
+                <div id="content" class="contenido_panel">
+                    <div id="divListaUsuario" class="novisible">
+                        <div th:replace="/usuario_list :: div"></div>
+                    </div>
+                    <div id="divListaPropietarios" class="novisible">
+                        <div th:replace="/propietarios_list :: div"></div>
+                    </div>
+                    <div id="divListaInmuebles" class="novisible" >
+                        <div th:replace="/inmuebles_list :: div"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <footer th:replace="/fragments/footer :: footer"></footer>
+        <footer th:replace="/fragments/footer :: footer" ></footer>
     </body>
 </html>
