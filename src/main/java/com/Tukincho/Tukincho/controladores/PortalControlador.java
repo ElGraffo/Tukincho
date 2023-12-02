@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -134,11 +135,11 @@ public class PortalControlador {
     @PostMapping("/perfil/modificar/{id}")
     public String actualizar(@PathVariable String id, @RequestParam String nombre,
                              @RequestParam String email, @RequestParam String password, @RequestParam String password2,
-                             ModelMap modelo) throws Exception {
+                             MultipartFile imagen, ModelMap modelo) throws Exception {
 
         try {
 
-            usuarioServicio.autoEditarUsuario(id, email, nombre, password, password2);
+            usuarioServicio.autoEditarUsuario(id, email, nombre, password, password2, imagen);
             modelo.put("exito", "El usuario ha sido actualizado con exito");
             return "index.html";
         } catch (Exception ex) {
@@ -146,7 +147,7 @@ public class PortalControlador {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-           return  "redirect:/perfil/modificar/";
+           return  "redirect:/perfil/";
         }
     }
 
