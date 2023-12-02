@@ -96,6 +96,9 @@ public class PortalControlador {
 
     public String perfil(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if(usuario.getImagen() != null && usuario.getImagen().getContenido().length > 0) {
+            usuario.getImagen().setContenidoBase64(Base64.getEncoder().encodeToString(usuario.getImagen().getContenido()));
+        }
         modelo.put("usuario", usuario);
         return "perfil.html";
     }
