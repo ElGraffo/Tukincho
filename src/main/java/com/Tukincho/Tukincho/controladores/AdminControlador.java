@@ -1,5 +1,9 @@
 package com.Tukincho.Tukincho.controladores;
 import java.util.List;
+
+import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
+import com.Tukincho.Tukincho.repositorios.ReservaRepositorio;
+import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,9 +29,18 @@ public class AdminControlador {
     private ServiciosExtraServicio serviciosExtraServicio;
     @Autowired
     private ServiciosExtraRepositorio serviciosExtraRepositorio;
-    
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+    @Autowired
+    private ReservaRepositorio reservaRepositorio;
+    @Autowired
+    private InmuebleRepositorio inmuebleRepositorio;
+
     @GetMapping("/dashboard")
-    public String panelAdministrativo(){
+    public String panelAdministrativo(ModelMap modelo){
+        modelo.put("usuarios", usuarioRepositorio.findAll());
+        modelo.put("reservas", reservaRepositorio.findAll());
+        modelo.put("propiedades", inmuebleRepositorio.findAll());
         return"admin.html";
     }
     
