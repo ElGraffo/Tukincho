@@ -8,13 +8,23 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+/**
+ * Servicio que gestiona las operaciones relacionadas con las imágenes en el sistema.
+ *
+ * @Service Indica que esta clase es un servicio de Spring que puede ser inyectado en otras clases.
+ */
 @Service
 public class ImagenServicio {
 
     @Autowired
     private ImagenRepositorio imagenRepositorio;
-
+    /**
+     * Guarda una nueva imagen en la base de datos a partir de un archivo proporcionado.
+     *
+     * @param archivo Archivo de imagen a guardar.
+     * @return Imagen guardada en la base de datos, o null si no se pudo guardar.
+     * @throws Exception Si ocurre un error durante la operación.
+     */
     @Transactional
     public Imagen guardar(MultipartFile archivo) throws Exception {
         if (archivo != null) {
@@ -34,7 +44,14 @@ public class ImagenServicio {
         }
         return null;
     }
-
+    /**
+     * Actualiza una imagen existente en la base de datos a partir de un archivo proporcionado.
+     *
+     * @param archivo Archivo de imagen para la actualización.
+     * @param idImagen Identificador único de la imagen a actualizar.
+     * @return Imagen actualizada en la base de datos, o null si no se pudo actualizar.
+     * @throws Exception Si ocurre un error durante la operación.
+     */
     public Imagen actualizar(MultipartFile archivo, String idImagen) throws Exception {
         if (archivo != null) {
             try {
