@@ -18,7 +18,9 @@ import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.repositorios.ServiciosExtraRepositorio;
 import com.Tukincho.Tukincho.servicios.ServiciosExtraServicio;
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
-
+/**
+ * Controlador que gestiona las operaciones administrativas en el sistema.
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminControlador {
@@ -35,7 +37,13 @@ public class AdminControlador {
     private ReservaRepositorio reservaRepositorio;
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
-
+    
+    /**
+     * Método que redirige a la página de panel administrativo (dashboard).
+     *
+     * @param modelo Modelo para agregar atributos a la vista.
+     * @return Vista del panel administrativo (admin.html).
+     */
     @GetMapping("/dashboard")
     public String panelAdministrativo(ModelMap modelo){
         modelo.put("usuarios", usuarioRepositorio.findAll());
@@ -44,6 +52,12 @@ public class AdminControlador {
         return"admin.html";
     }
     
+    /**
+     * Método que muestra la lista de usuarios en el sistema.
+     *
+     * @param modelo Modelo para agregar atributos a la vista.
+     * @return Vista de la lista de usuarios (usuario_list.html).
+     */
     @GetMapping("/usuarios")
     public String listar(ModelMap modelo) {
         List<Usuario>usuarios =usuarioServicio.listarUsuarios();
@@ -51,6 +65,12 @@ public class AdminControlador {
         return "usuario_list.html";
     }
     
+    /**
+     * Método que cambia el rol de un usuario.
+     *
+     * @param id ID del usuario a modificar.
+     * @return Redirección a la lista de usuarios.
+     */
     @GetMapping("/modificarRol/{id}")
    public String cambiarRol(@PathVariable String id) {
        usuarioServicio.cambiarRol(id);
@@ -95,7 +115,12 @@ public class AdminControlador {
         
         return "redirect:/admin/servicios/listar";
     }
-    
+    /**
+     * Método que muestra la lista de servicios extras.
+     *
+     * @param modelo Modelo para agregar atributos a la vista.
+     * @return Vista de la lista de servicios extras (serviciosExtras_listar.html).
+     */
     @GetMapping("/servicios/listar")
     public String serviciosListar(ModelMap modelo){
         modelo.put("servicios",serviciosExtraRepositorio.findAll());
