@@ -23,12 +23,32 @@ import java.time.ZoneId;
  * @version 1.0
  * @date 9/11/2023
  */
+
+/**
+ * Servicio que gestiona las operaciones relacionadas con las reservas en el sistema.
+ *
+ * @Service Indica que esta clase es un servicio de Spring que puede ser inyectado en otras clases.
+ */
 @Service
 public class ReservaServicio {
 
     @Autowired
     private ReservaRepositorio reservaRepositorio;
 
+    
+    /**
+     * Crea una nueva reserva en el sistema.
+     *
+     * @param inmueble Inmueble asociado a la reserva.
+     * @param usuario Usuario que realiza la reserva.
+     * @param propietario Propietario del inmueble.
+     * @param fechaInicioReserva Fecha de inicio de la reserva.
+     * @param fechaFinReserva Fecha de fin de la reserva.
+     * @param costoReserva Costo de la reserva.
+     * @param costoServiciosSeleccionados Costo de los servicios adicionales seleccionados.
+     * @return Reserva creada.
+     * @throws Exception Si la reserva no cumple con las validaciones o ya existe una reserva para el inmueble en la fecha especificada.
+     */
     @Transactional
     public Reserva crearReserva(Inmueble inmueble, Usuario usuario,Propietario propietario, Date fechaInicioReserva,
             Date fechaFinReserva, Long costoReserva, Double costoServiciosSeleccionados) throws Exception {
@@ -51,6 +71,12 @@ public class ReservaServicio {
         return reservaRepositorio.save(reserva);
     }
 
+    /**
+     * Elimina una reserva del sistema.
+     *
+     * @param id Identificador de la reserva a eliminar.
+     * @throws Exception Si no se encuentra la reserva con el ID proporcionado.
+     */
     @Transactional
     public void eliminarReserva(String id) throws Exception {
         Optional<Reserva> respuesta = reservaRepositorio.findById(id);
@@ -60,7 +86,20 @@ public class ReservaServicio {
             throw new Exception("No se encontrol la reserva a eliminar con el id: " + id);
         }
     }
-
+    
+    /**
+     * Modifica una reserva existente en el sistema.
+     *
+     * @param id Identificador de la reserva a modificar.
+     * @param inmueble Inmueble asociado a la reserva.
+     * @param usuario Usuario que realiza la reserva.
+     * @param fechaInicioReserva Nueva fecha de inicio de la reserva.
+     * @param fechaFinReserva Nueva fecha de fin de la reserva.
+     * @param costoReserva Nuevo costo de la reserva.
+     * @param costoServiciosSeleccionados Nuevo costo de los servicios adicionales seleccionados.
+     * @param activo Nuevo estado de la reserva (activo o inactivo).
+     * @throws Exception Si no se encuentra la reserva con el ID proporcionado.
+     */
     @Transactional
     public void modificarReserva(String id, Inmueble inmueble, Usuario usuario, Date fechaInicioReserva, Date fechaFinReserva,
             Long costoReserva, Double costoServiciosSeleccionados, Boolean activo) throws Exception {
@@ -145,10 +184,22 @@ public class ReservaServicio {
         return reservaRepositorio.findByInmuebleId(inmuebleId);
     }
     
+    /**
+     * Busca las reservas asociadas a un nombre de usuario.
+     *
+     * @param nombreUsuario Nombre de usuario.
+     * @return Lista de reservas asociadas al nombre de usuario.
+     */
     public List<Reserva> buscarPorNombreUsuario(String nombreUsuario){
         return reservaRepositorio.buscarPorNombreUsuario(nombreUsuario);
     }
     
+    /**
+     * Busca las reservas asociadas a un propietario por su identificador.
+     *
+     * @param idPropietario Identificador del propietario.
+     * @return Lista de reservas asociadas al propietario.
+     */
     public List<Reserva> buscabuscarPorPropietarioId(String idPropietario){
         return reservaRepositorio.buscarPorPropietarioId(idPropietario);
     }
@@ -159,6 +210,7 @@ public class ReservaServicio {
      *
      * @param inmueble
      * @param usuario
+     * @param propietario
      * @param fechaInicioReserva
      * @param fechaFinReserva
      * @param costoReserva
@@ -207,7 +259,14 @@ public class ReservaServicio {
             throw new Exception("El costo de los servicios seleccionados no puede ser nulo o negativo");
         }
 
-        // Verificar si hay reservas existentes para el inmueble en la fecha especificada
+        
+    /**
+     * Verifica si ya existe una reserva para un inmueble en una fecha específica.
+     *
+     * @param idInmueble Identificador del inmueble.
+     * @param fechaInicioReserva Fecha de inicio de la reserva.
+     * @return true si ya existe una reserva, false en caso contrario.
+     */
         if (reservaRepositorio.existeReservaEnFecha(inmueble.getId(), fechaInicioReserva)) {
             throw new Exception("Ya existe una reserva para este inmueble en la fecha especificada");
         }
