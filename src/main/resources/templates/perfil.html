@@ -60,7 +60,7 @@
         <div class="contenedor-info" id="informacion-usuario">
             <h2>Datos personales</h2>
             <div class="contenedor-info-imagen">
-                <img th:src="@{/imagenes/logo.png}" alt="">
+                <img th:src="@{'data:' + ${usuario.imagen.mime} + ';base64,' + ${usuario.imagen.contenidoBase64}}" alt=""/>
             </div>
             <hr>
 
