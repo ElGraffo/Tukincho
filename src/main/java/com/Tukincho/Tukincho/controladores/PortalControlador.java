@@ -127,6 +127,25 @@ public class PortalControlador {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
+    @PostMapping("/perfil/modificar/{id}")
+    public String actualizar(@PathVariable String id, @RequestParam String nombre,
+                             @RequestParam String email, @RequestParam String password, @RequestParam String password2,
+                             ModelMap modelo) throws Exception {
+
+        try {
+
+            usuarioServicio.autoEditarUsuario(id, email, nombre, password, password2);
+            modelo.put("exito", "El usuario ha sido actualizado con exito");
+            return "index.html";
+        } catch (Exception ex) {
+
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+           return  "redirect:/perfil/modificar/";
+        }
+
 
     @GetMapping("/perfil/misReservasCliente/{id}")
     public String listarPropiedades(@PathVariable String id,
