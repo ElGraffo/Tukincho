@@ -29,8 +29,9 @@ public class Imagen {
     private String mime;
     private String nombre;
     @Lob
-    @Basic(fetch = FetchType.LAZY)
+    @Basic(fetch = FetchType.EAGER)
     private byte[] contenido;
+    private String contenidoBase64;
     @ManyToOne
     @JoinColumn(name = "feedback_id")
     private Feedback feedback;
