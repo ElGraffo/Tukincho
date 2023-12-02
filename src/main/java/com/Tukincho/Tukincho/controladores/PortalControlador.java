@@ -48,10 +48,10 @@ public class PortalControlador {
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
-                           String password2, ModelMap modelo) throws Exception {
+                           String password2, MultipartFile imagen, ModelMap modelo) throws Exception {
         try {
             System.out.println(nombre);
-            usuarioServicio.registrar(nombre, email, password, password2);
+            usuarioServicio.registrar(nombre, email, password, password2, imagen);
             System.out.println("registrando ok");
             modelo.put("exito", "Usuario registrado correctamente!!!!");
             return "index.html";
