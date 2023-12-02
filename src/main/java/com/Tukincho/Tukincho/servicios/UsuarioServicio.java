@@ -35,7 +35,16 @@ public class UsuarioServicio implements UserDetailsService{
     
     @Autowired
     private ImagenRepositorio imagenRepositorio;
-
+    
+    /**
+     * Registra un nuevo usuario en el sistema.
+     *
+     * @param nombre     El nombre del nuevo usuario.
+     * @param email      El correo electrónico del nuevo usuario.
+     * @param password   La contraseña del nuevo usuario.
+     * @param password2  La confirmación de la contraseña del nuevo usuario.
+     * @throws Exception Si se encuentran errores en los parámetros proporcionados.
+     */
     @Transactional
     public void registrar(String nombre, String email, String password, String password2) throws Exception {
         validar(nombre, email, password, password2);
@@ -59,7 +68,18 @@ public class UsuarioServicio implements UserDetailsService{
         System.out.println(usuario.toString());
         usuarioRepositorio.save(usuario);
     }
-
+    /**
+     * Edita los atributos de un usuario existente en el sistema.
+     *
+     * @param idUsuario  El ID del usuario a editar.
+     * @param rol        El nuevo rol del usuario.
+     * @param id         El nuevo ID del usuario.
+     * @param email      El nuevo correo electrónico del usuario.
+     * @param nombre     El nuevo nombre del usuario.
+     * @param password   La nueva contraseña del usuario.
+     * @param password2  La confirmación de la nueva contraseña del usuario.
+     * @throws Exception Si se encuentran errores en los parámetros proporcionados.
+     */
     @Transactional
     public void editarUsuario(String idUsuario, Rol rol, String id, String email, String nombre, String password,
             String password2) throws Exception {
@@ -78,8 +98,19 @@ public class UsuarioServicio implements UserDetailsService{
         }
     }
 
-
-
+    
+    /**
+     * Edita los atributos de un usuario existente en el sistema. Este método se
+     * utiliza para realizar modificaciones automáticas del perfil de un usuario,
+     * excluyendo cambios en roles y activación.
+     *
+     * @param idUsuario  El ID del usuario a editar.
+     * @param email      El nuevo correo electrónico del usuario.
+     * @param nombre     El nuevo nombre del usuario.
+     * @param password   La nueva contraseña del usuario.
+     * @param password2  La confirmación de la nueva contraseña del usuario.
+     * @throws Exception Si se encuentran errores en los parámetros proporcionados.
+     */
     @Transactional
     public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
             String password2) throws Exception {
@@ -103,7 +134,12 @@ public class UsuarioServicio implements UserDetailsService{
 
 
 
-
+    /**
+     * Busca un usuario por su ID en el sistema.
+     *
+     * @param id El ID del usuario que se desea buscar.
+     * @return El objeto Usuario si se encuentra, de lo contrario, devuelve null.
+     */
     public Usuario buscarUsuarioPorId(String id) {
         try {
             return usuarioRepositorio.getReferenceById(id);
@@ -112,7 +148,12 @@ public class UsuarioServicio implements UserDetailsService{
             return null;
         }
     }
-
+    
+    /**
+     * Obtiene una lista de todos los usuarios registrados en el sistema.
+     *
+     * @return Lista de usuarios, o null si hay algún problema al acceder a la base de datos.
+     */
     public List<Usuario> listarUsuarios() {
         try {
             return usuarioRepositorio.findAll();
@@ -121,7 +162,12 @@ public class UsuarioServicio implements UserDetailsService{
             return null;
         }
     }
-
+    
+    /**
+     * Cambia el rol de un usuario entre "USUARIO" y "ADMIN".
+     *
+     * @param id ID del usuario cuyo rol se va a cambiar.
+     */
     @Transactional
     public void cambiarRol(String id) {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -134,7 +180,12 @@ public class UsuarioServicio implements UserDetailsService{
             }
         }
     }
-
+    
+    /**
+     * Elimina un usuario por su ID.
+     *
+     * @param id ID del usuario a eliminar.
+     */
     @Transactional
     public void borrarUsuario(String id) {
         Optional<Usuario> validacion = usuarioRepositorio.findById(id);
@@ -143,7 +194,29 @@ public class UsuarioServicio implements UserDetailsService{
             usuarioRepositorio.delete(usuario);
         }
     }
-
+/**
+ * Valida los datos proporcionados durante el registro o edición de un usuario.
+ *
+ * @param nombre     Nombre del usuario.
+ * @param email      Correo electrónico del usuario.
+ * @param password   Contraseña del usuario.
+ * @param password2  Confirmación de la contraseña del usuario.
+ * @throws Exception Si algún dato es nulo, vacío o no cumple con los requisitos.
+ */
+private void validar(String nombre, String email, String password, String password2) throws Exception {
+    if (nombre == null || nombre.isEmpty()) {
+        throw new Exception("El nombre no puede ser nulo o estar vacío");
+    }
+    if (email == null || email.isEmpty()) {
+        throw new Exception("El correo electrónico no puede estar vacío o ser nulo");
+    }
+    if (password.isEmpty() || password == null || password.length() <= 5) {
+        throw new Exception("La contraseña no puede estar vacía o tener menos de 6 caracteres");
+    }
+    if (!password.equals(password2)) {
+        throw new Exception("Las contraseñas ingresadas deben ser iguales");
+    }
+}
     private void validar(String nombre, String email, String password, String password2) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");
@@ -158,7 +231,13 @@ public class UsuarioServicio implements UserDetailsService{
             throw new Exception("Las contraseñas ingresadas deben ser iguales");
         }
     }
-
+    /**
+     * Carga los detalles del usuario por nombre de usuario para la autenticación.
+     *
+     * @param nombreUsuario Nombre de usuario para buscar en la base de datos.
+     * @return Detalles del usuario para la autenticación.
+     * @throws UsernameNotFoundException Si el nombre de usuario no se encuentra en la base de datos.
+     */
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
@@ -175,6 +254,12 @@ public class UsuarioServicio implements UserDetailsService{
         }
     }
 
+    /**
+     * Método que obtiene los bytes de la imagen por defecto del usuario.
+     *
+     * @return Bytes de la imagen por defecto en formato de array de bytes.
+     * @throws IOException Si ocurre un error al leer la imagen por defecto.
+     */
     public byte[] obtenerBytesDeImagenPorDefecto() throws IOException {
         // Ruta relativa del archivo de imagen por defecto
         String rutaImagenPorDefecto = "static/imagenes/default-profile.jpg";
