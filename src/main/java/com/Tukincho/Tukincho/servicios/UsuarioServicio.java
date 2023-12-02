@@ -86,31 +86,36 @@ public class UsuarioServicio implements UserDetailsService{
         }
     }
 
-
-
     @Transactional
     public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
-            String password2) throws Exception {
+            String password2, MultipartFile imagen) throws Exception {
 
         validar(nombre, email, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-
             usuario.setEmail(email);
             usuario.setNombreUsuario(nombre);
 //            usuario.setActivo(true);
 //            usuario.setRol(Rol.USUARIO); ////y esto por que?
+
+            if(imagen != null && imagen.getBytes().length > 0) {
+                Imagen imagenUsuario = new Imagen();
+                byte[] bytesImagen = imagen.getBytes();
+                imagenUsuario.setMime(imagen.getContentType());
+                imagenUsuario.setNombre(imagen.getOriginalFilename());
+                imagenUsuario.setContenido(bytesImagen);
+                imagenUsuario = imagenRepositorio.save(imagenUsuario);
+                usuario.setImagen(imagenUsuario);
+            }
+
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
             usuarioRepositorio.save(usuario);
+            loadUserByUsername(usuario.getNombreUsuario());
         }
     }
-
-
-
-
 
     public Usuario buscarUsuarioPorId(String id) {
         try {
