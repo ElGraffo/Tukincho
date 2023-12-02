@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     var listaUsuario = document.querySelectorAll('#listaUsuario');
     var listaReserva = document.querySelectorAll('#listaReserva');
-    var listaInmuebles = document.querySelectorAll('#listaInmueble');
+    var listaInmueble = document.querySelectorAll('#listaInmueble');
 
     listaUsuario.forEach(function(listaUsuario) {
         listaUsuario.addEventListener('click', function() {
@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    listaInmuebles.forEach(function(listaUsuario) {
-        listaInmuebles.addEventListener('click', function() {
+    listaInmueble.forEach(function(listaInmueble) {
+        listaInmueble.addEventListener('click', function() {
             var divListaUsuario = document.querySelectorAll('#divListaUsuario');
             var divListarReservas = document.querySelectorAll('#divListarReservas');
             var divListaInmuebles = document.querySelectorAll('#divListaInmuebles');
