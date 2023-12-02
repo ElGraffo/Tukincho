@@ -12,6 +12,14 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author Alexi
  */
+
+/**
+ * Clase que representa una reserva en el sistema.
+ *
+ * @Entity Indica que esta clase es una entidad que se puede almacenar en una base de datos.
+ * @Data Anotación de Lombok que genera automáticamente métodos toString, equals, hashCode, y otros métodos útiles.
+ */
+
 @Entity
 @Data
 
