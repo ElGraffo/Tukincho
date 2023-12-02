@@ -130,8 +130,6 @@ public class PortalControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @PostMapping("/perfil/modificar/{id}")
-
-//    MultipartFile archivo,
     public String actualizar(@PathVariable String id, @RequestParam String nombre,
                              @RequestParam String email, @RequestParam String password, @RequestParam String password2,
                              ModelMap modelo) throws Exception {

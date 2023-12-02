@@ -24,33 +24,35 @@
             }
         }
     </style>
-    <div class="card mb-3">
-        <div class="row g-0 d-flex align-items-center">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="row g-0 row border rounded-5 p-3 bg-white shadow box-area">
             <div class="col-lg-4 d-none d-lg-flex">
-                <img src="/imagenes/login.jpg" alt="Quincho al atardecer"
-                     class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+                <img src="imagenes/login.jpg" alt="Imagen de quincho"
+                     class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" style="width: 600px; height: 400px;" />
             </div>
             <div class="col-lg-8">
-                <div class="card-body py-5 px-md-5">
-                    <form th:action="@{/logincheck}" method="POST">
+                <div class="card-body py-2 px-md-5">
+                    <form th:action="@{/logincheck}" method="POST" class="text-center">
+                        <h1 class="display-4 font-weight-bold my-2">Bievenido a Tu Kincho</h1>
+                        <h2 class="h3 text-body-secondary display-6 font-weight-bold mb-5">El lugar que buscas para tu evento</h2>
                         <div class="form-outline mb-4">
                             <input type="text" name="nombreUsuario" class="form-control" placeholder="Nombre de Usuario" />
                         </div>
                         <div class="form-outline mb-4">
-                            <input type="password" name="password" class="form-control" placeholder="Password" />
+                            <input type="password" name="password" class="form-control" placeholder="Contraseña" />
                         </div>
                         <div class="row mb-4">
                             <div class="col d-flex justify-content-center">
-                                <div class="form-check">
+                                <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-                                    <label class="form-check-label" for="form2Example31"> Remember me</label>
+                                    <label class="form-check-label mb-3" for="form2Example31">No cerrar sesión</label>
                                 </div>
                             </div>
                             <div class="col">
-                                <a href="#!">Forgot password?</a>
+                                <a href="#!">Recuperar contraseña</a>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Abrir sesión</button>
                     </form>
 
                 </div>
