@@ -32,7 +32,7 @@
 
             <div class="contenedor-info-modificar">
 
-                <form class="formulario" th:action="@{/perfil/modificar/__${usuario.id}__}"  method="POST">
+                <form class="formulario" th:action="@{/perfil/modificar/__${usuario.id}__}"  method="POST" enctype="multipart/form-data">
                     <!--enctype="multipart/form-data"-->
                     <input hidden th:value="${id}" name="id">
 
