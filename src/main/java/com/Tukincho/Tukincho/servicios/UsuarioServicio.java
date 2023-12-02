@@ -37,20 +37,28 @@ public class UsuarioServicio implements UserDetailsService{
     private ImagenRepositorio imagenRepositorio;
 
     @Transactional
-    public void registrar(String nombre, String email, String password, String password2) throws Exception {
+    public void registrar(String nombre, String email, String password, String password2, MultipartFile imagen) throws Exception {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
-        //cuando hago un new usuario se supone que tiene id?
         usuario = usuarioRepositorio.save(usuario);
-        //establesco la imagen por defecto para el usuario
-        Imagen imagen = new Imagen();
-        byte[] defaultImageBytes = obtenerBytesDeImagenPorDefecto();
-        imagen.setMime("image/jpeg"); // Establecer el tipo MIME según el tipo de la imagen predeterminada
-        imagen.setNombre("default-user-profile.jpg");
-        imagen.setContenido(defaultImageBytes);
-        imagen = imagenRepositorio.save(imagen);
-        usuario.setImagen(imagen);
-
+        //Si no pasa imagen establezco la imagen por defecto para el usuario
+        if(imagen == null || (imagen != null && imagen.getBytes().length == 0)) {
+            Imagen imagenDefault = new Imagen();
+            byte[] defaultImageBytes = obtenerBytesDeImagenPorDefecto();
+            imagenDefault.setMime("image/jpeg"); // Establecer el tipo MIME según el tipo de la imagen predeterminada
+            imagenDefault.setNombre("default-user-profile.jpg");
+            imagenDefault.setContenido(defaultImageBytes);
+            imagenDefault = imagenRepositorio.save(imagenDefault);
+            usuario.setImagen(imagenDefault);
+        } else {
+            Imagen imagenUsuario = new Imagen();
+            byte[] bytesImagen = imagen.getBytes();
+            imagenUsuario.setMime(imagen.getContentType());
+            imagenUsuario.setNombre(imagen.getOriginalFilename());
+            imagenUsuario.setContenido(bytesImagen);
+            imagenUsuario = imagenRepositorio.save(imagenUsuario);
+            usuario.setImagen(imagenUsuario);
+        }
         usuario.setActivo(true);
         usuario.setNombreUsuario(nombre);
         usuario.setEmail(email);
