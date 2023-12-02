@@ -6,20 +6,22 @@ import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
-
+    /**
+     * Esta clase representara a un usuario en el sistema.
+     * Contiene información como el nombre de usuario, correo electrónico, contraseña, estado de activo/inactivo,
+     * rol, imagen de perfil, reservas y retroalimentaciones asociadas.
+     *
+     * @Entity Indica que esta clase es una entidad que se puede almacenar en una base de datos.
+     * @Data Anotación de Lombok que genera automáticamente métodos toString, equals, hashCode, y otros métodos útiles.
+     * @Inheritance(strategy = InheritanceType.JOINED) Especifica la estrategia de herencia, utilizando JOINED.
+     */
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public class Usuario {
 
-    /**Esta entidad  
-    *a la obtención de imágenes de perfil de usuario. Accede a "/imagen/perfil/{id}", 
-    *y busca a un usuario por su identificador (@param id), obtiene el contenido de la imagen 
-    * y la devuelve en formato de bytes con las cabeceras adecuadas.
-    * @param id busca id del usuario
-    * 
-    */
+    
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
