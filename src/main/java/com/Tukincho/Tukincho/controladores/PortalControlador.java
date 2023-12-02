@@ -111,7 +111,6 @@ public class PortalControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
-
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
                              @RequestParam String email, @RequestParam String password, @RequestParam String password2,
                              ModelMap modelo) throws Exception {
@@ -147,7 +146,7 @@ public class PortalControlador {
            return  "redirect:/perfil/modificar/";
         }
 
-    }
+
     @GetMapping("/perfil/misReservasCliente/{id}")
     public String listarPropiedades(@PathVariable String id,
                                     ModelMap modelo) throws Exception {
