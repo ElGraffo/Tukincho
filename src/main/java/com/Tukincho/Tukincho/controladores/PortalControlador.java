@@ -145,7 +145,7 @@ public class PortalControlador {
             modelo.put("email", email);
            return  "redirect:/perfil/modificar/";
         }
-
+    }
 
     @GetMapping("/perfil/misReservasCliente/{id}")
     public String listarPropiedades(@PathVariable String id,
