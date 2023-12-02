@@ -9,6 +9,7 @@ import com.Tukincho.Tukincho.enums.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Tukincho.Tukincho.repositorios.PropietarioRepositorio;
+import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class PropietarioServicio {
     PropietarioRepositorio propietarioRepositorio;
     @Autowired
     InmuebleRepositorio inmuebleRepositorio;
+    @Autowired
+    UsuarioRepositorio usuarioRepositorio;
 
     public Propietario crearPropietario(Usuario usuario) {
         Propietario propietario = new Propietario();
@@ -69,6 +72,9 @@ public class PropietarioServicio {
         }
     }
     
+    public Propietario buscarPropietarioPorNombreUsuario(String nombreUsuario){
+        return usuarioRepositorio.buscarUsuarioRolPropietario(nombreUsuario);
+    }
 
     public List<Inmueble> buscarPropietarioPorInmueble(String id){
         try{

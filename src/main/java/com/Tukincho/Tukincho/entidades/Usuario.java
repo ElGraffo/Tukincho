@@ -30,14 +30,11 @@ public class Usuario {
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reserva;
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedback;
     

@@ -20,15 +20,12 @@ public class Reserva{
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
     @ManyToOne
     @JoinColumn(name = "inmueble_id")
     private Inmueble inmueble;
-    
-   @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-   //un propietario puede tener muchas reservas corregir
     @ManyToOne
     @JoinColumn(name = "propietario_id")
     private Propietario propietario;

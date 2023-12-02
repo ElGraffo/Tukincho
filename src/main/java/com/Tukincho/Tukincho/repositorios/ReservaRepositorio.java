@@ -16,15 +16,15 @@ import org.springframework.stereotype.Repository;
  *
  * @author Jonatan Atencio
  * @version 1.0
- * 
+ *
  */
-
 @Repository
 public interface ReservaRepositorio extends JpaRepository<Reserva, String> {
+
     //buscar reserva por el id de un usuario
     @Query("SELECT r FROM Reserva r WHERE r.usuario.id = :id")
     List<Reserva> findByUsuarioId(@Param("id") String id);
-    
+
     @Query("SELECT r FROM Reserva r WHERE r.fechaInicioReserva = :fechaInicio")
     List<Reserva> findByFechaInicioReserva(@Param("fechaInicio") Date fechaInicio);
 
@@ -32,7 +32,7 @@ public interface ReservaRepositorio extends JpaRepository<Reserva, String> {
     @Query("SELECT r FROM Reserva r WHERE r.fechaFinReserva = :fechaFin")
     List<Reserva> findByFechaFinReserva(@Param("fechaFin") Date fechaFin);
 
-   // Método para buscar reservas por el ID de un inmueble
+    // Método para buscar reservas por el ID de un inmueble
     @Query("SELECT r FROM Reserva r WHERE r.inmueble.id = :inmuebleId")
     List<Reserva> findByInmuebleId(@Param("inmuebleId") String inmuebleId);
 
@@ -44,16 +44,22 @@ public interface ReservaRepositorio extends JpaRepository<Reserva, String> {
     @Transactional
     @Query("UPDATE Reserva r SET r.activo = :activo WHERE r.id = :reservaId")
     void cambiarEstadoReserva(@Param("reservaId") String reservaId, @Param("activo") Boolean activo);
-    
+
     @Query("SELECT r FROM Reserva r")
     List<Reserva> findAllReservas();
 
     // Método para buscar todas las reservas activas
     @Query("SELECT r FROM Reserva r WHERE r.activo = true")
     List<Reserva> findAllReservasActivas();
-    
+
     // Método para buscar todas las reservas inactivas
     @Query("SELECT r FROM Reserva r WHERE r.activo = false")
     List<Reserva> findAllReservasInactivas();
+
+    @Query("SELECT r FROM Reserva r WHERE r.usuario = :nombreUsuario")
+    List<Reserva> buscarPorNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
+
+    @Query("SELECT r FROM Reserva r WHERE r.inmueble.propietario.id = :propietarioId")
+    List<Reserva> buscarPorPropietarioId(@Param("propietarioId") String propietarioId);
 
 }

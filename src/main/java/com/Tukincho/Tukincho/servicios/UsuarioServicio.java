@@ -1,5 +1,4 @@
 package com.Tukincho.Tukincho.servicios;
-
 import com.Tukincho.Tukincho.entidades.Imagen;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
@@ -29,11 +28,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
-public class UsuarioServicio implements UserDetailsService {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-
+    
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
@@ -57,6 +56,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        System.out.println(usuario.toString());
         usuarioRepositorio.save(usuario);
     }
 
@@ -73,10 +73,12 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
+       
             usuarioRepositorio.save(usuario);
         }
     }
+
+
 
     @Transactional
     public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
@@ -97,6 +99,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepositorio.save(usuario);
         }
     }
+
 
 
 
@@ -161,19 +164,12 @@ public class UsuarioServicio implements UserDetailsService {
         Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
         if (usuario != null) {
             List<GrantedAuthority> permisos = new ArrayList();
-
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-
             permisos.add(p);
-
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
             HttpSession session = attr.getRequest().getSession(true);
-
             session.setAttribute("usuariosession", usuario);
-
             return new User(usuario.getNombreUsuario(), usuario.getPassword(), permisos);
-
         } else {
             return null;
         }
@@ -181,7 +177,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     public byte[] obtenerBytesDeImagenPorDefecto() throws IOException {
         // Ruta relativa del archivo de imagen por defecto
-        String rutaImagenPorDefecto = "static/imagenes/Default-Profile.jpg";
+        String rutaImagenPorDefecto = "static/imagenes/default-profile.jpg";
 
         // Cargar el recurso de la imagen por defecto desde el classpath
         Resource resource = new ClassPathResource(rutaImagenPorDefecto);

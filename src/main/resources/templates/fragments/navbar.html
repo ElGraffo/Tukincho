@@ -8,8 +8,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a  th:if="${session.usuariosession == null}" class="nav-link active" aria-current="page"  th:href="@{/login}">Inicia sesion</a>
+
+
+                <li class="nav-item">
+                    <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/login}">Inicia Sesion</a>
+                    <a  th:unless="${session.usuariosession == null}" class="nav-link" th:href="@{/perfil}" th:text="${session.usuariosession.getNombreUsuario()}">Perfil</a>
                 </li>
+
+                <li class="nav-item">
+                    <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link active" aria-current="page"  th:href="@{/admin/dashboard}">Panel de control</a>
+                </li>
+
                 <li class="nav-item">
                     <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/registrar}">Registrate</a>
                 </li>
@@ -27,11 +36,6 @@
                                <a  th:if="${session.usuariosession != null}" class="nav-link active" aria-current="page"  th:href="@{/logout}">Cerrar sesion</a>
                            </li>  -->
 
-                <li class="nav-item">
-                    <a   class="nav-link active"  sec:authorize="hasAuthority('ROLE_ADMIN')" aria-current="page"  th:href="@{/admin/dashboard}">Panel de control</a>
-
-                    <!--                    <a   class="nav-link active"  sec:authorize="hasAuthority('ADMIN')" aria-current="page"  th:href="@{/admin/dashboard}">Panel de control</a>-->
-                </li>
                 <!--                <li><a class="dropdown-item" sec:authorize="hasAuthority('ADMIN')" th:href="@{/autor/registrar}">Crear Autor</a></li>-->
 
 

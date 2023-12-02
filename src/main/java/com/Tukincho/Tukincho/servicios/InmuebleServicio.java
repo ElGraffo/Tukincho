@@ -39,8 +39,6 @@ public class InmuebleServicio {
                               List<InmuebleServicioExtra> serviciosExtras) throws Exception {
         
         validar(nombre,descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
-        //Inmueble inmueble = new Inmueble();
-        //creo un inmueble vacio para poder optener el id del inmueble y poder asignarlo a las imagenes
         inmueble.setPropietario(propietario);
         inmueble.setNombre(nombre);
         inmueble.setDescripcionDelInmueble(descripcionDelInmueble);
@@ -98,10 +96,8 @@ public class InmuebleServicio {
                     imagenesGuardadas.add(imagenGuardada);
                 }
             }
-
             // Asignar las imágenes al inmueble
             inmueble.setImagen(imagenesGuardadas);
-
             inmueble.setInmuebleServiciosExtras(serviciosExtras);
             inmuebleRepositorio.save(inmueble);
         }
@@ -109,9 +105,8 @@ public class InmuebleServicio {
 
     public List<Inmueble> listaDeInmuebles() {
         try {
-
             return inmuebleRepositorio.findAll();
-        } catch (Exception e) {
+        }catch (Exception e) {
             return null;
         }
     }
@@ -143,10 +138,6 @@ public class InmuebleServicio {
             return null;
         }
     }
-
-    /*public List<Inmueble> buscarInmueblePorServiciosExtra(ServiciosExtra servicioExtra){
-        return serviciosExtraRepositorio.buscarInmueblePorServiciosExtra(servicioExtra);
-    }*/
   
     @Transactional
     public void borrarInmueble(String id){

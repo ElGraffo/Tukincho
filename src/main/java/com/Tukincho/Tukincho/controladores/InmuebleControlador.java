@@ -80,7 +80,7 @@ public class InmuebleControlador {
             System.out.println("NO ESTA COMO PROPIETARIO SE CREA PROPIETARIO");
            // Usuario usuario = usuarioServicio.buscarUsuarioPorId(logueado.getId());
             propietario = propietarioServicio.crearPropietario(logueado);
-            usuarioServicio.borrarUsuario(logueado.getId());
+            //usuarioServicio.borrarUsuario(logueado.getId());
         }else{
             propietario=(Propietario) logueado;
         }
@@ -102,10 +102,7 @@ public class InmuebleControlador {
                     preciosServiciosExtras.put(servicioId, precioServicio);
                 }
             }
-
             
-            
-
             Inmueble inmueble = new Inmueble();//creo un inmueble para obtener su id;
             List<InmuebleServicioExtra> inmuebleServiciosExtra = crearInmuebleServiciosExtras(preciosServiciosExtras, inmueble);
             List<Reserva> reserva = null;
@@ -126,9 +123,7 @@ public class InmuebleControlador {
             for (Map.Entry<String, Long> entry : preciosServiciosExtras.entrySet()) {
                 String servicioExtraId = entry.getKey();
                 Long precio = entry.getValue();
-
                 ServiciosExtra servicioExtra = serviciosExtrasRepositorio.findById(servicioExtraId).orElse(null);
-
                 if (servicioExtra != null) {
                     InmuebleServicioExtra inmuebleServicioExtra = new InmuebleServicioExtra();
                     inmuebleServicioExtra.setServicioExtra(servicioExtra);
@@ -150,14 +145,14 @@ public class InmuebleControlador {
         return "propiedades_listar.html";
     }
     
-    
-    
     @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_USUARIO')")
      @GetMapping("/mispropiedades/listar")
     public String listarPropiedadesPorPropietrio(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        
-        List<Inmueble> propiedades = propietarioServicio.buscarPropietarioPorInmueble(logueado.getId());
+        System.out.println(logueado.getRol());
+        Propietario propietario= propietarioServicio.buscarPropietarioPorNombreUsuario(logueado.getNombreUsuario());
+        System.out.println("Propietario ID: "+propietario.getId());
+        List<Inmueble> propiedades = propietarioServicio.buscarPropietarioPorInmueble(propietario.getId());
         modelo.put("propiedades", propiedades);
         return "propiedades_listar.html";
     }
@@ -172,7 +167,6 @@ public class InmuebleControlador {
         } catch (Exception ex) {
             return "propiedad_listar.html";
         }
-
         return "inmueble_detalle.html";
     }
 
@@ -216,7 +210,6 @@ public class InmuebleControlador {
             System.out.println(ex.getMessage());
             return "error.html"; // Puedes redirigir a una página de error o hacer lo que consideres adecuado.
         }
-
         return "redirect:/propiedades/listar"; // Redirigir a la página de listar propiedades después de la edición.
     }
 }

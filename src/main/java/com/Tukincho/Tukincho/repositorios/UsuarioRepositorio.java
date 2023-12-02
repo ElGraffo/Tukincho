@@ -1,5 +1,6 @@
 package com.Tukincho.Tukincho.repositorios;
-import com.Tukincho.Tukincho.entidades.Reserva;
+
+import com.Tukincho.Tukincho.entidades.Propietario;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,13 +13,16 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     public Usuario buscarPorNombre(@Param("nombreUsuario") String nombreUsuario);
     
     @Query("select u from Usuario u where u.nombreUsuario = :nombreUsuario")
-    List<Usuario>ListarUsuarios(@Param("nombreUsuario") String nombreUsuario);
+    public List<Usuario> buscarPorNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
     
-    @Query("select u from Usuario u where u.activo = :activo")
-    List<Usuario> filtrarUsuariosActivos(@Param("activo") Boolean activo);
+    @Query("select u from Usuario u where u.nombreUsuario = :nombreUsuario and u.rol='USUARIO'")
+    public Usuario buscarUsuarioRolUsuario(@Param("nombreUsuario") String nombreUsuario);
     
-   @Query("select u from Usuario u where u.reserva = :reserva")
-   public Usuario filtrarPorReserva(@Param("reserva") List<Reserva> reserva);
+    @Query("select u from Usuario u where u.nombreUsuario = :nombreUsuario and u.rol='PROPIETARIO'")
+    public Propietario buscarUsuarioRolPropietario(@Param("nombreUsuario") String nombreUsuario);
+    
+    @Query("select u from Usuario u where u.nombreUsuario = :nombreUsuario and u.rol='ADMIN'")
+    public Usuario buscarUsuarioRolAdmin(@Param("nombreUsuario") String nombreUsuario);
    
 }
 
