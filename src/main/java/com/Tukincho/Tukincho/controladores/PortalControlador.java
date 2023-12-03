@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
+/**
+ * Controlador que gestiona las operaciones relacionadas con el portal de la aplicación.
+ * Maneja el registro, inicio de sesión, perfil y otras funcionalidades del usuario.
+ */
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
@@ -30,22 +33,48 @@ public class PortalControlador {
 
     @Autowired
     ReservaServicio reservaServicio;
-
+    
+    /**
+     * Método que muestra la página de inicio.
+     *
+     * @return Vista de la página de inicio.
+     */
     @GetMapping("/")
     public String index() {
         return "index.html";
     }
-
+    
+    /**
+     * Método que redirige a la página de inicio.
+     *
+     * @return Vista de la página de inicio.
+     */
     @GetMapping("/index")
     public String mostrarIndex() {
         return "index.html";
     }
 
+    /**
+     * Método que muestra la página de registro.
+     *
+     * @return Vista de la página de registro.
+     */
     @GetMapping("/registrar")
     public String registrar() {
         return "registro.html";
     }
 
+    /**
+     * Método que procesa el registro de un nuevo usuario.
+     *
+     * @param nombre   Nombre del usuario.
+     * @param email    Correo electrónico del usuario.
+     * @param password Contraseña del usuario.
+     * @param password2 Confirmación de la contraseña.
+     * @param modelo   Modelo que contiene los atributos para la vista.
+     * @return Vista principal con un mensaje de éxito o error.
+     * @throws Exception Si hay un error durante el registro.
+     */
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
                            String password2, ModelMap modelo) throws Exception {
@@ -61,13 +90,24 @@ public class PortalControlador {
             return "registro.html";
         }
     }
-
+    
+    /**
+     * Método que muestra la página de administrador.
+     *
+     * @return Vista de la página de administrador.
+     */
     @GetMapping("/admin")
     public String admin() {
         return "admin.html";
     }
 
-
+    /**
+     * Método que muestra la página de inicio de sesión.
+     *
+     * @param error Indica si ha ocurrido un error durante el inicio de sesión.
+     * @param model Modelo que contiene los atributos para la vista.
+     * @return Vista de la página de inicio de sesión.
+     */
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap model) {
         if (error == null) {
@@ -78,10 +118,15 @@ public class PortalControlador {
             return null;
         }
     }
-
+    
+    /**
+     * Método que muestra la página de inicio según el rol del usuario.
+     *
+     * @param session Sesión del usuario.
+     * @return Vista de la página de inicio correspondiente al rol del usuario.
+     */
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
-
     public String inicio(HttpSession session) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
 
@@ -91,24 +136,49 @@ public class PortalControlador {
         return "index.html";
     }
 
+    /**
+     * Método que muestra la página de perfil del usuario.
+     *
+     * @param modelo Modelo que contiene los atributos para la vista.
+     * @param session Sesión del usuario.
+     * @return Vista de la página de perfil del usuario.
+     */
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @GetMapping("/perfil")
-
     public String perfil(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
         return "perfil.html";
     }
 
+    /**
+     * Método que muestra la página de modificación de perfil del usuario.
+     *
+     * @param modelo  Modelo que contiene los atributos para la vista.
+     * @param session Sesión del usuario.
+     * @return Vista de la página de modificación de perfil del usuario.
+     */
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROPIETARIO')")
     @GetMapping("/perfil/modificar")
-
     public String perfilModificar(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
         return "usuario_modificar.html";
     }
 
+    /**
+     * Método que actualiza la información del usuario.
+     *
+     * @param archivo   Archivo de imagen del usuario.
+     * @param id        ID del usuario.
+     * @param nombre    Nuevo nombre del usuario.
+     * @param email     Nuevo correo electrónico del usuario.
+     * @param password  Nueva contraseña del usuario.
+     * @param password2 Confirmación de la nueva contraseña.
+     * @param modelo    Modelo que contiene los atributos para la vista.
+     * @return Vista principal con un mensaje de éxito o error.
+     * @throws Exception Si hay un error durante la actualización del usuario.
+     */
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
@@ -127,7 +197,14 @@ public class PortalControlador {
         }
     }
 
-
+    /**
+     * Método que lista las reservas de un cliente.
+     *
+     * @param id     ID del usuario.
+     * @param modelo Modelo que contiene los atributos para la vista.
+     * @return Vista de la lista de reservas del cliente.
+     * @throws Exception Si hay un error durante la búsqueda de las reservas.
+     */
     @GetMapping("/perfil/misReservasCliente/{id}")
     public String listarPropiedades(@PathVariable String id,
                                     ModelMap modelo) throws Exception {
@@ -141,6 +218,14 @@ public class PortalControlador {
         return "reservas_listar_por_usuario.html";
     }
 
+    
+    /**
+     * Método que muestra las reservas asociadas a los inmuebles de un propietario.
+     *
+     * @param idPropietario ID del propietario.
+     * @param modelo        Modelo que contiene los atributos para la vista.
+     * @return Vista de las reservas asociadas a los inmuebles del propietario.
+     */
     @GetMapping("/mostrar/reservas/misinmuebles/{idPropietario}")
     public String mostrarReservasAmisInmuebles(@PathVariable String idPropietario, ModelMap modelo){
         try{
