@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
+/**
+ * Controlador que maneja las operaciones relacionadas con los feedbacks de reservas.
+ */
 @Controller
 @RequestMapping("/feedback")
-
 
 
 public class FeedbackControlador {
@@ -26,6 +27,14 @@ public class FeedbackControlador {
 
     @Autowired
     FeedbackServicio feedbackServicio;
+    
+    /**
+     * Método que direcciona a la página de creación de feedback para una reserva específica.
+     *
+     * @param id    ID de la reserva para la cual se creará el feedback.
+     * @param model Modelo que contiene los atributos para la vista.
+     * @return Vista de la página de creación de feedback.
+     */
     @GetMapping("/crear/{id}")
     public String feedback(@PathVariable String id, ModelMap model) {
         try {
@@ -37,7 +46,17 @@ public class FeedbackControlador {
             return "feedback.html";
         }
     }
-
+    
+    /**
+     * Método que procesa la creación de un nuevo feedback.
+     *
+     * @param titulo       Título del feedback.
+     * @param detalle      Detalle del feedback.
+     * @param calificacion Calificación asignada al feedback.
+     * @param reservaId    ID de la reserva a la que se asocia el feedback.
+     * @param model        Modelo que contiene los atributos para la vista.
+     * @return Vista principal con un mensaje de éxito o error.
+     */
     @PostMapping("/reseniando")
     public String reseniando(
             @RequestParam String titulo,
