@@ -98,6 +98,27 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+
+
+    @Transactional
+    public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
+                                  String password2) throws Exception {
+        validar(nombre, email, password, password2);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            usuario.setEmail(email);
+            usuario.setNombreUsuario(nombre);
+//            usuario.setActivo(true);
+//            usuario.setRol(Rol.USUARIO); ////y esto por que?
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+
     public Usuario buscarUsuarioPorId(String id) {
         try {
             return usuarioRepositorio.getReferenceById(id);
@@ -205,5 +226,4 @@ public class UsuarioServicio implements UserDetailsService {
             return IOUtils.toByteArray(inputStream);
         }
     }
-
 }

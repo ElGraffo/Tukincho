@@ -14,7 +14,17 @@
                     <a  th:unless="${session.usuariosession == null}" class="nav-link" th:href="@{/perfil}" th:text="${session.usuariosession.getNombreUsuario()}">Perfil</a>
                 </li>
                    <!-- <a  th:if="${session.usuariosession == null}" class="nav-link active" aria-current="page"  th:href="@{/login}">Inicia sesion</a>-->
+                    <a  th:if="${session.usuariosession == null}" class="nav-link active" aria-current="page"  th:href="@{/login}">Inicia sesion</a>
                 </li>
+                
+                <li class="nav-item">
+                    <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link active" aria-current="page"  th:href="@{/admin/dashboard}">Panel de control</a>
+                </li>
+                <li class="nav-item">
+                    <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/registrar}">Registrate</a>
+
+                </li>
+              
                 <li class="nav-item">
                     <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/registrar}">Registrate</a>
                 </li>
@@ -24,9 +34,28 @@
                 </li>
 
                 <li class="nav-item">
-                    <a  th:if="${session.usuariosession != null}" class="nav-link active" aria-current="page"  th:href="@{/logout}">Cerrar sesion</a>
+                    <a  th:if="${session.usuariosession != null}" class="nav-link active" aria-current="page"  th:href="@{/propiedad/registrar}">Registrar inmueble</a>
                 </li>
 
+
+                <!--           <li class="nav-item">
+                               <a  th:if="${session.usuariosession != null}" class="nav-link active" aria-current="page"  th:href="@{/logout}">Cerrar sesion</a>
+                           </li>  -->
+
+                <!--                <li><a class="dropdown-item" sec:authorize="hasAuthority('ADMIN')" th:href="@{/autor/registrar}">Crear Autor</a></li>-->
+
+
+
+                <li class="nav-item dropdown">
+                    <a th:if="${session.usuariosession != null}" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- Aquí puedes colocar el nombre del usuario o un icono de perfil -->
+                        Mi cuenta
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a th:if="${session.usuariosession != null}" class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
+                        <li><a th:if="${session.usuariosession != null}" class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
+                    </ul>
+                </li>
                 <!--                <li class="nav-item dropdown">-->
                 <!--                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
                 <!--                        Propiedades-->
