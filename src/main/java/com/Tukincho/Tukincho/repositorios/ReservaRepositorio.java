@@ -18,6 +18,12 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  *
  */
+
+
+/**
+ * Repositorio que gestiona las operaciones de persistencia para la entidad Reserva.
+ * Utiliza Spring Data JPA y extiende de JpaRepository para proporcionar métodos de acceso a datos comunes.
+ */
 @Repository
 public interface ReservaRepositorio extends JpaRepository<Reserva, String> {
 
@@ -55,10 +61,12 @@ public interface ReservaRepositorio extends JpaRepository<Reserva, String> {
     // Método para buscar todas las reservas inactivas
     @Query("SELECT r FROM Reserva r WHERE r.activo = false")
     List<Reserva> findAllReservasInactivas();
-
+    
+    // Método para buscar reservas por el nombre de usuario
     @Query("SELECT r FROM Reserva r WHERE r.usuario = :nombreUsuario")
     List<Reserva> buscarPorNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
-
+    
+    // Método para buscar reservas por el ID del propietario
     @Query("SELECT r FROM Reserva r WHERE r.inmueble.propietario.id = :propietarioId")
     List<Reserva> buscarPorPropietarioId(@Param("propietarioId") String propietarioId);
 
