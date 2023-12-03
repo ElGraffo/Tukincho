@@ -1,8 +1,10 @@
 package com.Tukincho.Tukincho.servicios;
 import com.Tukincho.Tukincho.entidades.Imagen;
+import com.Tukincho.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
 import com.Tukincho.Tukincho.repositorios.ImagenRepositorio;
+import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
 import com.Tukincho.Tukincho.repositorios.UsuarioRepositorio;
 import java.io.IOException;
 
@@ -29,7 +31,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioServicio implements UserDetailsService{
-
+    @Autowired
+    private InmuebleRepositorio inmuebleRepositorio;
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     
@@ -139,6 +142,20 @@ public class UsuarioServicio implements UserDetailsService{
             Usuario usuario = validacion.get();
             usuarioRepositorio.delete(usuario);
         }
+    }
+    
+    
+    public Usuario marcarComoFavorito(String nombreUsuario, String InmuebleId) {
+        Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+        Inmueble inmueble = inmuebleRepositorio.getById(InmuebleId);
+
+        usuario.getInmueblesFavoritos().add(inmueble);
+        return usuarioRepositorio.save(usuario);
+    }
+
+    public List<Inmueble> obtenerInmueblesFavoritos(String usuarioId) {
+        Usuario usuario = usuarioRepositorio.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        return new ArrayList<>(usuario.getInmueblesFavoritos());
     }
 
     private void validar(String nombre, String email, String password, String password2) throws Exception {

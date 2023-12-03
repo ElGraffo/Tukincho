@@ -2,7 +2,9 @@
 package com.Tukincho.Tukincho.entidades;
 
 import com.Tukincho.Tukincho.enums.Rol;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
@@ -48,4 +50,12 @@ public class Usuario {
                 "Rol:"+rol+"]";
                 
     }
+    
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_inmueble_favorito",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "inmueble_id"))
+    private Set<Inmueble> inmueblesFavoritos = new HashSet<>();
+    
 }

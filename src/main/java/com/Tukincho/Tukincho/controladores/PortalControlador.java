@@ -1,4 +1,5 @@
 package com.Tukincho.Tukincho.controladores;
+import com.Tukincho.Tukincho.entidades.Inmueble;
 import com.Tukincho.Tukincho.entidades.Reserva;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/")
@@ -151,5 +155,13 @@ public class PortalControlador {
             return "propiedad/listar";
         }
         return "reservas_a_mis_inmuebles.html";
+    }
+    
+     @GetMapping("/inmuebles-favoritos/{usuarioId}")
+    public String mostrarInmueblesFavoritos(@PathVariable String usuarioId, Model model) {
+        List<Inmueble> inmueblesFavoritos = usuarioServicio.obtenerInmueblesFavoritos(usuarioId);
+        model.addAttribute("usuarioId", usuarioId);
+        model.addAttribute("inmueblesFavoritos", inmueblesFavoritos);
+        return "inmueblesFavoritos.html";
     }
 }

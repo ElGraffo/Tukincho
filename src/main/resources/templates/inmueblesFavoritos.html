@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inmuebles Favoritos</title>
+</head>
+<body>
+
+    <h2>Inmuebles Favoritos</h2>
+
+    <p th:if="${inmueblesFavoritos.isEmpty()}">No hay inmuebles favoritos.</p>
+
+    <ul th:if="${not inmueblesFavoritos.isEmpty()}">
+        <li th:each="inmueble : ${inmueblesFavoritos}">
+            <span th:text="${inmueble.direccion + ' - $' + inmueble.precio}"></span>
+        </li>
+    </ul>
+
+    <p><a th:href="@{'/usuarios/' + ${usuarioId}}">Volver al perfil del usuario</a></p>
+
+</body>
+</html>
