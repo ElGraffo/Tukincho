@@ -27,7 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+/**
+ * Controlador que gestiona las operaciones relacionadas con las reservas de inmuebles.
+ * Maneja la creación, visualización y listado de reservas.
+ */
 @Controller
 @RequestMapping("/reserva")
 public class ReservaControlador {
@@ -43,7 +46,14 @@ public class ReservaControlador {
 
     @Autowired
     ServiciosExtraRepositorio serviciosExtrasRepositorio;
-
+    
+    /**
+     * Método que muestra la página de reserva para un inmueble específico.
+     *
+     * @param id    ID del inmueble a reservar.
+     * @param model Modelo que contiene los atributos para la vista.
+     * @return Vista de la página de reserva.
+     */
     @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_USUARIO')")
     @GetMapping("/crear/{id}")
     public String reserva(@PathVariable String id, ModelMap model) {
@@ -57,7 +67,21 @@ public class ReservaControlador {
             return "reserva.html";
         }
     }
-
+    
+    /**
+     * Método que procesa la creación de una reserva.
+     *
+     * @param fechaInicioReserva          Fecha de inicio de la reserva.
+     * @param fechaFinReserva             Fecha de fin de la reserva.
+     * @param costoReserva                Costo de la reserva.
+     * @param costoServiciosSeleccionados Costo de los servicios extras seleccionados.
+     * @param inmuebleId                  ID del inmueble a reservar.
+     * @param usuarioId                   ID del usuario que realiza la reserva.
+     * @param request                     Objeto que representa la solicitud HTTP.
+     * @param model                       Modelo que contiene los atributos para la vista.
+     * @param redirectModel               Atributos flash para la redirección.
+     * @return Redirección a la página principal con un mensaje de éxito o a la página de reserva en caso de error.
+     */
     @PostMapping("/reservado")
     public String reservado(
             @RequestParam String fechaInicioReserva,
@@ -133,7 +157,14 @@ public class ReservaControlador {
         }
         return "index.html";
     }
-
+    
+    /**
+     * Método privado que crea la lista de servicios extras asociados a la reserva.
+     *
+     * @param preciosServiciosExtras Mapa que contiene los IDs de servicios extras y sus precios.
+     * @param inmueble                Inmueble asociado a la reserva.
+     * @return Lista de servicios extras asociados a la reserva.
+     */
     private List<InmuebleServicioExtra> crearReservaServiciosExtras(Map<String, Long> preciosServiciosExtras, Inmueble inmueble) {
        //se debe crear la entidad ReservaServicioExtra en ves de InmuebleServicioExtra
         List<InmuebleServicioExtra> inmuebleServiciosExtra = new ArrayList<>();
@@ -154,7 +185,14 @@ public class ReservaControlador {
         }
         return inmuebleServiciosExtra;
     }
-
+    
+    /**
+     * Método que lista las reservas de un usuario.
+     *
+     * @param session Sesión HTTP que contiene al usuario logueado.
+     * @param modelo  Modelo que contiene los atributos para la vista.
+     * @return Vista de las reservas del usuario.
+     */
     @GetMapping("/listar")
     public String listarReserva(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
