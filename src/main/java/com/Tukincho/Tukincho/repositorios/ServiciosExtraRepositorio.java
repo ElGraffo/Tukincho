@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  * @Data 18/11/2023
  */
+
+/**
+ * Repositorio que gestiona las operaciones de persistencia para la entidad ServiciosExtra.
+ * Utiliza Spring Data JPA y extiende de JpaRepository para proporcionar métodos de acceso a datos comunes.
+ */
 @Repository
 public interface ServiciosExtraRepositorio extends JpaRepository<ServiciosExtra, String> {
     
