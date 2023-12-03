@@ -33,6 +33,12 @@ import org.springframework.web.multipart.MultipartFile;
  * @version 1.0
  * @data 13/11/2023
  */
+
+/**
+ * Controlador que maneja las operaciones relacionadas con los inmuebles.
+ * Permite a propietarios y usuarios registrar, editar, listar y ver detalles de inmuebles.
+ */
+
 @Controller
 @RequestMapping("/propiedad")
 public class InmuebleControlador {
@@ -45,7 +51,13 @@ public class InmuebleControlador {
     InmuebleServicio inmuebleServicio;
     @Autowired
     ServiciosExtraRepositorio serviciosExtrasRepositorio;
-
+    
+    /**
+     * Método que muestra el formulario para registrar un nuevo inmueble.
+     *
+     * @param modelo Modelo que contiene los atributos para la vista.
+     * @return Vista del formulario de registro de inmueble.
+     */
     @GetMapping("/registrar")
     @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_USUARIO')")
     public String registrarInmueble(ModelMap modelo) {
@@ -55,6 +67,23 @@ public class InmuebleControlador {
         return "propiedad_nueva.html";
     }
 
+    /**
+     * Método que procesa el registro de un nuevo inmueble.
+     *
+     * @param imagenes            Lista de imágenes del inmueble.
+     * @param nombre              Nombre del inmueble.
+     * @param descripcion         Descripción del inmueble.
+     * @param precio              Precio por noche del inmueble.
+     * @param otrosDetalles       Otros detalles del inmueble.
+     * @param direccion           Dirección del inmueble.
+     * @param provincia           Provincia del inmueble.
+     * @param reservas            Lista de reservas asociadas al inmueble.
+     * @param serviciosExtras     Lista de servicios extras asociados al inmueble.
+     * @param session             Sesión del usuario.
+     * @param request             Objeto HttpServletRequest.
+     * @param modelo              Modelo que contiene los atributos para la vista.
+     * @return Vista principal con un mensaje de éxito o error.
+     */
     @PostMapping("/registro")
     public String registro(
             @RequestPart("imagenes[]") List<MultipartFile> imagenes,
@@ -115,7 +144,14 @@ public class InmuebleControlador {
 
         return "redirect:/propiedad/listar";
     }
-
+    
+    /**
+     * Método que crea objetos InmuebleServicioExtra a partir de los servicios extras y sus precios asociados.
+     *
+     * @param preciosServiciosExtras Mapa que contiene los IDs de los servicios extras y sus precios.
+     * @param inmueble               Inmueble al que se asocian los servicios extras.
+     * @return Lista de objetos InmuebleServicioExtra.
+     */
     private List<InmuebleServicioExtra> crearInmuebleServiciosExtras(Map<String, Long> preciosServiciosExtras, Inmueble inmueble) {
         List<InmuebleServicioExtra> inmuebleServiciosExtra = new ArrayList<>();
 
@@ -137,7 +173,14 @@ public class InmuebleControlador {
 
         return inmuebleServiciosExtra;
     }
-
+    
+    /**
+     * Método que lista todas las propiedades.
+     *
+     * @param modelo Modelo que contiene los atributos para la vista.
+     * @return Vista de la lista de propiedades.
+     */
+    @GetMapping("/listar")
     @GetMapping("/listar")
     public String listarPropiedades(ModelMap modelo) {
         List<Inmueble> propiedades = inmuebleServicio.listaDeInmuebles();
@@ -145,6 +188,13 @@ public class InmuebleControlador {
         return "propiedades_listar.html";
     }
     
+    /**
+     * Método que lista las propiedades de un propietario.
+     *
+     * @param session Sesión del usuario.
+     * @param modelo  Modelo que contiene los atributos para la vista.
+     * @return Vista de la lista de propiedades del propietario.
+     */
     @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_USUARIO')")
      @GetMapping("/mispropiedades/listar")
     public String listarPropiedadesPorPropietrio(HttpSession session, ModelMap modelo) {
@@ -156,7 +206,14 @@ public class InmuebleControlador {
         modelo.put("propiedades", propiedades);
         return "propiedades_listar.html";
     }
-
+    
+    /**
+     * Método que muestra los detalles de un inmueble.
+     *
+     * @param id     ID del inmueble.
+     * @param modelo Modelo que contiene los atributos para la vista.
+     * @return Vista de los detalles del inmueble.
+     */
     @GetMapping("/detalle/{id}")
     public String detalleDelInmueble(@PathVariable("id") String id, ModelMap modelo) {
         System.out.println("ingresa a detalle");
@@ -169,7 +226,24 @@ public class InmuebleControlador {
         }
         return "inmueble_detalle.html";
     }
-
+    
+    /**
+     * Método que procesa la edición de un inmueble.
+     *
+     * @param id                     ID del inmueble a editar.
+     * @param nuevasImagenes         Lista de nuevas imágenes del inmueble.
+     * @param nombre                 Nombre actualizado del inmueble.
+     * @param descripcion            Descripción actualizada del inmueble.
+     * @param precio                 Precio actualizado por noche del inmueble.
+     * @param otrosDetalles          Otros detalles actualizados del inmueble.
+     * @param direccion              Dirección actualizada del inmueble.
+     * @param provincia              Provincia actualizada del inmueble.
+     * @param activa                 Estado de activación del inmueble.
+     * @param reserva                Lista de reservas actualizadas asociadas al inmueble.
+     * @param inmuebleServiciosExtra Lista de servicios extras actualizados asociados al inmueble.
+     * @param modelo                 Modelo que contiene los atributos para la vista.
+     * @return Vista principal con un mensaje de éxito o error.
+     */
     @PostMapping("/editar/{id}")
     public String editarInmueble(@PathVariable String id,
             @RequestPart(name = "imagenes", required = false) List<MultipartFile> nuevasImagenes,
