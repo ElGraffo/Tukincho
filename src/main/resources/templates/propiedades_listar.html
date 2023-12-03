@@ -55,15 +55,15 @@
                         <div class="col-md-2 cardCentral">
                             <!-- bg-body-secondary -->
                             <div class="d-grid card-body justify-content-center align-content-center">
-                                <h5 class="card-title">Calificación</h5>
-                                <p>8.8 - Excelente</p>
-                                <p>estrellitas</p>
-                                <h5>Destacado</h5>
-                                <p class="card-text destacado"> <span style="font-family: Arial Unicode MS, Lucida Grande">
+                                <h5 class="card-title-c">Calificación</h5>
+                                <p id="calificacion" class="calificacion" th:text="${#numbers.formatDecimal(propiedad.getCalificacionTotal(), 1, 'POINT', 1, 'COMMA')} + '/5'">8.8 - Excelente</p>
+                                <div class="rating">
+                                    <i th:each="star : ${#numbers.sequence(1, 5)}" th:class="${star le propiedad.getCalificacionTotal()+0.5} ? 'bi bi-star-fill star checked' : 'bi bi-star-fill star'"></i>
+                                </div>
+                                <h5 class="destacado-title">Destacado</h5>
+                                <p class="destacado text"> <span style="font-family: Arial Unicode MS, Lucida Grande">
                                                 &#10004; </span>Desayuno gratis.</p>
-
                             </div>
-
                         </div>
 
                         <div class="col-md-2 cardDerecho d-grid justify-content-center align-content-center">
