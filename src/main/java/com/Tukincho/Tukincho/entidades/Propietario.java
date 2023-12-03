@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Propietario extends Usuario {
-
     @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<Inmueble> inmuebles;
     @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)

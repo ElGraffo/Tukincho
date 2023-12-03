@@ -15,12 +15,10 @@ public class Inmueble {
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")
     private String id;
-    
     @ManyToOne
     @JoinColumn(name = "id_propietario")
     private Propietario propietario;
     private String nombre;
-    
     @Column(length = 500)
     private String descripcionDelInmueble;
     @Basic
@@ -61,8 +59,8 @@ public class Inmueble {
     }
 
     // todo --> agregar lista de reseñas / agregar localidad
-@Override
-public String toString(){
-    return "Inmueble[nombre: "+nombre+"Descripcion: "+descripcionDelInmueble+"Precio:"+precioPorNoche+"]";
-}
+    @Override
+    public String toString(){
+        return "Inmueble[nombre: "+nombre+"Descripcion: "+descripcionDelInmueble+"Precio:"+precioPorNoche+"]";
+    }
 }

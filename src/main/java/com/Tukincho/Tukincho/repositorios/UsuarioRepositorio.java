@@ -1,7 +1,10 @@
 package com.Tukincho.Tukincho.repositorios;
 
 import com.Tukincho.Tukincho.entidades.Propietario;
+<<<<<<< HEAD
 import com.Tukincho.Tukincho.entidades.Reserva;
+=======
+>>>>>>> master
 import com.Tukincho.Tukincho.entidades.Usuario;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

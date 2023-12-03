@@ -78,11 +78,10 @@ public class ReservaControlador {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date inicioReserva = formato.parse(fechaInicioReserva);
             Date finReserva = formato.parse(fechaFinReserva);
-
             Inmueble inmueble = inmuebleServicio.buscarInmueblePorId(inmuebleId);
             //ANTES BUSCABA POR ID DE USUARIO, pero si es un propietario, no va a encontrar 
             //un id de usuario, por eso busco con rol de usuario
-            Usuario usuario = usuarioServicio.buscarUsuarioPorRolUsuario(usuarioId);
+            Usuario usuario = usuarioServicio.buscarUsuarioPorId(usuarioId);
             Propietario propietario = inmueble.getPropietario();
             System.out.println("PROPIETARIO ID: "+propietario.getId());
             System.out.println("USUARIO ID:"+usuario.getId());
@@ -116,18 +115,13 @@ public class ReservaControlador {
             //deberia hacer una tabla extra que guarde los servicios extras seleccionado por el usuario
 
             List<InmuebleServicioExtra> inmuebleServiciosExtra = crearReservaServiciosExtras(preciosServiciosExtras, inmueble);
-
             System.out.println("INICIO RESERVA: " + inicioReserva);
             System.out.println("FIN RESERVA: " + finReserva);
-
             reserva = reservaServicio.crearReserva(inmueble, usuario, propietario, inicioReserva,
-                    finReserva, costoReserva, costoServiciosSeleccionados);
-
+                                                    finReserva, costoReserva, costoServiciosSeleccionados);
             List<Reserva> reservas = inmueble.getReservas();
             reservas.add(reserva);
-
             inmueble.setReservas(reservas);
-
             model.put("exito", "La reserva se ha generado exitosamente");
         } catch (Exception e) {
             redirectModel.addFlashAttribute("error", e.getMessage());
@@ -143,14 +137,11 @@ public class ReservaControlador {
     private List<InmuebleServicioExtra> crearReservaServiciosExtras(Map<String, Long> preciosServiciosExtras, Inmueble inmueble) {
        //se debe crear la entidad ReservaServicioExtra en ves de InmuebleServicioExtra
         List<InmuebleServicioExtra> inmuebleServiciosExtra = new ArrayList<>();
-
         if (preciosServiciosExtras != null && !preciosServiciosExtras.isEmpty()) {
             for (Map.Entry<String, Long> entry : preciosServiciosExtras.entrySet()) {
                 String servicioExtraId = entry.getKey();
                 Long precio = entry.getValue();
-
                 ServiciosExtra servicioExtra = serviciosExtrasRepositorio.findById(servicioExtraId).orElse(null);
-
                 if (servicioExtra != null) {
                     InmuebleServicioExtra inmuebleServicioExtra = new InmuebleServicioExtra();
                     inmuebleServicioExtra.setServicioExtra(servicioExtra);
@@ -161,7 +152,6 @@ public class ReservaControlador {
                 }
             }
         }
-
         return inmuebleServiciosExtra;
     }
 
@@ -173,5 +163,4 @@ public class ReservaControlador {
         modelo.put("reservas", reservas);
         return "reservas_listar";
     }
-
 }

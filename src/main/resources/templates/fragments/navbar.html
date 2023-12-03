@@ -9,7 +9,8 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
 
-                    <li class="nav-item">
+
+                <li class="nav-item">
                     <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/login}">Inicia Sesion</a>
                     <a  th:unless="${session.usuariosession == null}" class="nav-link" th:href="@{/perfil}" th:text="${session.usuariosession.getNombreUsuario()}">Perfil</a>
                 </li>
@@ -17,14 +18,11 @@
                     <a  th:if="${session.usuariosession == null}" class="nav-link active" aria-current="page"  th:href="@{/login}">Inicia sesion</a>
                 </li>
                 
+
                 <li class="nav-item">
                     <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link active" aria-current="page"  th:href="@{/admin/dashboard}">Panel de control</a>
                 </li>
-                <li class="nav-item">
-                    <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/registrar}">Registrate</a>
 
-                </li>
-              
                 <li class="nav-item">
                     <a  th:if="${session.usuariosession == null}" class="nav-link" th:href="@{/registrar}">Registrate</a>
                 </li>
@@ -34,7 +32,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a  th:if="${session.usuariosession != null}" class="nav-link active" aria-current="page"  th:href="@{/propiedad/registrar}">Registrar inmueble</a>
+                    <a  sec:authorize="hasAuthority('ROLE_USUARIO')" class="nav-link active" aria-current="page"  th:href="@{/propiedad/registrar}">Registrar inmueble</a>
+                    <a  sec:authorize="hasAuthority('ROLE_PROPIETARIO')" class="nav-link active" aria-current="page"  th:href="@{/propiedad/registrar}">Registrar inmueble</a>
                 </li>
 
 
