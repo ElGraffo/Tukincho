@@ -1,0 +1,41 @@
+footer{
+    --color1: #61A3BA;
+    --color2: #FFFFDD;
+    --color3: #D2DE32;
+    --color4: #A2C579;
+    font-family: 'Raleway', sans-serif; 
+   
+}
+
+footer li{
+
+
+font-size: 1.2rem;
+padding: 10px;
+}
+
+footer a{
+
+    color: var(--color1);
+    font-size: 1.2rem;
+    
+    }
+
+    footer h3{
+        padding-bottom: 20px;
+        color:var(--color1) ;
+        border-bottom: solid 1px var(--color3);
+    }
+
+
+    footer p{
+        color: white;
+    }
+
+    #mailFooter{
+        color:var(--color1) ;
+    }
+
+    #numeroFooter{
+        color:var(--color1) ;
+    }

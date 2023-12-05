@@ -1,5 +1,4 @@
 package com.Tukincho.Tukincho.servicios;
-
 import com.Tukincho.Tukincho.entidades.Imagen;
 import com.Tukincho.Tukincho.entidades.Usuario;
 import com.Tukincho.Tukincho.enums.Rol;
@@ -27,36 +26,46 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class UsuarioServicio implements UserDetailsService {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-
+    
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
     @Transactional
-    public void registrar(String nombre, String email, String password, String password2) throws Exception {
+    public void registrar(String nombre, String email, String password, String password2, MultipartFile imagen) throws Exception {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
-        //cuando hago un new usuario se supone que tiene id?
         usuario = usuarioRepositorio.save(usuario);
-        //establesco la imagen por defecto para el usuario
-        Imagen imagen = new Imagen();
-        byte[] defaultImageBytes = obtenerBytesDeImagenPorDefecto();
-        imagen.setMime("image/jpeg"); // Establecer el tipo MIME según el tipo de la imagen predeterminada
-        imagen.setNombre("default-user-profile.jpg");
-        imagen.setContenido(defaultImageBytes);
-        imagen = imagenRepositorio.save(imagen);
-        usuario.setImagen(imagen);
-
+        //Si no pasa imagen establezco la imagen por defecto para el usuario
+        if(imagen == null || (imagen != null && imagen.getBytes().length == 0)) {
+            Imagen imagenDefault = new Imagen();
+            byte[] defaultImageBytes = obtenerBytesDeImagenPorDefecto();
+            imagenDefault.setMime("image/jpeg"); // Establecer el tipo MIME según el tipo de la imagen predeterminada
+            imagenDefault.setNombre("default-user-profile.jpg");
+            imagenDefault.setContenido(defaultImageBytes);
+            imagenDefault = imagenRepositorio.save(imagenDefault);
+            usuario.setImagen(imagenDefault);
+        } else {
+            Imagen imagenUsuario = new Imagen();
+            byte[] bytesImagen = imagen.getBytes();
+            imagenUsuario.setMime(imagen.getContentType());
+            imagenUsuario.setNombre(imagen.getOriginalFilename());
+            imagenUsuario.setContenido(bytesImagen);
+            imagenUsuario = imagenRepositorio.save(imagenUsuario);
+            usuario.setImagen(imagenUsuario);
+        }
         usuario.setActivo(true);
         usuario.setNombreUsuario(nombre);
         usuario.setEmail(email);
         usuario.setRol(Rol.USUARIO);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        System.out.println(usuario.toString());
         usuarioRepositorio.save(usuario);
     }
 
@@ -73,51 +82,41 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setActivo(true);
             usuario.setRol(Rol.USUARIO);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
+       
             usuarioRepositorio.save(usuario);
         }
     }
 
     @Transactional
     public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
-            String password2) throws Exception {
+            String password2, MultipartFile imagen) throws Exception {
 
         validar(nombre, email, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-
             usuario.setEmail(email);
             usuario.setNombreUsuario(nombre);
 //            usuario.setActivo(true);
 //            usuario.setRol(Rol.USUARIO); ////y esto por que?
+
+            if(imagen != null && imagen.getBytes().length > 0) {
+                Imagen imagenUsuario = new Imagen();
+                byte[] bytesImagen = imagen.getBytes();
+                imagenUsuario.setMime(imagen.getContentType());
+                imagenUsuario.setNombre(imagen.getOriginalFilename());
+                imagenUsuario.setContenido(bytesImagen);
+                imagenUsuario = imagenRepositorio.save(imagenUsuario);
+                usuario.setImagen(imagenUsuario);
+            }
+
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
             usuarioRepositorio.save(usuario);
+            loadUserByUsername(usuario.getNombreUsuario());
         }
     }
-
-
-
-    @Transactional
-    public void autoEditarUsuario(String idUsuario, String email, String nombre, String password,
-                                  String password2) throws Exception {
-        validar(nombre, email, password, password2);
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-
-            usuario.setEmail(email);
-            usuario.setNombreUsuario(nombre);
-//            usuario.setActivo(true);
-//            usuario.setRol(Rol.USUARIO); ////y esto por que?
-            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
-            usuarioRepositorio.save(usuario);
-        }
-    }
-
 
     public Usuario buscarUsuarioPorId(String id) {
         try {
@@ -128,6 +127,10 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+
+    public Usuario buscarUsuarioPorRolUsuario(String nombreUsuario)throws Exception{
+        return usuarioRepositorio.buscarUsuarioRolUsuario(nombreUsuario);
+    }
     public List<Usuario> listarUsuarios() {
         try {
             return usuarioRepositorio.findAll();
@@ -176,7 +179,16 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+        //Usuario usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+        //buscar por nombre de usuario podria devolver una lista, recorrer y obtener el rol user, o propietario, etc
+        List<Usuario> listUsuario= usuarioRepositorio.buscarPorNombreUsuario(nombreUsuario);
+        Usuario usuario;
+        //if(listUsuario!=null && listUsuario.size()>0)
+        usuario= listUsuario.get(0);
+//         else
+//            usuario = usuarioRepositorio.buscarPorNombre(nombreUsuario);
+//
+
         if (usuario != null) {
             List<GrantedAuthority> permisos = new ArrayList();
 
@@ -199,7 +211,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     public byte[] obtenerBytesDeImagenPorDefecto() throws IOException {
         // Ruta relativa del archivo de imagen por defecto
-        String rutaImagenPorDefecto = "static/imagenes/Default-Profile.jpg";
+        String rutaImagenPorDefecto = "static/imagenes/default-profile.jpg";
 
         // Cargar el recurso de la imagen por defecto desde el classpath
         Resource resource = new ClassPathResource(rutaImagenPorDefecto);

@@ -10,6 +10,9 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
 
+
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/footer.css">
     </head>
 
     <body>
@@ -108,7 +111,7 @@
                     <tr>
                         <th scope="row" th:text="${usuario.id}"></th>
                         <td th:text="${usuario.nombreUsuario}"></td>
-                        <td 
+                        <td>
                             <a><img th:if="${usuario.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${usuario.id}__}" ></a>
                         </td>
 
@@ -129,13 +132,13 @@
 
             <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
                 <div class="card-body">
-                    <h5 class="card-title">Exito ð</h5>
+                    <h5 class="card-title">Exito asdasd</h5>
                     <p class="card-text" th:text="${exito}"></p>
                 </div>
             </div>
             <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
                 <div class="card-body">
-                    <h5 class="card-title">Error ð</h5>
+                    <h5 class="card-title">Error asdad</h5>
                     <p class="card-text" th:text="${error}"></p>
                 </div>
             </div>

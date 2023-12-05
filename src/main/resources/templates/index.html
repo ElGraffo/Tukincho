@@ -1,293 +1,344 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace= "/fragments/head_Index :: head" ></head>
-<body>
-    
-<header>
+
+    <head th:replace="/fragments/head_Index :: head"></head>
+
+    <body>
+
+        <header>
 
 
-    <!-- ================================================================================= -->
-<!-- ========================   NAVBAR   ======================================= -->
-<!-- ================================================================================= -->
-
-  <nav th:replace= "/fragments/navbar :: nav" ></nav>
+            <!-- ================================================================================= -->
+            <!-- ========================   NAVBAR   ======================================= -->
+            <!-- ================================================================================= -->
 
 
-<!-- ================================================================================= -->
-<!-- ========================   BUSCADOR   ======================================= -->
-<!-- ================================================================================= -->
+            <!-- <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Propiedades</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav> -->
 
 
-      <form class="row g-5 mx-3 mb-4  bg-light buscador">
-        <div class="col-md-4 p-2">
-            <label for="inputState" class="form-label">Localidad</label>
-            <select id="inputState" class="form-select">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-        </div>
+            <nav th:replace="/fragments/navbar :: nav"></nav>
+        </header>
 
 
-        <div class="col-md-3 p-2">
-          <label for="inputPassword4" class="form-label">Fecha</label>
-          <input type="date" class="form-control" id="inputPassword4">
-        </div>
+        <section id="intro">
+
+            <div class="capaTransparente row">
 
 
-        <div class="col-md-4 p-2">
-            <div>
-                <label for="inputPassword4" class="form-label">Propiedad</label>
-            </div>
-            
-            <div class="d-flex justify-content-evenly">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                    <label class="form-check-label" for="inlineCheckbox1">Quincho</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                    <label class="form-check-label" for="inlineCheckbox2">Predio</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" >
-                    <label class="form-check-label" for="inlineCheckbox3">Quinta</label>
-                  </div>
+                <div class="col-4 " style="background-color: rgba(0, 0, 0, 0.555)">
+                    <h2 class="mt-5">Bienvenidos a <span id="tukincho">TuKincho.com</span></h2>
+                    <p>Encuentra los mejores quinchos, quintas y predios para un dia de relax.</p>
+
+                </div>
+                <div class="col-8">
+
+                </div>
+
 
             </div>
-            
 
-        </div>
+            <!--
+        ========================================== BUSCADOR  ================================================================
+            -->
 
-        <div class="col-1">
-            <button  type="submit" class="btn btn-primary">Buscar</button>
+            <div class="container g-3 p-5  buscador     ">
+            <form action="/propiedad/buscar" method="get">
+                <div class="row">
+                    
+                        <div class="col">
+                            <label for="provincia" class="form-label">Provincia</label>
+                            <select id="provincia" class="form-select" name="provincia" required>
+                                <option th:each="p : ${provincias}" th:value="${p}" th:text="${p}">Provincias</option>
+                            </select>
+
+                        </div>
+
+                        <div class="col">
+                            <label for="fechaEntrada" class="form-label">Fecha de Entrada</label>
+                            <input type="date" class="form-control" id="fechaEntrada" placeholder="Fecha de Entrada"
+                                   aria-label="fechaEntrada" name="fechaEntrada">
+
+                        </div>
+                        <div class="col">
+                            <label for="fechaSalida" class="form-label">Fecha de Salida</label>
+                            <input type="date" class="form-control" id="fechaSalida" placeholder="Fecha de Salida"
+                                   aria-label="fechaSalida" name="fechaSalida">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary boton" role="button" type="submit">Buscar</button>
+                        </div>
+
+                </div>
+                    </form>
+            </div>
+            <!--
+        ========================================== fin BUSCADOR  ================================================================
+            -->
+
+        </section>
+
+
+
+
+
+        <!-- ================================================================================= -->
+        <!-- ========================   ERRORES DE REGISTRO   ======================================= -->
+        <!-- ================================================================================= -->
+
+
+
+        <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+          <div class="card-body">
+              <h5 class="card-title">Error!</h5>
+              <p class="card-text" th:text="${error}"></p>
           </div>
-      </form>
-
-      
-
-</header>
-
-
-<!-- ================================================================================= -->
-<!-- ========================   ERRORES DE REGISTRO   ======================================= -->
-<!-- ================================================================================= -->
-
-
-
-<div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-  <div class="card-body">
-    <h5 class="card-title">Error!</h5>
-    <p class="card-text" th:text="${error}"></p>
-  </div>
-</div>
-<div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-  <div class="card-body">
-    <h5 class="card-title">Exito!</h5>
-    <p class="card-text" th:text="${exito}"></p>
-  </div>
-</div>
-
-
-
-<!-- ================================================================================= -->
-<!-- ========================    CARRUSEL   ======================================= -->
-<!-- ================================================================================= -->
-
-
-<!-- <div id="carouselExampleIndicators" class="carousel slide">
-    <div class="carousel-indicators">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
-    </div>
-
-    <div class="carousel-inner">
-
-      <div class="d-flex carousel-item active">
-        <img src="imagenes/2.jpg" class="w-25 " alt="...">
-        <img src="imagenes/1.jpg" class="w-25 " alt="...">
-        <img src="imagenes/2.jpg" class="w-25 " alt="...">
-        <img src="imagenes/1.jpg" class="w-25 " alt="...">
-        
-        
+      <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+          <div class="card-body">
+              <h5 class="card-title">Exito!</h5>
+              <p class="card-text" th:text="${exito}"></p>
+          </div>
       </div>
 
-      <div class="d-flex carousel-item ">
-        <img src="imagenes/2.jpg" class="w-50 " alt="...">
-        <img src="imagenes/1.jpg" class="w-50 " alt="...">
-        
-        
-       
-      </div>
 
-      
-    </div>
+        <section id="seccionSlides">
+            <h2 class="m-5" id="mejoresClasificados">Mejores Calificados</h2>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div> -->
+            <div class="containerSlides">
 
+                <div id="slide">
 
+                    <div class="item" style="background-image: url(/imagenes/1.jpg);">
+                        <div class="content">
+                            <div class="name">MENDOZA</div>
+                            <div class="des">Espectacular quincho para disfrutar con la familia durante un soleado dia de verano</div>
+                            <button>Ver oferta</button>
+                        </div>
+                    </div>
 
-
-
-
-  <div id="carouselExampleIndicators" class=" carousel slide ">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner ">
-      <div class="carousel-item active ">
-        <div class="d-flex justify-content-center">
-          <img src="/imagenes/1.jpg" class="c" alt="...">
-          <img src="/imagenes/2.jpg" class="c " alt="...">
-        </div>
-       
-      </div>
-      <div class="carousel-item ">
-        <div class="d-flex justify-content-center">
-          <img src="/imagenes/3.jpg" class="c" alt="...">
-          <img src="/imagenes/4.jpg" class="c " alt="...">
-        </div>
-      </div>
-      <div class="carousel-item ">
-        <div class="d-flex justify-content-center">
-          <img src="/imagenes/5.jpg" class="c" alt="...">
-          <img src="/imagenes/6.jpg" class="c " alt="...">
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
+                    <div class="item" style="background-image: url(/imagenes/2.jpg);">
+                        <div class="content">
+                            <div class="name">MENDOZA</div>
+                            <div class="des">Espectacular quincho para disfrutar con la familia durante un soleado dia de verano</div>
+                            <button>Ver oferta</button>
+                        </div>
+                    </div>
 
 
-
-  
-  
-
-<!-- ================================================================================= -->
-<!-- ========================  CARDS  ======================================= -->
-<!-- ================================================================================= -->
-<h2 class="m-5">Mejores Calificados</h2>
-  <div class="row row-cols-1 row-cols-md-4 g-4 m-5">
+                    <div class="item" style="background-image: url(/imagenes/3.jpg);">
+                        <div class="content">
+                            <div class="name">MENDOZA</div>
+                            <div class="des">Espectacular quincho para disfrutar con la familia durante un soleado dia de verano</div>
+                            <button>Ver oferta</button>
+                        </div>
+                    </div>
 
 
-    <div class="col">
-      <div class="card" id="card">
-        <img src="/imagenes/1.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="/imagenes/2.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="/imagenes/3.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="/imagenes/4.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+                    <div class="item" style="background-image: url(/imagenes/4.jpg);">
+                        <div class="content">
+                            <div class="name">MENDOZA</div>
+                            <div class="des">Espectacular quincho para disfrutar con la familia durante un soleado dia de verano</div>
+                            <button>Ver oferta</button>
+                        </div>
+                    </div>
+
+
+                    <div class="item" style="background-image: url(/imagenes/5.jpg);">
+                        <div class="content">
+                            <div class="name">MENDOZA</div>
+                            <div class="des">Espectacular quincho para disfrutar con la familia durante un soleado dia de verano</div>
+                            <button>Ver oferta</button>
+                        </div>
+                    </div>
+
+
+                    <div class="item" style="background-image: url(/imagenes/6.jpg);">
+                        <div class="content">
+                            <div class="name">MENDOZA</div>
+                            <div class="des">Espectacular quincho para disfrutar con la familia durante un soleado dia de verano</div>
+                            <button>Ver oferta</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+                    <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+                </div>
+            </div>
+
+
+        </section>
+
+
+        <!--  
+      ====================================================================================================================
+      ===========================================   OTROS DESTACADOS    ================================================
+      ====================================================================================================================
+        -->
+        <section id="otros-destacados">
+
+            <h2 id="otrosDestacados" class="m-5    wow animate_animated animate_fadeInUpBig">Otros Destacados</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4 m-5">
+
+
+                <div class="col" th:if="${inmuebleTop5!=null}" th:each="inmuebleTop5 : ${inmuebleTop5}">
 
 
 
 
-  <div class="row row-cols-1 row-cols-md-4 g-4 m-5">
+                    <div class="card" id="card">
+
+                        <a class="btn boton" id="botonId" th:href="@{/reserva/crear/__${
+                           inmuebleTop5.id
+                           }__}" role="button">
+
+                            <img th:if="${inmuebleTop5.getImagen() != null and inmuebleTop5.getImagen().size()>0}"
+                                 th:src="'data:' + ${inmuebleTop5.getImagen()[0].getMime()} + ';base64,' + ${inmuebleTop5.getImagen()[0].generateBase64Image()}" />
+                            <img th:unless="${inmuebleTop5.getImagen() != null and inmuebleTop5.getImagen().size()>0}"
+                                 th:src="@{/imagenes/logo.png}" />
+
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${inmuebleTop5.nombre}">Card title</h5>
+                                <div class="rating">
+                                    <i th:each="star : ${#numbers.sequence(1, 5)}"
+                                       th:class="${star le inmuebleTop5.getCalificacionTotal()+0.5} ? 'bi bi-star-fill star checked' : 'bi bi-star-fill star'"></i>
+
+                                </div>
+                                <p class="card-text"
+                                   th:text="${#strings.length(inmuebleTop5.descripcionDelInmueble) > 100 ? #strings.substring(inmuebleTop5.descripcionDelInmueble, 0, 100) + '...' : inmuebleTop5.descripcionDelInmueble}">
+                                    This is a longer card with supporting text below as a natural lead-in to additional content. This
+                                    content is a little bit longer.</p>
+                            </div>
 
 
-    <div class="col">
-      <div class="card">
-        <img src="/imagenes/5.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="/imagenes/6.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="/imagenes/7.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="/imagenes/8.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
 
 
 
+        </section>
+
+        <section id="otros-destacados">
+
+            <h2 id="otrosDestacados" class="m-5    wow animate_animated animate_fadeInUpBig">Otros Destacados</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4 m-5">
+
+
+                <div class="col">
+                    <div class="card" id="card">
+                        <img src="/imagenes/1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                                content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="/imagenes/2.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                                content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="/imagenes/3.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                                content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="/imagenes/4.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                                content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <!--  
+      ====================================================================================================================
+      ===========================================   ACERCA DE TUKINCHO    ================================================
+      ====================================================================================================================
+        -->
+        <section id="sobreNosotros" class=" wow animate_animated animate_fadeIn">
+
+            <div id="sobreNosotrosInterno">
+                <div id="sobreNosotrosInternoColumna">
+                    <h2>Acerca de Nosotros</h2>
+
+                    <p>
+                        TuKincho.com es la plataforma líder en alquileres de quinchos, donde te brindamos la facilidad de comparar y
+                        encontrar el espacio perfecto para tu evento en tan solo unos clics. Con acceso a una amplia variedad de
+                        opciones en todas las provincias del país, facilitamos la búsqueda y reserva de quinchos para celebrar
+                        momentos especiales.
+                    </p>
+
+                </div>
+            </div>
+
+
+        </section>
 
 
 
-</div>
-
-<!-- ================================================================================= -->
-<!-- ========================    FOOTER   ======================================= -->
-<!-- ================================================================================= -->
-
-<footer th:replace= "/fragments/footer :: footer" ></footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  
-</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ================================================================================= -->
+        <!-- ========================    FOOTER   ======================================= -->
+        <!-- ================================================================================= -->
+
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+
+        <script src="/js/index.js"></script>
+
+        <script>
+            new WOW().init();
+        </script>
+    </body>
+
 </html>

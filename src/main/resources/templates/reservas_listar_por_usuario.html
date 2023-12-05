@@ -7,9 +7,9 @@
         <nav th:replace="/fragments/navbar :: nav"></nav>
 
 
-
+<!-- probando -->
         <div class=" mt-5">
-            <h2 >Propiedades Registradas</h2>
+            <h2 >Propiedades Registradasssssssssssssssssss</h2>
 
 
             <div class="row m-5">
@@ -57,8 +57,8 @@
 
                                         <h6 th:text="'Importe básico '+${reserva.costoReserva}" class="provincia"></h6>
                                         <h6 th:text="'Importe servicios extra '+${reserva.costoServiciosSeleccionados}" class="provincia"></h6>
-                                        <a class="btn boton" id="botonId" th:href= "@{/reserva/eliminar/__${reserva.id}__}" role="button">Cancelar reserva</a>  <!--faltan controladores-->
-                                        <a class="btn boton" id="botonId2" th:href= "@{/feedback/crear/__${reserva.id}__}" role="button">Hacer reseña</a>
+                                        <a class="btn btn-danger mb-1" id="botonId" th:href= "@{/reserva/eliminar/__${reserva.id}__}" role="button">Cancelar reserva</a>  <!--faltan controladores-->
+                                        <a class="btn btn-secondary" id="botonId2" th:href= "@{/feedback/crear/__${reserva.id}__}" role="button">Hacer reseña</a>
                                     </div>
 
                                 </div>
@@ -115,4 +115,5 @@
                 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
                 crossorigin="anonymous"></script>
     </body>
+
 </html>

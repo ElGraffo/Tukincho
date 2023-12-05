@@ -144,6 +144,14 @@ public class ReservaServicio {
     public List<Reserva> buscarPorIdInmueble(String inmuebleId) {
         return reservaRepositorio.findByInmuebleId(inmuebleId);
     }
+    
+    public List<Reserva> buscarPorNombreUsuario(String nombreUsuario){
+        return reservaRepositorio.buscarPorNombreUsuario(nombreUsuario);
+    }
+    
+    public List<Reserva> buscabuscarPorPropietarioId(String idPropietario){
+        return reservaRepositorio.buscarPorPropietarioId(idPropietario);
+    }
 
     /**
      * Este metodo valida que no halla campos vacios o nulos y que la fecha de

@@ -1,13 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="/fragments/head :: head"></head>
-    <body>
-        <nav th:replace="/fragments/navbar :: nav"></nav>
-        
-        <div class="container" id="admin-menu-contenedor">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+<nav th:replace="/fragments/navbar :: nav"></nav>
 
+<div class="container" id="admin-menu-contenedor">
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <ul class="list-group">
+                <li class="active">
+                    <a id="listaUsuario" class="list-group-item list-group-item-secondary mb-1" href="#">USUARIOS</a>
+                </li>
+                <li>
+                    <a id="listaReserva" class="list-group-item list-group-item-secondary mb-1"  href="#">RESERVAS</a>
+                </li>
+                <li>
+                    <a id="listaInmueble" class="list-group-item list-group-item-secondary"  href="#">INMUEBLES</a>
+                </li>
+            </ul>
+
+        </nav>
+        <!-- Page Content -->
+        <div id="content" class="contenido_panel">
+            <div id="divListaUsuario" class="novisible">
+                <table class="table table-secondary table-hover">
+                    <thead class="align-items-center">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Foto de Perfil</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Cambiar Rol</th>
+                        <th scope="col">Modificar</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="usuario : ${usuarios}">
+                    <tr>
+                        <td th:text="${usuario.nombreUsuario}"></td>
+                        <td>
+                            <a><img width="50px" height="50px" th:if="${usuario.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${usuario.id}__}"></a>
+                        </td>
+
+                        <td th:text="${usuario.rol}"></td>
+
+                        <td>
+                            <a th:href= "@{/admin/modificarRol/__${usuario.id}__}"><i class="fas fa-feather-alt"></i>Cambiar rol</a>
+                        </td>
+
+                        <td>
+                            <a th:href= "@{/usuario/modificar/__${usuario.id}__}"><i class="fas fa-feather-alt"></i> Modificar</a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="divListarReservas" class="novisible">
+                <table class="table table-secondary table-hover">
+                    <thead class="align-items-center">
+                    <tr>
+                        <th scope="col">Nombre de usuario</th>
+                        <th scope="col">Fecha de ingreso</th>
+                        <th scope="col">Fecha de salida</th>
+                        <th scope="col">Nombre del inmueble</th>
+                        <th scope="col">Costo de la reserva</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="reserva : ${reservas}">
+                    <tr>
+                        <td th:text="${reserva.usuario.nombreUsuario}"></td>
+                        <td th:text="${reserva.fechaInicioReserva}"></td>
+                        <td th:text="${reserva.fechaFinReserva}"></td>
+                        <td th:text="${reserva.inmueble.nombre}"></td>
+                        <td th:text="${reserva.costoReserva}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="divListaInmuebles" class="novisible">
+                <table class="table table-secondary table-hover">
+                    <thead class="align-items-center">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Propietario</th>
+                        <th scope="col">Precio por noche;</th>
+                        <th scope="col">Provincia</th>
+                        <th scope="col">Dar de baja</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="propiedad : ${propiedades}">
+                    <tr>
+                        <td th:text="${propiedad.nombre}"></td>
+                        <td th:text="${propiedad.propietario.nombreUsuario}"></td>                        <td>
+                        <td th:text="${propiedad.precioPorNoche}"></td>
+                        <td th:text="${propiedad.provincia}"></td>
+                        <td>
+                            <a th:href= "@{/admin/dashboard/desactivar/__${propiedad.id}__}"><i class="fas fa-feather-alt"></i>Dar de baja</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <footer th:replace="/fragments/footer :: footer"></footer>
-    </body>
+    </div>
+</div>
+</div>
+<footer th:replace="/fragments/footer :: footer"></footer>
+</body>
 </html>

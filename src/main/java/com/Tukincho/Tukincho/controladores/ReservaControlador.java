@@ -78,12 +78,13 @@ public class ReservaControlador {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date inicioReserva = formato.parse(fechaInicioReserva);
             Date finReserva = formato.parse(fechaFinReserva);
-
             Inmueble inmueble = inmuebleServicio.buscarInmueblePorId(inmuebleId);
-            //mejor buscar por nombreUsuario
-            Usuario usuario = usuarioServicio.buscarUsuarioPorId(usuarioId);
+            //ANTES BUSCABA POR ID DE USUARIO, pero si es un propietario, no va a encontrar 
+            //un id de usuario, por eso busco con rol de usuario
+            Usuario usuario = usuarioServicio.buscarUsuarioPorRolUsuario(usuarioId);
             Propietario propietario = inmueble.getPropietario();
             System.out.println("PROPIETARIO ID: "+propietario.getId());
+            System.out.println("USUARIO ID:"+usuario.getId());
             if (costoServiciosSeleccionados != null) {
                 costoServiciosSeleccionados =0.0;
             }
@@ -101,7 +102,9 @@ public class ReservaControlador {
                     //y asi obtengo el id del servicio que fue tildado en el checkbox, el precio
                     //viene igual a servicio solo que empieza con precio_
                     String servicioId = paramName.replace("servicio_", "");
-                    String precioId = paramName.replace("servicio_", "precio_");
+                    System.out.println("############-SERVICIOS-SELECCIONADOS###############3");
+                    String precioId = "precio_"+servicioId;
+                    System.out.println("precio:"+precioId);
                     Long precioServicio = Long.parseLong(request.getParameter(precioId));
                     costoServiciosSeleccionados += precioServicio;//le sumo el precio de todos los servicios pagos
                     System.out.println("COSTOSERVICIOS EXTRAS: "+costoServiciosSeleccionados);
@@ -112,23 +115,20 @@ public class ReservaControlador {
             //deberia hacer una tabla extra que guarde los servicios extras seleccionado por el usuario
 
             List<InmuebleServicioExtra> inmuebleServiciosExtra = crearReservaServiciosExtras(preciosServiciosExtras, inmueble);
-
             System.out.println("INICIO RESERVA: " + inicioReserva);
             System.out.println("FIN RESERVA: " + finReserva);
-
             reserva = reservaServicio.crearReserva(inmueble, usuario, propietario, inicioReserva,
-                    finReserva, costoReserva, costoServiciosSeleccionados);
-
+                                                    finReserva, costoReserva, costoServiciosSeleccionados);
             List<Reserva> reservas = inmueble.getReservas();
             reservas.add(reserva);
-
             inmueble.setReservas(reservas);
-
             model.put("exito", "La reserva se ha generado exitosamente");
         } catch (Exception e) {
             redirectModel.addFlashAttribute("error", e.getMessage());
             System.out.println("##############################ERROR RESERVA-----------------------------------------------------");
             System.out.println(e.getMessage());
+//            System.out.println(e.initCause(e));
+//            System.out.println(e.getStackTrace());
             return "redirect:/reserva/crear/"+inmuebleId;
         }
         return "index.html";
@@ -137,14 +137,11 @@ public class ReservaControlador {
     private List<InmuebleServicioExtra> crearReservaServiciosExtras(Map<String, Long> preciosServiciosExtras, Inmueble inmueble) {
        //se debe crear la entidad ReservaServicioExtra en ves de InmuebleServicioExtra
         List<InmuebleServicioExtra> inmuebleServiciosExtra = new ArrayList<>();
-
         if (preciosServiciosExtras != null && !preciosServiciosExtras.isEmpty()) {
             for (Map.Entry<String, Long> entry : preciosServiciosExtras.entrySet()) {
                 String servicioExtraId = entry.getKey();
                 Long precio = entry.getValue();
-
                 ServiciosExtra servicioExtra = serviciosExtrasRepositorio.findById(servicioExtraId).orElse(null);
-
                 if (servicioExtra != null) {
                     InmuebleServicioExtra inmuebleServicioExtra = new InmuebleServicioExtra();
                     inmuebleServicioExtra.setServicioExtra(servicioExtra);
@@ -155,7 +152,6 @@ public class ReservaControlador {
                 }
             }
         }
-
         return inmuebleServiciosExtra;
     }
 
@@ -167,5 +163,4 @@ public class ReservaControlador {
         modelo.put("reservas", reservas);
         return "reservas_listar";
     }
-
 }

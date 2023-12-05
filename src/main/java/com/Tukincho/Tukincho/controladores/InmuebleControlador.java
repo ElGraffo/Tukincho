@@ -7,16 +7,16 @@ import com.Tukincho.Tukincho.repositorios.ServiciosExtraRepositorio;
 import com.Tukincho.Tukincho.servicios.InmuebleServicio;
 import com.Tukincho.Tukincho.servicios.PropietarioServicio;
 import com.Tukincho.Tukincho.servicios.UsuarioServicio;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,7 +80,7 @@ public class InmuebleControlador {
             System.out.println("NO ESTA COMO PROPIETARIO SE CREA PROPIETARIO");
            // Usuario usuario = usuarioServicio.buscarUsuarioPorId(logueado.getId());
             propietario = propietarioServicio.crearPropietario(logueado);
-            usuarioServicio.borrarUsuario(logueado.getId());
+            //usuarioServicio.borrarUsuario(logueado.getId());
         }else{
             propietario=(Propietario) logueado;
         }
@@ -102,10 +102,7 @@ public class InmuebleControlador {
                     preciosServiciosExtras.put(servicioId, precioServicio);
                 }
             }
-
             
-            
-
             Inmueble inmueble = new Inmueble();//creo un inmueble para obtener su id;
             List<InmuebleServicioExtra> inmuebleServiciosExtra = crearInmuebleServiciosExtras(preciosServiciosExtras, inmueble);
             List<Reserva> reserva = null;
@@ -126,9 +123,7 @@ public class InmuebleControlador {
             for (Map.Entry<String, Long> entry : preciosServiciosExtras.entrySet()) {
                 String servicioExtraId = entry.getKey();
                 Long precio = entry.getValue();
-
                 ServiciosExtra servicioExtra = serviciosExtrasRepositorio.findById(servicioExtraId).orElse(null);
-
                 if (servicioExtra != null) {
                     InmuebleServicioExtra inmuebleServicioExtra = new InmuebleServicioExtra();
                     inmuebleServicioExtra.setServicioExtra(servicioExtra);
@@ -150,14 +145,14 @@ public class InmuebleControlador {
         return "propiedades_listar.html";
     }
     
-    
-    
     @PreAuthorize("hasAnyRole('ROLE_PROPIETARIO', 'ROLE_USUARIO')")
      @GetMapping("/mispropiedades/listar")
     public String listarPropiedadesPorPropietrio(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        
-        List<Inmueble> propiedades = propietarioServicio.buscarPropietarioPorInmueble(logueado.getId());
+        System.out.println(logueado.getRol());
+        Propietario propietario= propietarioServicio.buscarPropietarioPorNombreUsuario(logueado.getNombreUsuario());
+        System.out.println("Propietario ID: "+propietario.getId());
+        List<Inmueble> propiedades = propietarioServicio.buscarPropietarioPorInmueble(propietario.getId());
         modelo.put("propiedades", propiedades);
         return "propiedades_listar.html";
     }
@@ -172,9 +167,10 @@ public class InmuebleControlador {
         } catch (Exception ex) {
             return "propiedad_listar.html";
         }
-
         return "inmueble_detalle.html";
     }
+
+
 
     @PostMapping("/editar/{id}")
     public String editarInmueble(@PathVariable String id,
@@ -216,7 +212,40 @@ public class InmuebleControlador {
             System.out.println(ex.getMessage());
             return "error.html"; // Puedes redirigir a una página de error o hacer lo que consideres adecuado.
         }
-
         return "redirect:/propiedades/listar"; // Redirigir a la página de listar propiedades después de la edición.
     }
+
+    @GetMapping("/buscar")
+    public String buscarInmueblesConFiltros(
+            @RequestParam(value = "provincia", required = false) Provincia provincia,
+            @RequestParam(value = "fechaEntrada", required = false) String fechaEntradaStr,
+            @RequestParam(value = "fechaSalida", required = false) String fechaSalidaStr,
+            Model model) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date fechaEntrada = parseFecha(fechaEntradaStr, dateFormat);
+        Date fechaSalida = parseFecha(fechaSalidaStr, dateFormat);
+
+        List<Inmueble> propiedades = inmuebleServicio.buscarInmueblesDisponibles(provincia, fechaEntrada, fechaSalida);
+
+        // Puedes hacer algo con la lista de inmuebles, por ejemplo, pasarla al modelo para mostrarla en la vista.
+        model.addAttribute("propiedades", propiedades);
+
+        return "propiedades_listar.html";
+    }
+
+    private Date parseFecha(String fechaStr, SimpleDateFormat dateFormat) {
+        try {
+            if (fechaStr != null && !fechaStr.isEmpty()) {
+                return dateFormat.parse(fechaStr);
+            }
+        } catch (ParseException e) {
+            // Manejar la excepción según tus necesidades
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

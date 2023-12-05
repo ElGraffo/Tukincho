@@ -15,26 +15,14 @@ public class FeedbackServicio {
     @Autowired
     FeedbackRepositorio feedbackRepositorio;
 
-
     @Transactional
     public void crearFeedback (String titulo, String detalle, List<Imagen> imagenes, Integer calificacion, Usuario usuario, Inmueble inmueble){
-        System.out.println("entrando a feedback");
-
         Feedback feedback = new Feedback();
         feedback.setTitulo(titulo);
-        System.out.println(feedback.getTitulo());
-
         feedback.setDetalle(detalle);
-        System.out.println(feedback.getDetalle());
-
         feedback.setUsuario(usuario);
-        System.out.println(feedback.getUsuario().getNombreUsuario());//el error se origina porque imprime el objeto completo
-
         feedback.setInmueble(inmueble);
-        System.out.println(feedback.getInmueble().getNombre());
-        
         //TODO si existe un comentario del usuario para el id del inmueble pasado por paramentro, no puede volver a comentar
-
         feedback.setActivo(true);
         if(imagenes!=null && !imagenes.isEmpty()){
             feedback.setImagen(imagenes);
@@ -86,7 +74,4 @@ public class FeedbackServicio {
             }
         }
     }
-    
-   
-    
 }

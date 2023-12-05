@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="/fragments/head :: head" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
         <link rel="stylesheet" href="/css/perfil.css">
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/footer.css">
     </head>
 
     <body>
         <div class="contenedor">
-        <nav th:replace="/fragments/navbar :: nav" ></nav>
+            <nav th:replace="/fragments/navbar :: nav" ></nav>
 
-        <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-            <div class="card-body">
-                <h5 class="card-title">Error!</h5>
-                <p class="card-text" th:text="${error}"></p>
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                <div class="card-body">
+                    <h5 class="card-title">Error!</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
             </div>
-        </div>
-        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-            <div class="card-body">
-                <h5 class="card-title">Exito!</h5>
-                <p class="card-text" th:text="${exito}"></p>
-            </div>
-        </div> 
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div> 
 
-        <div class="contenedor-info">
+            <div class="contenedor-info-modificar">
 
-            <form class="formulario" th:action="@{/perfil/modificar/__${usuario.id}__}"  method="POST">
-                <!--enctype="multipart/form-data"-->
-                <input hidden th:value="${id}" name="id">
+                <form class="formulario" th:action="@{/perfil/modificar/__${usuario.id}__}"  method="POST" enctype="multipart/form-data">
+                    <!--enctype="multipart/form-data"-->
+                    <input hidden th:value="${id}" name="id">
 
                     <div class="form-group my-3">
                         <h3 class="card-title">Ingresa tus nuevos datos</h3>
@@ -37,36 +48,24 @@
                         <input type="email" class="form-control" name="email" th:value="${usuario.email}">
                     </div>
 
+                    <div class="form-group">
+                        
+                        <input type="file" class="form-control" name="imagen"> 
+                    </div>
+
                     <div class="form-group my-3">
                         <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA">
                     </div>
                     <div class="form-group my-3">
                         <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA">
                     </div>
-
-                    <!--        <div class="form-group my-3">
-                                <input type="file" class="form-control" name="Newarchivo" placeholder="selecciona imagen">
-                            </div> -->
-
-                            <div class="text-center">
-                                <button type="submit" class="boton">Actualizar perfil</button>
-                            </div>
-                    
-            </form>
-
-
-<!--             <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="boton">Volver a inicio</a>
+                    <div class="text-center">
+                        <button type="submit" class="boton-actualizar">Actualizar perfil</button>
                     </div>
-                </div>
-            </section> -->
+                </form>
+            </div>
         </div>
-
-    </div>
         <footer th:replace= "/fragments/footer :: footer" ></footer>
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
 </html>

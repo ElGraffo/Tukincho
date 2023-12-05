@@ -12,9 +12,7 @@ public class ServiciosExtra {
     @GeneratedValue(generator ="uuid")
     @GenericGenerator(name ="uuid", strategy= "uuid2")
     private String id;
-    
     private String nombreDelServicioExtra;
-
 }
 
     

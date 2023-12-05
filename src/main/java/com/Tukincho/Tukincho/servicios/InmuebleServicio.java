@@ -9,6 +9,7 @@ import com.Tukincho.Tukincho.enums.Provincia;
 import com.Tukincho.Tukincho.repositorios.InmuebleRepositorio;
 import com.Tukincho.Tukincho.repositorios.ServiciosExtraRepositorio;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -39,8 +40,6 @@ public class InmuebleServicio {
                               List<InmuebleServicioExtra> serviciosExtras) throws Exception {
         
         validar(nombre,descripcionDelInmueble, precioPorNoche, otrosDetallesDelInmueble, direccion, provincia);
-        //Inmueble inmueble = new Inmueble();
-        //creo un inmueble vacio para poder optener el id del inmueble y poder asignarlo a las imagenes
         inmueble.setPropietario(propietario);
         inmueble.setNombre(nombre);
         inmueble.setDescripcionDelInmueble(descripcionDelInmueble);
@@ -98,10 +97,8 @@ public class InmuebleServicio {
                     imagenesGuardadas.add(imagenGuardada);
                 }
             }
-
             // Asignar las imágenes al inmueble
             inmueble.setImagen(imagenesGuardadas);
-
             inmueble.setInmuebleServiciosExtras(serviciosExtras);
             inmuebleRepositorio.save(inmueble);
         }
@@ -109,9 +106,8 @@ public class InmuebleServicio {
 
     public List<Inmueble> listaDeInmuebles() {
         try {
-
             return inmuebleRepositorio.findAll();
-        } catch (Exception e) {
+        }catch (Exception e) {
             return null;
         }
     }
@@ -143,10 +139,6 @@ public class InmuebleServicio {
             return null;
         }
     }
-
-    /*public List<Inmueble> buscarInmueblePorServiciosExtra(ServiciosExtra servicioExtra){
-        return serviciosExtraRepositorio.buscarInmueblePorServiciosExtra(servicioExtra);
-    }*/
   
     @Transactional
     public void borrarInmueble(String id){
@@ -160,6 +152,13 @@ public class InmuebleServicio {
         }
     }
 
+    public List<Inmueble> obtenerTopInmueblesPorCalificacion(int pageSize, int pageNumber) {
+        return inmuebleRepositorio.obtenerTopInmueblesPorCalificacion(pageSize, pageNumber);
+    }
+
+    public List<Inmueble> buscarInmueblesDisponibles(Provincia provincia, Date fechaEntrada, Date fechaSalida) {
+        return inmuebleRepositorio.buscarInmueblesDisponibles(provincia, fechaEntrada, fechaSalida);
+    }
     private void validar(String nombre, String descripcionDelInmueble, Long precioPorNoche,
             String otrosDetallesDelInmueble, String direccion, Provincia provincia) throws Exception {
 
