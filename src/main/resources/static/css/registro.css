@@ -1,0 +1,151 @@
+:root {
+    --color1: #61A3BA;
+    --color2: #FFFFDD;
+    --color3: #D2DE32;
+    --color4: #A2C579;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /*background-image: url('https://drive.google.com/file/d/10Bm5ToWTJDFdLUm14APmThIcWJQlXFdU/view?usp=sharing');*/
+    background-image: url('/imagenes/registro-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #070606;
+    box-shadow: inset 30px 90px 30px rgba(0, 0, 0, 0.5),
+                inset -30px -30px 30px rgba(0, 0, 0, 0.5);
+    
+}
+
+/*--------------navbar---------------------*/
+.navbar {
+    background-color: #61A3BA !important;
+}
+
+.dropdown-menu {
+    /* background-color: #61A3BA; */
+    /* background-image: radial-gradient(at center, var(--color1),black); */
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.navbar li ul {
+    margin-top: 7px !important;
+}
+
+.dropdown-menu a {
+    color: black;
+    /* Cambia el color del texto de los elementos del menú de cuenta*/
+
+}
+
+.dropdown-menu a:hover {
+    /* background-color: var(--color1); */
+    background-image: linear-gradient(var(--color1), white);
+    color: black;
+}
+
+#logo {
+    height: 25px;
+}
+
+/*--------------------------------------------------*/
+
+.btn{
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(var(--color2),var(--color3));
+    
+        
+}
+
+.btn:hover{
+    background-image: linear-gradient(var(--color3),var(--color2));
+    color: black;
+}
+
+
+.form-control{
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+}
+
+.formulario{
+    color: var(--color2);
+}
+
+.formulario h2{
+    color: white;
+
+}
+/*----aca agregue clase contenedor*/
+
+
+
+#registrationContainer, .contenedor {
+    width: 400px;
+    background: linear-gradient(to bottom right,  #A2C579,  #61A3BA); /* Degrade del recuadro*/
+    border-radius: 15px;
+    
+    padding: 20px;
+    text-align: center;
+    color: #0a0101; /* Color del texto */
+   /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);*/
+    
+    box-shadow: 0px 0px 88px 35px rgba(0, 0, 0, 0.8),
+                inset 5px 8px 16px var(--color1);
+    
+    /* border: 10px solid transparent;
+    
+    border-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)) 1;
+  
+    border-image-slice: 1;*/
+    
+    
+    
+    /*border: 10px solid transparent;
+   
+    border-image: linear-gradient(to right, #A2C579, rgba(0, 0, 0, 0), #61A3BA) 1;*/
+  
+ 
+ 
+  
+
+}
+#registrationForm {
+    width: 400px;
+    border-radius: 18px;
+    box-shadow: 0 0 10px rgba(10, 0, 0, 0.99);
+    padding: 30px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+#profilePicture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 10px auto;
+    display: block;
+}
+
+button {
+    background-color:#D2DE32;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}

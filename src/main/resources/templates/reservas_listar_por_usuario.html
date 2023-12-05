@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+
+
+<!-- probando -->
+        <div class=" mt-5">
+            <h2 >Propiedades Registradasssssssssssssssssss</h2>
+
+
+            <div class="row m-5">
+                <div  class="col-12 container" id="contenedor">
+
+                    <div th:each="reserva : ${reservas}" >
+
+                        <div class="card mb-3" id="card1" style="max-width: 1080px;">
+                            <div class="row g-0 cardContenedor">
+
+                                <div class="col-md-4">
+                                    <img th:if="${reserva.inmueble.getImagen() != null and reserva.inmueble.getImagen().size()>0}" th:src="'data:' + ${reserva.inmueble.getImagen()[0].getMime()} + ';base64,' + ${reserva.inmueble.getImagen()[0].generateBase64Image()}"/>
+                                    <img th:unless="${reserva.inmueble.getImagen() != null and reserva.inmueble.getImagen().size()>0}" th:src="@{/imagenes/logo.png}"/>
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="card-body cardIzquierdo">
+                                        <h5 th:text="'Reserva en '+${reserva.inmueble.nombre}" class="card-title"></h5>
+                                        <h6 th:text="${reserva.fechaInicioReserva}" class="provincia"></h6>
+                                        <h6 th:text="${reserva.fechaFinReserva}" class="provincia"></h6>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-2 cardCentral">
+                                    <!-- bg-body-secondary -->
+                                    <div class="d-grid card-body justify-content-center align-content-center">
+                                        <h5 class="card-title">Calificación</h5>
+                                        <p>8.8 - Excelente</p>
+                                        <p>estrellitas</p>
+                                        <h5>Destacado</h5>
+                                        <p class="card-text destacado"> <span style="font-family: Arial Unicode MS, Lucida Grande">
+                                                &#10004; </span>Desayuno gratis.</p>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-2 cardDerecho d-grid justify-content-center align-content-center">
+                                    <!-- bg-body-secondary -->
+                                    <div class="card-body ">
+                                        <h5 class="card-title">Precio</h5>
+
+                                        <h6 th:text="'Importe básico '+${reserva.costoReserva}" class="provincia"></h6>
+                                        <h6 th:text="'Importe servicios extra '+${reserva.costoServiciosSeleccionados}" class="provincia"></h6>
+                                        <a class="btn btn-danger mb-1" id="botonId" th:href= "@{/reserva/eliminar/__${reserva.id}__}" role="button">Cancelar reserva</a>  <!--faltan controladores-->
+                                        <a class="btn btn-secondary" id="botonId2" th:href= "@{/feedback/crear/__${reserva.id}__}" role="button">Hacer reseña</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+            <!-- Iterar sobre las propiedades y mostrarlas en grupos de tres por fila -->
+
+
+
+
+            <!-- <div th:each="propiedad : ${propiedades}" class="col">
+                <div class="card"> -->
+            <!-- Mostrar la primera imagen (si existe) como miniatura -->
+            <!-- Convertir el array de bytes a una URL de datos (data URL) -->
+            <!-- <img th:if="${propiedad.getImagen != null and propiedad.getImagen().size()>0}" th:src="'data:' + ${propiedad.getImagen()[0].getMime()} + ';base64,' + ${propiedad.getImagen()[0].generateBase64Image()}"/>
+            <img th:unless="${propiedad.getImagen != null and propiedad.getImagen().size()>0}" th:src="@{/imagenes/logo.png}"/>
+        
+            <div class="card-body">
+                <h5 class="card-title" th:text="${propiedad.descripcionDelInmueble}"></h5>
+                <p class="card-text"><strong>Precio por Noche:</strong> $<span
+                        th:text="${propiedad.precioPorNoche}"></span></p>
+                <p class="card-text"><strong>Dirección:</strong> <span th:text="${propiedad.direccion}"></span>
+                </p> -->
+            <!-- Agrega más detalles según tus necesidades -->
+            <!-- <a th:href="@{/propiedades/detalle/{id}(id=${propiedad.id})}" class="btn btn-primary">Ver
+                Detalles</a>
+        </div>
+        </div>
+        </div> -->
+
+
+
+
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+    </body>
+
+</html>

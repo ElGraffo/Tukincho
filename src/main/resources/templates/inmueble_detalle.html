@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+
+        <div class="container mt-5">
+            <h2>Propiedades Registradas</h2>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Iterar sobre las propiedades -->
+                <div th:each="imagen : ${propiedad.getImagen()}">
+                    <!-- Tarjeta para cada imagen -->
+
+                    <div class="col">
+                        <div class="card" th:if="${propiedad.getImagen() !=null && propiedad.getImagen().size()>0}">
+                            <img th:src="'data:' + ${imagen.getMime()} + ';base64,' + ${imagen.generateBase64Image()}" class="card-img-top"/>
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                        <div class="card" th:unless="${propiedad.getImagen() != null && propiedad.getImagen().size()>0}">
+                            <img th:src="@{/imagenes/logo.png}" class="card-img-top"/>
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta para la información de la propiedad -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${propiedad.descripcionDelInmueble}"></h5>
+                    <p class="card-text"><strong>Precio por Noche:</strong><span th:text="${propiedad.precioPorNoche}"></span></p>
+                    <p class="card-text"><strong>Nombre:</strong><span th:text="${propiedad.nombre}"></span></p>
+                    <p class="card-text"><strong>Descripcion</strong><span th:text="${propiedad.descripcionDelInmueble}"></span></p>
+                    <p class="card-text"><strong>Dirección:</strong> <span th:text="${propiedad.direccion}"></span></p>
+                    <p class="card-text"><strong>Otro Detalle:</strong> <span th:text="${propiedad.otrosDetallesDelInmueble}"></span></p>
+                    <p class="card-text"><strong>Provincia:</strong> <span th:text="${propiedad.provincia}"></span></p>
+                </div>
+            </div>
+
+
+            <!<!-- Servicios Extras -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title"  th:if="${propiedad.getInmuebleServiciosExtras().size()>0}">Servicios Extras</h5>
+                    <div  th:if="${propiedad.getInmuebleServiciosExtras().size()>0}" th:each="servicio : ${propiedad.getInmuebleServiciosExtras()}">
+                        <p class="card-text">
+                            <span th:text="${servicio.getServicioExtra().getNombreDelServicioExtra()}"></span>
+                            <span th:if="${servicio.getPrecio()>0} " th:text="${'$ ' + servicio.getPrecio()}"></span>
+                            <span th:unless="${servicio.getPrecio()>0} " th:text="Gratis"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
